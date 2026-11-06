@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block title %}Sign in · Mfano High School{% endblock %}
+{% block content %}
+<section class="card narrow">
+  <h1>Portal sign in</h1>
+  <p class="muted">Students use their admission number. Staff use their staff login.</p>
+  <form method="post">
+    <label>Username <input name="username" autocomplete="username" required autofocus></label>
+    <label>Password <input name="password" type="password" autocomplete="current-password" required></label>
+    <button>Sign in</button>
+  </form>
+</section>
+{% endblock %}

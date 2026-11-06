@@ -1,0 +1,28 @@
+:root { --green: #14532d; --gold: #b7791f; --ink: #1f2937; --muted: #6b7280; --line: #e5e7eb; --paper: #f8f7f3; }
+* { box-sizing: border-box; }
+body { margin: 0; font-family: Georgia, "Times New Roman", serif; color: var(--ink); background: var(--paper); line-height: 1.5; }
+.topbar { display: flex; align-items: center; gap: 1.5rem; padding: .75rem 1.5rem; background: var(--green); color: #fff; }
+.topbar a { color: #fff; text-decoration: none; }
+.topbar nav { display: flex; gap: 1rem; flex: 1; }
+.topbar form { margin-left: auto; }
+.brand { font-weight: bold; font-size: 1.1rem; }
+.crest { display: inline-block; width: 1.7rem; height: 1.7rem; line-height: 1.7rem; text-align: center; border-radius: 50%; background: var(--gold); }
+main { max-width: 60rem; margin: 2rem auto; padding: 0 1.5rem; }
+.card { background: #fff; border: 1px solid var(--line); border-radius: 6px; padding: 1.25rem; margin-bottom: 1.25rem; }
+.narrow { max-width: 24rem; margin: 3rem auto; }
+.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr)); gap: 1.25rem; }
+.figure { font-size: 1.6rem; font-weight: bold; margin: 0; color: var(--green); }
+.muted { color: var(--muted); }
+.notice { background: #fef3c7; border: 1px solid #fcd34d; padding: .6rem .9rem; border-radius: 4px; }
+h1, h2 { color: var(--green); margin-top: 0; }
+table { width: 100%; border-collapse: collapse; }
+th, td { text-align: left; padding: .4rem .5rem; border-bottom: 1px solid var(--line); }
+dl { display: grid; grid-template-columns: auto 1fr; gap: .2rem 1rem; margin: 0; }
+dt { color: var(--muted); }
+dd { margin: 0; }
+label { display: block; margin-bottom: .8rem; }
+input, select, textarea { display: block; width: 100%; padding: .45rem; font: inherit; border: 1px solid #d1d5db; border-radius: 4px; }
+button { padding: .5rem 1rem; font: inherit; color: #fff; background: var(--green); border: 0; border-radius: 4px; cursor: pointer; }
+button:disabled { background: #9ca3af; cursor: not-allowed; }
+button.link { background: none; padding: 0; text-decoration: underline; }
+footer { text-align: center; color: var(--muted); padding: 2rem 1rem; font-size: .85rem; }
