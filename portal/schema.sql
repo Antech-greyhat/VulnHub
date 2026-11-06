@@ -18,7 +18,8 @@ CREATE TABLE students (
     form        TEXT NOT NULL,
     stream      TEXT NOT NULL,
     fee_total   INTEGER NOT NULL,
-    fee_balance INTEGER NOT NULL
+    fee_balance INTEGER NOT NULL,
+    remark      TEXT NOT NULL DEFAULT ''
 );
 
 CREATE TABLE marks (
