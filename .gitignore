@@ -1,0 +1,15 @@
+# Personal lab progress
+.labprogress.json
+
+# Runtime data (database, generated reports, uploads)
+var/
+
+# Python
+__pycache__/
+*.pyc
+.pytest_cache/
+.venv/
+venv/
+
+# Local environment
+.env
