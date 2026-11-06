@@ -4,6 +4,14 @@
 <h1>Fee payments</h1>
 <p>Balance: <strong>KES {{ "{:,}".format(student.fee_balance) }}</strong></p>
 <section class="card">
+  <h2>Pay fees (demo M-Pesa)</h2>
+  <form method="post" action="{{ url_for('payments.pay') }}">
+    <label>Amount (KES) <input name="amount" type="number" value="{{ student.fee_balance }}"></label>
+    <input type="hidden" name="status" value="COMPLETED">
+    <button>Pay now</button>
+  </form>
+</section>
+<section class="card">
   <table>
     <thead><tr><th>Reference</th><th>Amount (KES)</th><th>Status</th><th>Date</th></tr></thead>
     <tbody>

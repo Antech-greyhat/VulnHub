@@ -47,5 +47,15 @@ def metadata():
     )
 
 
+@app.route("/internal/logo-config")
+def logo_config():
+    # The "school logo" endpoint the main app imports from. Reaching it from the
+    # outside is only possible through the SSRF in the main app.
+    return jsonify(
+        logo_url="/static/mfano-crest.png",
+        note="MFANO{ssrf_reached_the_grading_service}",
+    )
+
+
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=int(os.environ.get("PORT", "9000")))

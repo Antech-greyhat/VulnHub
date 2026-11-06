@@ -99,6 +99,12 @@ def write_reports(app):
             render_report(student, marks), encoding="utf-8"
         )
     conn.close()
+    # Planted on the box for the command-injection exercise: an injected shell
+    # command (e.g. `; cat /srv/mfano/server.flag`) can read it.
+    Path(app.config["MFANO_HOME"]).mkdir(parents=True, exist_ok=True)
+    (Path(app.config["MFANO_HOME"]) / "server.flag").write_text(
+        "MFANO{semicolon_reached_the_shell}\n", encoding="utf-8"
+    )
     (report_dir / "ADMIN_NOTES.txt").write_text(
         "Mfano reporting - internal notes\n"
         "--------------------------------\n"

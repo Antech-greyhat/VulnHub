@@ -1,5 +1,16 @@
-"""Admin dashboard, student review (stored-XSS sink) and a weakly-gated console."""
-from flask import Blueprint, abort, jsonify, render_template, request
+"""Admin dashboard, student review, weak console, and server-side tools.
+
+The tools in this module (diagnostics, upload, logo import) are the Phase 4
+"reach the server" bugs. They are admin-gated, but Phase 3 shows how a normal
+user becomes admin, which is the intended chain.
+"""
+import subprocess
+import urllib.request
+from pathlib import Path
+
+from flask import (
+    Blueprint, abort, current_app, jsonify, render_template, render_template_string, request,
+)
 
 from .auth import login_required
 from .db import get_db
@@ -72,3 +83,57 @@ def console():
     if request.cookies.get("mfano_role") != "admin":
         abort(403)
     return render_template("admin/console.html", flag=CONSOLE_FLAG)
+
+
+@bp.route("/tools")
+@login_required("admin")
+def tools():
+    return render_template("admin/tools.html")
+
+
+@bp.route("/tools/ping", methods=["POST"])
+@login_required("admin")
+def ping():
+    host = request.form.get("host", "")
+    # The host goes straight into a shell command. A ';' or '&' lets you run
+    # your own OS commands on the lab box (command injection).
+    command = "ping -c 1 " + host
+    result = subprocess.run(command, shell=True, capture_output=True, text=True, timeout=10)
+    return "<pre>" + (result.stdout + result.stderr) + "</pre>"
+
+
+@bp.route("/tools/upload", methods=["POST"])
+@login_required("admin")
+def upload():
+    uploaded = request.files.get("file")
+    if uploaded is None or uploaded.filename == "":
+        abort(400)
+    upload_dir = Path(current_app.config["UPLOAD_DIR"])
+    upload_dir.mkdir(parents=True, exist_ok=True)
+    # No type or content check, and the original name is kept as-is.
+    dest = upload_dir / uploaded.filename
+    uploaded.save(dest)
+    return jsonify(saved=uploaded.filename)
+
+
+@bp.route("/tools/preview")
+@login_required("admin")
+def preview():
+    name = request.args.get("name", "")
+    path = Path(current_app.config["UPLOAD_DIR"]) / name
+    if not path.exists():
+        abort(404)
+    # An uploaded file is rendered as a template, so its contents run on the
+    # server. Upload a template payload and it executes (SSTI / code exec).
+    return render_template_string(path.read_text(encoding="utf-8", errors="replace"))
+
+
+@bp.route("/tools/import-logo", methods=["POST"])
+@login_required("admin")
+def import_logo():
+    url = request.form.get("url", "")
+    # The URL is fetched with no restriction on where it points, so it can be
+    # aimed at internal-only services (SSRF).
+    with urllib.request.urlopen(url, timeout=10) as response:  # noqa: S310
+        body = response.read(65536).decode("utf-8", errors="replace")
+    return "<pre>" + body + "</pre>"
