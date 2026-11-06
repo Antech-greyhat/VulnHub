@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block title %}Find a classmate · Mfano High School{% endblock %}
+{% block content %}
+<h1>Find a classmate</h1>
+<section class="card">
+  <form method="get">
+    <label>Search by name <input name="q" value="{{ query }}" autofocus></label>
+    <button>Search</button>
+  </form>
+</section>
+{% if error %}<p class="notice">Database error: {{ error }}</p>{% endif %}
+{% if query %}
+<section class="card">
+  <table>
+    <thead><tr><th>Admission</th><th>Name</th></tr></thead>
+    <tbody>
+      {% for r in results %}
+      <tr><td>{{ r.admission }}</td><td>{{ r.full_name }}</td></tr>
+      {% else %}
+      <tr><td colspan="2">No matches.</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</section>
+{% endif %}
+{% endblock %}

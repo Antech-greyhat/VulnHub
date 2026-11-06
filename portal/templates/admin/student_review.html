@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block title %}Review {{ student.full_name }} · Mfano High School{% endblock %}
+{% block content %}
+<h1>Review: {{ student.full_name }}</h1>
+<section class="card">
+  <dl>
+    <dt>Admission</dt><dd>{{ student.admission }}</dd>
+    <dt>Class</dt><dd>{{ student.form }} {{ student.stream }}</dd>
+    <dt>Fee balance</dt><dd>KES {{ "{:,}".format(student.fee_balance) }}</dd>
+  </dl>
+  <h2>About this student</h2>
+  <div class="about">{{ student.about | safe }}</div>
+</section>
+{% endblock %}

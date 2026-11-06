@@ -46,6 +46,11 @@ def seed_core(conn, rng):
         "INSERT INTO users (username, password_hash, role) VALUES (?, ?, 'admin')",
         (DEMO_ADMIN[0], generate_password_hash(DEMO_ADMIN[1])),
     )
+    # A staff-only table the SQL-injectable search can reach with a UNION.
+    conn.execute(
+        "INSERT INTO staff_secrets (label, secret) VALUES (?, ?)",
+        ("exams_vault_key", "MFANO{union_select_the_staff_vault}"),
+    )
     names = rng.sample([f"{a} {b}" for a in FIRST_NAMES for b in LAST_NAMES], STUDENT_COUNT)
     for index, full_name in enumerate(names, start=1):
         admission = f"MHS{1000 + index}"

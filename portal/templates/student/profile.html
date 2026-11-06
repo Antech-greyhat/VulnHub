@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block title %}My profile · Mfano High School{% endblock %}
+{% block content %}
+<h1>My profile</h1>
+<section class="card">
+  <p>{{ student.full_name }} ({{ student.admission }})</p>
+  <form method="post">
+    <label>About me (shown to your class teacher)
+      <textarea name="about" rows="4">{{ student.about }}</textarea>
+    </label>
+    <button>Save</button>
+  </form>
+</section>
+{% endblock %}

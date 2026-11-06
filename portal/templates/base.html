@@ -12,6 +12,8 @@
     {% if session.get('role') == 'student' %}
     <nav>
       <a href="{{ url_for('student.dashboard') }}">Dashboard</a>
+      <a href="{{ url_for('student.search') }}">Find classmate</a>
+      <a href="{{ url_for('student.profile') }}">Profile</a>
       <a href="{{ url_for('payments.history') }}">Payments</a>
     </nav>
     {% elif session.get('role') == 'admin' %}
