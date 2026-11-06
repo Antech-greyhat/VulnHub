@@ -5,4 +5,31 @@ services:
     # This mapping keeps it on the host's loopback only. Do not change it to 0.0.0.0.
     ports:
       - "127.0.0.1:8080:8000"
+    environment:
+      # Reach the internal grading service by its compose name (used in Phase 4).
+      GRADING_URL: "http://grading:9000"
+    depends_on:
+      - grading
+    restart: unless-stopped
+
+  grading:
+    build: ./services/grading
+    # Internal only: no host port is published. Reachable only from inside the
+    # lab network as http://grading:9000. nmap on the host will NOT see it.
+    expose:
+      - "9000"
+    restart: unless-stopped
+
+  backupdb:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: mfano
+      POSTGRES_DB: results_backup
+      # Weak/default password - intentional misconfiguration for the lab.
+      POSTGRES_PASSWORD: postgres
+    # Exposed on loopback so you can find port 5432 with nmap and connect to it.
+    ports:
+      - "127.0.0.1:5432:5432"
+    volumes:
+      - ./services/backup/init.sql:/docker-entrypoint-initdb.d/init.sql:ro
     restart: unless-stopped
