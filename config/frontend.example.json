@@ -1,0 +1,5 @@
+{
+  "_comment": "Example frontend config. Real keys must not live in client code.",
+  "mpesaPublicKey": "FAKE_MPESA_PUBLIC_KEY_123",
+  "mpesaSecretKey": "REPLACE_ME_do_not_ship_to_browser"
+}

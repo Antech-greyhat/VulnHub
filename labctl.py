@@ -77,6 +77,32 @@ def cmd_status(_args):
     return 0
 
 
+AUDIT_FLAG = "MFANO{pip_audit_found_the_old_requests}"
+
+
+def cmd_audit(_args):
+    """Run pip-audit against requirements.txt. Revealed flag is gated on a real
+    detection: you only see it if an outdated/vulnerable pin is actually found."""
+    if shutil.which("pip-audit") is None:
+        print("pip-audit is not installed. Install it with: pip install pip-audit", file=sys.stderr)
+        return 1
+    print(f"Auditing {ROOT / 'requirements.txt'} ...\n")
+    result = subprocess.run(
+        ["pip-audit", "-r", str(ROOT / "requirements.txt"), "--progress-spinner", "off"],
+        cwd=ROOT,
+        capture_output=True,
+        text=True,
+    )
+    output = result.stdout + result.stderr
+    print(output.strip() or "(no output)")
+    # pip-audit exits non-zero when it finds vulnerabilities.
+    if result.returncode != 0 and "requests" in output.lower():
+        print(f"\nOutdated dependency confirmed. Flag: {AUDIT_FLAG}")
+        return 0
+    print("\nNo known-vulnerable dependency detected.")
+    return 0
+
+
 def compose(*parts):
     if shutil.which("docker") is None:
         print("Docker was not found. Install Docker Desktop, then try again.", file=sys.stderr)
@@ -107,6 +133,7 @@ def build_parser():
     commands.add_parser("stop", help="stop the lab containers").set_defaults(func=cmd_stop)
     commands.add_parser("reset", help="rebuild the database with fresh mock data").set_defaults(func=cmd_reset)
     commands.add_parser("shell", help="open a shell inside the app container").set_defaults(func=cmd_shell)
+    commands.add_parser("audit", help="scan dependencies with pip-audit").set_defaults(func=cmd_audit)
     submit = commands.add_parser("submit", help="check a flag")
     submit.add_argument("flag")
     submit.set_defaults(func=cmd_submit)

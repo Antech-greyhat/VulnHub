@@ -5,7 +5,7 @@ from pathlib import Path
 
 from flask import Flask, redirect, session, url_for
 
-from . import admin, auth, db, ops, payments, student
+from . import admin, auth, db, diagnostics, ops, payments, student
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -23,9 +23,16 @@ def create_app(overrides=None):
         SERVER_FLAG=os.environ.get("MFANO_SERVER_FLAG", "MFANO{uploaded_script_ran_on_the_server}"),
         # The internal grading service, pointed at by the SSRF "import logo" tool.
         GRADING_URL=os.environ.get("GRADING_URL", "http://grading:9000"),
+        # Leaked through the interactive debugger when debug mode is left on.
+        BUILD_TOKEN=os.environ.get("MFANO_BUILD_TOKEN", "MFANO{stack_trace_told_everything}"),
     )
     if overrides:
         app.config.update(overrides)
+
+    # Debug mode is left on for the lab, so unhandled errors render a full
+    # interactive traceback with source and local variables (leaky errors).
+    if os.environ.get("MFANO_DEBUG") == "1":
+        app.debug = True
 
     db.init_app(app)
     app.register_blueprint(auth.bp)
@@ -33,6 +40,7 @@ def create_app(overrides=None):
     app.register_blueprint(admin.bp)
     app.register_blueprint(payments.bp)
     app.register_blueprint(ops.bp)
+    app.register_blueprint(diagnostics.bp)
 
     @app.route("/")
     def index():
