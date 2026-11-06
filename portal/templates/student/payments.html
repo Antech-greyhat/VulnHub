@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% block title %}Payments · Mfano High School{% endblock %}
+{% block scripts %}<script src="{{ url_for('static', filename='payment.js') }}"></script>{% endblock %}
 {% block content %}
 <h1>Fee payments</h1>
 <p>Balance: <strong>KES {{ "{:,}".format(student.fee_balance) }}</strong></p>

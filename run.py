@@ -10,4 +10,6 @@ if __name__ == "__main__":
         host=os.environ.get("MFANO_BIND", "127.0.0.1"),
         port=int(os.environ.get("MFANO_PORT", "8080")),
         threaded=True,
+        debug=app.debug,
+        use_reloader=False,
     )

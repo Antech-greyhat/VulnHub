@@ -32,9 +32,23 @@ python labctl.py start            # build and run the lab
 python labctl.py stop             # stop it
 python labctl.py reset            # rebuild the database with fresh mock data
 python labctl.py shell            # open a shell inside the app container
+python labctl.py audit            # scan dependencies with pip-audit
 python labctl.py submit 'MFANO{...}'   # check a flag
 python labctl.py status           # show stages and your progress (score does the same)
 ```
+
+## Supply-chain practice
+
+One dependency is pinned to an old, known-vulnerable version on purpose. Find it
+with:
+
+```sh
+pip install pip-audit
+python labctl.py audit      # or: pip-audit -r requirements.txt
+```
+
+The lesson is detection: see the advisory, note the fixed version, move on. Do
+not run any exploit against an external target.
 
 Your progress stays in `.labprogress.json`, which git ignores.
 

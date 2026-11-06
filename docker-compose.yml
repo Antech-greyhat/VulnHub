@@ -8,6 +8,8 @@ services:
     environment:
       # Reach the internal grading service by its compose name (used in Phase 4).
       GRADING_URL: "http://grading:9000"
+      # Debug mode left on for the lab: crashes show a full traceback.
+      MFANO_DEBUG: "1"
     depends_on:
       - grading
     restart: unless-stopped
