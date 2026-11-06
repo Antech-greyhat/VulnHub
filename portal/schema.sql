@@ -19,7 +19,14 @@ CREATE TABLE students (
     stream      TEXT NOT NULL,
     fee_total   INTEGER NOT NULL,
     fee_balance INTEGER NOT NULL,
-    remark      TEXT NOT NULL DEFAULT ''
+    remark      TEXT NOT NULL DEFAULT '',
+    about       TEXT NOT NULL DEFAULT ''
+);
+
+CREATE TABLE staff_secrets (
+    id     INTEGER PRIMARY KEY,
+    label  TEXT NOT NULL,
+    secret TEXT NOT NULL
 );
 
 CREATE TABLE marks (

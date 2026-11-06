@@ -1,7 +1,7 @@
 """Login, logout and role checks."""
 from functools import wraps
 
-from flask import Blueprint, abort, flash, redirect, render_template, request, session, url_for
+from flask import Blueprint, abort, flash, make_response, redirect, render_template, request, session, url_for
 from werkzeug.security import check_password_hash
 
 from .db import get_db
@@ -47,7 +47,11 @@ def login():
         ).fetchone()
         if user and check_password_hash(user["password_hash"], request.form.get("password", "")):
             start_session(user)
-            return redirect(url_for("index"))
+            response = make_response(redirect(url_for("index")))
+            # A second, plaintext copy of the role in a cookie the client can
+            # edit. Some routes trust this instead of the signed session.
+            response.set_cookie("mfano_role", user["role"])
+            return response
         flash("Wrong username or password.")
     return render_template("login.html")
 
