@@ -9,9 +9,17 @@ from pathlib import Path
 from werkzeug.security import generate_password_hash
 
 from portal import create_app
+from portal.reports import render_report
 
 DEMO_STUDENT_PASSWORD = "Student@123"
 DEMO_ADMIN = ("admin", "Mfano@Admin2026")
+
+# One student's report carries the flag revealed by the report IDOR. The flag is
+# in the data, not in the fetch route, so it only appears when you pull this
+# student's report instead of your own.
+FLAG_REMARK_ADMISSION = "MHS1013"
+FLAG_REMARK = "Excellent term. Head teacher's commendation: MFANO{idor_reports_are_not_private}"
+PLAIN_REMARK = "A steady, improving term. Keep it up."
 
 FIRST_NAMES = """Achieng Amani Baraka Chebet Daudi Eunice Faraja Gathoni Halima Imani Jabali Kamau
 Kendi Kiprono Lulu Makena Mutua Nekesa Neema Njeri Odhiambo Otieno Pendo Rehema Salim Tumaini
@@ -46,10 +54,11 @@ def seed_core(conn, rng):
             (admission, student_hash),
         ).lastrowid
         paid = rng.choice([0, 10000, 20000, 30000])
+        remark = FLAG_REMARK if admission == FLAG_REMARK_ADMISSION else PLAIN_REMARK
         student_id = conn.execute(
-            """INSERT INTO students (user_id, admission, full_name, form, stream, fee_total, fee_balance)
-               VALUES (?, ?, ?, ?, ?, ?, ?)""",
-            (user_id, admission, full_name, rng.choice(FORMS), rng.choice(STREAMS), FEE_TOTAL, FEE_TOTAL - paid),
+            """INSERT INTO students (user_id, admission, full_name, form, stream, fee_total, fee_balance, remark)
+               VALUES (?, ?, ?, ?, ?, ?, ?, ?)""",
+            (user_id, admission, full_name, rng.choice(FORMS), rng.choice(STREAMS), FEE_TOTAL, FEE_TOTAL - paid, remark),
         ).lastrowid
         for term in TERMS:
             for subject in SUBJECTS:
@@ -63,6 +72,37 @@ def seed_core(conn, rng):
                    VALUES (?, ?, ?, 'COMPLETED', ?)""",
                 (student_id, fake_reference(rng), paid, f"2026-0{rng.randint(1, 9)}-{rng.randint(10, 28)}"),
             )
+
+
+def write_reports(app):
+    """Render every student's report to disk and leave an ops note beside them.
+
+    The report files sit in a world-readable folder on the lab box, so exploring
+    the container filesystem reveals where reports live and surfaces the same
+    admin-path clue the report itself carries.
+    """
+    report_dir = Path(app.config["REPORT_DIR"])
+    report_dir.mkdir(parents=True, exist_ok=True)
+    conn = sqlite3.connect(app.config["DATABASE"])
+    conn.row_factory = sqlite3.Row
+    for student in conn.execute("SELECT * FROM students").fetchall():
+        marks = conn.execute(
+            "SELECT subject, term, score FROM marks WHERE student_id = ? ORDER BY term, subject",
+            (student["id"],),
+        ).fetchall()
+        (report_dir / f"report_{student['id']}.html").write_text(
+            render_report(student, marks), encoding="utf-8"
+        )
+    conn.close()
+    (report_dir / "ADMIN_NOTES.txt").write_text(
+        "Mfano reporting - internal notes\n"
+        "--------------------------------\n"
+        "Reports are written here, one HTML file per student id (report_<id>.html).\n"
+        "TODO before term opens: put the legacy ops console at /ops/students behind\n"
+        "the staff login - right now anyone who knows the path can open it.\n"
+        "Housekeeping flag: MFANO{ls_cat_grep_find_the_trail}\n",
+        encoding="utf-8",
+    )
 
 
 def main():
@@ -82,6 +122,8 @@ def main():
     with conn:
         seed_core(conn, rng)
     conn.close()
+
+    write_reports(app)
 
     print("Demo logins (fake lab accounts):")
     print(f"  student: MHS1007 / {DEMO_STUDENT_PASSWORD}")

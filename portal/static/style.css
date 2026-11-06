@@ -25,4 +25,5 @@ input, select, textarea { display: block; width: 100%; padding: .45rem; font: in
 button { padding: .5rem 1rem; font: inherit; color: #fff; background: var(--green); border: 0; border-radius: 4px; cursor: pointer; }
 button:disabled { background: #9ca3af; cursor: not-allowed; }
 button.link { background: none; padding: 0; text-decoration: underline; }
+.btn { display: inline-block; padding: .5rem 1rem; color: #fff; background: var(--green); border-radius: 4px; text-decoration: none; }
 footer { text-align: center; color: var(--muted); padding: 2rem 1rem; font-size: .85rem; }

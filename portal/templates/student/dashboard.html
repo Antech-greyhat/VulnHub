@@ -17,8 +17,8 @@
   </section>
   <section class="card">
     <h2>Term report</h2>
-    <p class="muted">Your report card as a PDF.</p>
-    <button disabled>Download report</button>
+    <p class="muted">Your term report card.</p>
+    <a class="btn" href="{{ url_for('student.report', sid=student.id) }}">Download report</a>
   </section>
 </div>
 <section class="card">
