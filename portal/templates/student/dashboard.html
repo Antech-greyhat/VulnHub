@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Karibu, {{ student.full_name }}</h1>
+<div class="grid">
+  <section class="card">
+    <h2>My profile</h2>
+    <dl>
+      <dt>Admission no.</dt><dd>{{ student.admission }}</dd>
+      <dt>Class</dt><dd>{{ student.form }} {{ student.stream }}</dd>
+    </dl>
+  </section>
+  <section class="card">
+    <h2>Fee balance</h2>
+    <p class="figure">KES {{ "{:,}".format(student.fee_balance) }}</p>
+    <p class="muted">of KES {{ "{:,}".format(student.fee_total) }} this year</p>
+    <a href="{{ url_for('payments.history') }}">View payments</a>
+  </section>
+  <section class="card">
+    <h2>Term report</h2>
+    <p class="muted">Your report card as a PDF.</p>
+    <button disabled>Download report</button>
+  </section>
+</div>
+<section class="card">
+  <h2>My marks</h2>
+  <table>
+    <thead><tr><th>Subject</th><th>Term</th><th>Score</th></tr></thead>
+    <tbody>
+      {% for mark in marks %}
+      <tr><td>{{ mark.subject }}</td><td>{{ mark.term }}</td><td>{{ mark.score }}</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</section>
+{% endblock %}

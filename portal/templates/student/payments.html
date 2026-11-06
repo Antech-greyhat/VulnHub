@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block title %}Payments · Mfano High School{% endblock %}
+{% block content %}
+<h1>Fee payments</h1>
+<p>Balance: <strong>KES {{ "{:,}".format(student.fee_balance) }}</strong></p>
+<section class="card">
+  <table>
+    <thead><tr><th>Reference</th><th>Amount (KES)</th><th>Status</th><th>Date</th></tr></thead>
+    <tbody>
+      {% for row in rows %}
+      <tr><td>{{ row.reference }}</td><td>{{ "{:,}".format(row.amount) }}</td><td>{{ row.status }}</td><td>{{ row.paid_at }}</td></tr>
+      {% else %}
+      <tr><td colspan="4">No payments yet.</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</section>
+{% endblock %}

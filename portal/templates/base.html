@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}Mfano High School Portal{% endblock %}</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="{{ url_for('index') }}"><span class="crest">M</span> Mfano High School</a>
+    {% if session.get('role') == 'student' %}
+    <nav>
+      <a href="{{ url_for('student.dashboard') }}">Dashboard</a>
+      <a href="{{ url_for('payments.history') }}">Payments</a>
+    </nav>
+    {% elif session.get('role') == 'admin' %}
+    <nav>
+      <a href="{{ url_for('admin.dashboard') }}">Students</a>
+      <a href="{{ url_for('admin.marks') }}">Marks</a>
+      <a href="{{ url_for('admin.payments') }}">Payments</a>
+    </nav>
+    {% endif %}
+    {% if session.get('role') %}
+    <form method="post" action="{{ url_for('auth.logout') }}"><button class="link">Log out</button></form>
+    {% endif %}
+  </header>
+  <main>
+    {% for message in get_flashed_messages() %}<p class="notice">{{ message }}</p>{% endfor %}
+    {% block content %}{% endblock %}
+  </main>
+  <footer>Mfano means "example". Every name, mark and payment here is made up.</footer>
+</body>
+</html>

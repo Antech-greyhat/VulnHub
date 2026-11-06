@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block title %}Payments · Mfano High School{% endblock %}
+{% block content %}
+<h1>Payments</h1>
+<section class="card">
+  <table>
+    <thead><tr><th>Admission</th><th>Name</th><th>Reference</th><th>Amount (KES)</th><th>Status</th><th>Date</th></tr></thead>
+    <tbody>
+      {% for r in rows %}
+      <tr><td>{{ r.admission }}</td><td>{{ r.full_name }}</td><td>{{ r.reference }}</td><td>{{ "{:,}".format(r.amount) }}</td><td>{{ r.status }}</td><td>{{ r.paid_at }}</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</section>
+{% endblock %}
