@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block title %}Server tools · Mfano High School{% endblock %}
+{% block content %}
+<h1>Server tools</h1>
+<p class="muted">Internal diagnostics. Keep this on localhost only.</p>
+
+<section class="card">
+  <h2>Ping the school server</h2>
+  <form method="post" action="{{ url_for('admin.ping') }}">
+    <label>Host <input name="host" value="127.0.0.1"></label>
+    <button>Ping</button>
+  </form>
+</section>
+
+<section class="card">
+  <h2>Bulk upload</h2>
+  <form method="post" action="{{ url_for('admin.upload') }}" enctype="multipart/form-data">
+    <label>File <input type="file" name="file"></label>
+    <button>Upload</button>
+  </form>
+  <p class="muted">Uploaded files can be previewed at <code>/admin/tools/preview?name=&lt;file&gt;</code>.</p>
+</section>
+
+<section class="card">
+  <h2>Import school logo from a link</h2>
+  <form method="post" action="{{ url_for('admin.import_logo') }}">
+    <label>Image URL <input name="url" placeholder="https://..."></label>
+    <button>Import</button>
+  </form>
+</section>
+{% endblock %}

@@ -18,6 +18,11 @@ def create_app(overrides=None):
         MFANO_HOME=home,
         DATABASE=home / "data" / "mfano.db",
         REPORT_DIR=home / "reports",
+        UPLOAD_DIR=home / "uploads",
+        # Reached by rendering an uploaded template (upload -> SSTI code exec).
+        SERVER_FLAG=os.environ.get("MFANO_SERVER_FLAG", "MFANO{uploaded_script_ran_on_the_server}"),
+        # The internal grading service, pointed at by the SSRF "import logo" tool.
+        GRADING_URL=os.environ.get("GRADING_URL", "http://grading:9000"),
     )
     if overrides:
         app.config.update(overrides)

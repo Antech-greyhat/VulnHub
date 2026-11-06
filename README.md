@@ -62,6 +62,15 @@ To poke at the backup database you can use any Postgres client, e.g. `psql`.
 > **Only scan and probe this lab, on your own machine. Never scan hosts,
 > networks, or services you do not own or have written permission to test.**
 
+## A note on the server tools
+
+The admin "server tools" (diagnostics, bulk upload, logo import) are powerful on
+purpose and can run commands and fetch URLs from the lab box. This is exactly
+why the lab must stay on your own machine.
+
+> **Never deploy this anywhere public. Run it on localhost only, or behind
+> Tailscale / Cloudflare Access so that only you can reach it.**
+
 ## Flags
 
 Exploiting a bug reveals a flag that looks like `MFANO{...}`. `flags.sha256` holds only the hashes, so `labctl` can check a flag without storing the answer. See `SCOREBOARD.md` for how many bugs exist in each OWASP category.
