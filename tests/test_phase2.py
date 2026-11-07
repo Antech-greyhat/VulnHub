@@ -21,4 +21,4 @@ def test_grading_returns_fake_grades():
 def test_grading_metadata_exposes_token_to_any_caller():
     # No auth header, no session - the internal service trusts everyone.
     data = grading.app.test_client().get("/internal/metadata").get_json()
-    assert data["access_token"] == "MFANO{internal_does_not_mean_safe}"
+    assert data["access_token"] == "MFANO{1nt3rn4l_d03s_n0t_m34n_s4f3}"

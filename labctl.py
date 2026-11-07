@@ -77,7 +77,7 @@ def cmd_status(_args):
     return 0
 
 
-AUDIT_FLAG = "MFANO{pip_audit_found_the_old_requests}"
+AUDIT_FLAG = "MFANO{p1p_4ud1t_f0und_th3_0ld_r3qu3sts}"
 
 
 def cmd_audit(_args):

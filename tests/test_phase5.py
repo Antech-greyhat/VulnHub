@@ -24,20 +24,24 @@ def test_frontend_secret_is_served_to_the_browser(seeded_home):
     app = create_app({"TESTING": True})
     body = app.test_client().get("/static/payment.js").data
     # The "secret" key is shipped to any visitor in client-side JS.
-    assert b"MFANO{frontend_key_opened_the_till}" in body
+    assert b"MFANO{fr0nt3nd_k3y_0p3n3d_th3_t1ll}" in body
 
 
 def test_secret_is_recoverable_from_git_history():
-    # The secret was removed from the tree but remains in git history.
+    # The secret was removed from the app tree but remains in git history.
+    # Tests and the answer key quote it, so leave them out of the search.
     tree = subprocess.run(
-        ["git", "grep", "-I", "git_history_never_forgets"], cwd=ROOT, capture_output=True, text=True
+        ["git", "grep", "-I", "g1t_h1st0ry_n3v3r_f0rg3ts", "--", ".", ":!tests", ":!docs"],
+        cwd=ROOT,
+        capture_output=True,
+        text=True,
     )
     assert tree.returncode != 0  # not in the current tree
 
     history = subprocess.run(
-        ["git", "log", "-p", "-S", "git_history_never_forgets"], cwd=ROOT, capture_output=True, text=True
+        ["git", "log", "-p", "--", "deploy/secrets.env"], cwd=ROOT, capture_output=True, text=True
     )
-    assert "MFANO{git_history_never_forgets}" in history.stdout
+    assert "MFANO{g1t_h1st0ry_n3v3r_f0rg3ts}" in history.stdout
 
 
 def test_requirements_pins_outdated_dependency():
@@ -51,18 +55,18 @@ def test_leaky_debugger_exposes_build_token(seeded_home):
     from werkzeug.debug import DebuggedApplication
     from werkzeug.test import Client
 
-    app = create_app({"BUILD_TOKEN": "MFANO{stack_trace_told_everything}"})
+    app = create_app({"BUILD_TOKEN": "MFANO{st4ck_tr4c3_t0ld_3v3ryth1ng}"})
     app.debug = True
     client = Client(DebuggedApplication(app.wsgi_app, evalex=False))
     resp = client.get("/diagnostics/self-test?load=0")
     html = resp.get_data(as_text=True)
     assert resp.status_code == 500
     assert "Traceback" in html
-    assert "MFANO{stack_trace_told_everything}" in html
+    assert "MFANO{st4ck_tr4c3_t0ld_3v3ryth1ng}" in html
 
 
 def test_no_leak_when_debug_off(seeded_home):
-    app = create_app({"BUILD_TOKEN": "MFANO{stack_trace_told_everything}"})
+    app = create_app({"BUILD_TOKEN": "MFANO{st4ck_tr4c3_t0ld_3v3ryth1ng}"})
     resp = app.test_client().get("/diagnostics/self-test?load=0")
     assert resp.status_code == 500
     assert b"MFANO{" not in resp.data

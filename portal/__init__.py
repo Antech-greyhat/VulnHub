@@ -20,11 +20,11 @@ def create_app(overrides=None):
         REPORT_DIR=home / "reports",
         UPLOAD_DIR=home / "uploads",
         # Reached by rendering an uploaded template (upload -> SSTI code exec).
-        SERVER_FLAG=os.environ.get("MFANO_SERVER_FLAG", "MFANO{uploaded_script_ran_on_the_server}"),
+        SERVER_FLAG=os.environ.get("MFANO_SERVER_FLAG", "MFANO{upl04d3d_scr1pt_r4n_0n_th3_s3rv3r}"),
         # The internal grading service, pointed at by the SSRF "import logo" tool.
         GRADING_URL=os.environ.get("GRADING_URL", "http://grading:9000"),
         # Leaked through the interactive debugger when debug mode is left on.
-        BUILD_TOKEN=os.environ.get("MFANO_BUILD_TOKEN", "MFANO{stack_trace_told_everything}"),
+        BUILD_TOKEN=os.environ.get("MFANO_BUILD_TOKEN", "MFANO{st4ck_tr4c3_t0ld_3v3ryth1ng}"),
     )
     if overrides:
         app.config.update(overrides)

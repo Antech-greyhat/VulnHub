@@ -37,4 +37,4 @@ INSERT INTO payments_backup (admission, reference, amount, status) VALUES
 
 INSERT INTO backup_notes (note) VALUES
     ('Nightly dump of marks and payments. Restore with pg_restore.'),
-    ('Reminder: rotate the backup DB password off the default. Flag: MFANO{default_creds_open_the_backup}');
+    ('Reminder: rotate the backup DB password off the default. Flag: MFANO{d3f4ult_cr3ds_0p3n_th3_b4ckup}');

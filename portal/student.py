@@ -10,7 +10,7 @@ bp = Blueprint("student", __name__, url_prefix="/student")
 
 # Revealed when a mark change actually goes through on a client-supplied
 # authorization field, which the server should never trust.
-TAMPER_FLAG = "MFANO{client_said_admin_so_marks_changed}"
+TAMPER_FLAG = "MFANO{cl13nt_s41d_4dm1n_s0_m4rks_ch4ng3d}"
 
 
 def own_student():

@@ -16,7 +16,7 @@ app = Flask(__name__)
 
 # Returned to any caller that reaches this internal service. Only the server is
 # supposed to be able to reach it, so pulling this out is the SSRF pay-off.
-INTERNAL_TOKEN = "MFANO{internal_does_not_mean_safe}"
+INTERNAL_TOKEN = "MFANO{1nt3rn4l_d03s_n0t_m34n_s4f3}"
 
 FAKE_GRADES = {
     "MHS1007": {"mean_grade": "B+", "position": 4},
@@ -53,7 +53,7 @@ def logo_config():
     # outside is only possible through the SSRF in the main app.
     return jsonify(
         logo_url="/static/mfano-crest.png",
-        note="MFANO{ssrf_reached_the_grading_service}",
+        note="MFANO{ssrf_r34ch3d_th3_gr4d1ng_s3rv1c3}",
     )
 
 

@@ -14,10 +14,14 @@ back to the original.
 
 ## Flag format
 
-Every flag looks like `MFANO{...}`. The part inside the braces is always
-**lowercase** words joined by `_`. If a flag shows up in capital letters (it
-will in pictures, sound and video), write the inside part in lowercase before
-you submit it.
+Every flag looks like `MFANO{...}`. The part inside the braces is words in
+**leetspeak**, joined by `_`, for example `MFANO{c4n_h4ck_f0r_r34l}` (`a→4`,
+`e→3`, `i→1`, `o→0`, sometimes `s→5`). Copy the digits exactly as you find them.
+
+Pictures, sound and video show the flag in capitals. Keep `MFANO` in capitals,
+write the inside part in lowercase, and keep every digit. In the pixel font, a
+zero `0` has a slash through it, and a one `1` has a hook at the top while an
+`I` has bars at the top and bottom.
 
 ```sh
 python labctl.py submit 'MFANO{...}'
@@ -59,7 +63,8 @@ enough.
 ### F-05 The radio call
 
 The security guard's radio picked up a strange series of beeps on the night of
-the leak. The words you decode go inside the braces, joined by `_`.
+the leak. Morse has codes for digits as well as letters. The words you decode go
+inside the braces, joined by `_`.
 
 ### F-06 The assembly recording
 
