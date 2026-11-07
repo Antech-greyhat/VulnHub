@@ -85,6 +85,13 @@ why the lab must stay on your own machine.
 > **Never deploy this anywhere public. Run it on localhost only, or behind
 > Tailscale / Cloudflare Access so that only you can reach it.**
 
+## Forensics practice
+
+The [`forensics/`](forensics/) folder has seven offline challenges about a
+leaked exam paper: three images, a GIF, two audio clips and a CCTV video. You
+do not need Docker for them. Read [`forensics/README.md`](forensics/README.md)
+for the case brief, then submit flags with `labctl` as usual.
+
 ## Flags
 
 Exploiting a bug reveals a flag that looks like `MFANO{...}`. `flags.sha256` holds only the hashes, so `labctl` can check a flag without storing the answer. See `SCOREBOARD.md` for how many bugs exist in each OWASP category.

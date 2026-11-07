@@ -1,2 +1,10 @@
 # Containers run these files on Linux, so keep LF line endings on every OS.
 * text=auto eol=lf
+
+# Forensics evidence must stay byte-for-byte identical: never touch line endings.
+*.png binary
+*.gif binary
+*.jpg binary
+*.wav binary
+*.avi binary
+*.zip binary
