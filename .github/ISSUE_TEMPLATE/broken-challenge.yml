@@ -1,0 +1,35 @@
+name: Broken challenge
+description: A challenge can't be solved, or a correct flag won't score.
+labels: ["challenge"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for testing the lab. **Please don't paste a flag or a full solution here.** Other people read these issues.
+  - type: input
+    id: stage
+    attributes:
+      label: Stage
+      description: The stage ID from `labctl status`, e.g. P3-02 or F-04.
+    validations:
+      required: true
+  - type: dropdown
+    id: os
+    attributes:
+      label: Host OS
+      options: [Kali Linux, Other Linux, Windows, macOS]
+    validations:
+      required: true
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened?
+      description: What you tried, what you expected, and what you got. Error output helps a lot.
+    validations:
+      required: true
+  - type: textarea
+    id: env
+    attributes:
+      label: Versions
+      description: Output of `docker --version`, `docker compose version` (or `docker-compose --version`) and `python3 --version`.
+      render: text

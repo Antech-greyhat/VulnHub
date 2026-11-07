@@ -1,101 +1,321 @@
-> # ⚠️ **THIS IS A DELIBERATELY VULNERABLE LAB. NEVER DEPLOY IT PUBLICLY.**
->
-> **It has security holes on purpose. Run it on your own machine only. If you host it for yourself, put it behind Tailscale or Cloudflare Access so that only you can reach it.**
+<p align="center">
+  <img src="assets/banner.svg" alt="Mfano High School Portal: a deliberately vulnerable lab" width="100%">
+</p>
 
-# Mfano High School Portal
+<p align="center">
+  <img alt="Python 3.12" src="https://img.shields.io/badge/python-3.12-3776AB?logo=python&logoColor=white">
+  <img alt="Flask 3" src="https://img.shields.io/badge/flask-3.1-000000?logo=flask&logoColor=white">
+  <img alt="Docker Compose" src="https://img.shields.io/badge/docker-compose-2496ED?logo=docker&logoColor=white">
+  <img alt="OWASP Top 10 2025" src="https://img.shields.io/badge/OWASP-Top%2010%3A2025-000000?logo=owasp&logoColor=white">
+  <img alt="24 flags" src="https://img.shields.io/badge/flags-24-e3b341">
+  <img alt="Kali ready" src="https://img.shields.io/badge/kali-ready-557C94?logo=kalilinux&logoColor=white">
+  <img alt="Vulnerable by design" src="https://img.shields.io/badge/vulnerable-by%20design-b91c1c">
+</p>
 
-Mfano High School Portal is a fake Kenyan school portal for learning penetration testing. "Mfano" means "example". Every student, mark, fee balance and M-Pesa-style payment in it is made up, and it makes no real payment calls.
+> [!CAUTION]
+> **This lab has security holes on purpose. Never deploy it on a public server.**
+> Run it on your own machine only. If you must reach it from another device, put
+> it behind Tailscale or Cloudflare Access so that only you can get in.
 
-## Run it
+**Mfano High School Portal** is a made-up Kenyan secondary school portal. Students
+check marks and download report forms, the bursar takes M-Pesa-style fee
+payments, and the admin runs the server tools. Hidden inside are web bugs from the
+[OWASP Top 10:2025](https://top10.owasp.org/2025/), a few network
+misconfigurations, and a box of forensics evidence. Each one gives up a
+`MFANO{...}` flag when you exploit it. The flags are scored offline by a small CLI
+called `labctl`.
 
-You need [Docker Desktop](https://www.docker.com/products/docker-desktop/) and Python 3.
+*Mfano* means "example" in Swahili. Every student, mark, fee balance and payment is
+fake, and the lab never calls a real payment API.
+
+## Contents
+
+- [What you will practise](#what-you-will-practise)
+- [Requirements](#requirements)
+- [Install and run](#install-and-run)
+  - [Kali Linux / Debian / Ubuntu](#kali-linux--debian--ubuntu)
+  - [Windows](#windows)
+  - [macOS](#macos)
+- [Log in](#log-in)
+- [Find and submit flags](#find-and-submit-flags)
+- [The challenges](#the-challenges)
+- [labctl reference](#labctl-reference)
+- [Run the tests](#run-the-tests)
+- [Troubleshooting](#troubleshooting)
+- [Project layout](#project-layout)
+- [Safety rules](#safety-rules)
+- [About](#about)
+
+## What you will practise
+
+| Track | Skills |
+| ----- | ------ |
+| Web | Access control, injection, broken auth and sessions, file upload, SSRF, business logic |
+| Linux | Moving around the filesystem of a compromised box |
+| Networking | Port and service discovery with `nmap`, weak database credentials |
+| Secrets and supply chain | Secrets in frontend code and git history, vulnerable dependencies, leaky errors |
+| Forensics | Image metadata, file carving, LSB steganography, GIF frames, Morse, spectrograms, video frames |
+
+## Requirements
+
+| Tool | Needed for | Notes |
+| ---- | ---------- | ----- |
+| Git | Getting the lab | Any recent version |
+| Docker and Docker Compose | The web, network and server challenges | Docker Desktop on Windows or macOS; `docker.io` on Linux |
+| Python 3.10 or newer | `labctl` (scoring and helpers) | Uses the standard library only |
+| About 2 GB free disk | Docker images | |
+
+You don't need Docker for the forensics track. Python and your usual tools are
+enough.
+
+## Install and run
+
+### Kali Linux / Debian / Ubuntu
+
+```sh
+# 1. Install Docker and Compose (one time)
+sudo apt update
+sudo apt install -y git docker.io docker-compose
+sudo systemctl enable --now docker
+sudo usermod -aG docker "$USER"   # then log out and back in, or run: newgrp docker
+
+# 2. Get the lab
+git clone https://github.com/Antech-greyhat/VulnHub.git
+cd VulnHub
+
+# 3. Start it
+python3 labctl.py start
+```
+
+When the containers are up, open <http://127.0.0.1:8080>.
+
+`labctl` uses `docker compose` when that plugin is installed and falls back to the
+older `docker-compose` command otherwise, so both Kali packages work.
+
+### Windows
+
+1. Install [Docker Desktop](https://www.docker.com/products/docker-desktop/) with
+   the WSL 2 backend, then restart.
+2. Install [Git](https://git-scm.com/download/win) and
+   [Python 3](https://www.python.org/downloads/).
+3. In PowerShell:
+
+   ```powershell
+   git clone https://github.com/Antech-greyhat/VulnHub.git
+   cd VulnHub
+   python labctl.py start
+   ```
+
+The repo forces LF line endings, so the container scripts work even when you
+clone on Windows.
+
+### macOS
+
+Install Docker Desktop, then:
 
 ```sh
 git clone https://github.com/Antech-greyhat/VulnHub.git
 cd VulnHub
-docker compose up --build
+python3 labctl.py start
 ```
 
-Open <http://127.0.0.1:8080>.
+### Stop and reset
+
+```sh
+python3 labctl.py stop     # stop the containers
+python3 labctl.py reset    # wipe the database and reseed fresh mock data
+```
+
+## Log in
 
 | Role | Username | Password |
 | ---- | -------- | -------- |
 | Student | `MHS1007` | `Student@123` |
 | Admin | `admin` | `Mfano@Admin2026` |
 
-Every student from `MHS1001` to `MHS1030` uses the same demo password.
+Every student from `MHS1001` to `MHS1030` uses the same demo password. The admin
+login is there so you can look around. Hacking your way to admin from a student
+account counts for more.
 
-## Use labctl
+## Find and submit flags
 
-```sh
-python labctl.py start            # build and run the lab
-python labctl.py stop             # stop it
-python labctl.py reset            # rebuild the database with fresh mock data
-python labctl.py shell            # open a shell inside the app container
-python labctl.py audit            # scan dependencies with pip-audit
-python labctl.py submit 'MFANO{...}'   # check a flag
-python labctl.py status           # show stages and your progress (score does the same)
+Every flag looks like this:
+
+```text
+MFANO{short_lowercase_words}
 ```
 
-## Supply-chain practice
+1. **Hunt.** Exploit a bug in the portal, or pull a secret out of a forensics
+   file. A real exploit makes the flag show up: in a page, a database row, a
+   file on the box, a frame of video.
+2. **Submit.** Run this from the repo folder. Use single quotes so your shell
+   leaves the braces alone:
 
-One dependency is pinned to an old, known-vulnerable version on purpose. Find it
-with:
+   ```sh
+   python3 labctl.py submit 'MFANO{example_flag}'
+   ```
 
-```sh
-pip install pip-audit
-python labctl.py audit      # or: pip-audit -r requirements.txt
-```
+   ```text
+   Correct! Stage P1-01 solved (A01 Broken Access Control, Easy).
+   Next stage: P1-02 (A01 Broken Access Control, Easy)
+   ```
 
-The lesson is detection: see the advisory, note the fixed version, move on. Do
-not run any exploit against an external target.
+   A wrong flag prints `wrong flag`. Submitting the same flag again won't
+   count it twice.
+3. **Track progress.**
 
-Your progress stays in `.labprogress.json`, which git ignores.
+   ```sh
+   python3 labctl.py status
+   ```
 
-## Networking practice
+   ```text
+   Stage   OWASP 2025 category                         Difficulty    Status
+   P1-01   A01 Broken Access Control                   Easy          solved
+   P1-02   A01 Broken Access Control                   Easy          -
+   ...
+   1 / 24 solved
+   ```
 
-The lab runs a few services on your machine's loopback so you can practise
-port and service discovery against **your own lab only**.
+How scoring works:
+
+- `flags.sha256` holds only the **SHA-256 hash** of each flag. `labctl` hashes what
+  you submit and compares the two, so reading the repo won't give you the answers.
+- Your progress is saved in `.labprogress.json` in the repo folder. Git ignores
+  that file. Delete it to start over.
+- Flags found in pictures, audio or video are drawn in capitals. Submit the part
+  inside the braces in **lowercase**.
+
+## The challenges
+
+There are 24 flags. The categories are listed below, but not where the bugs are.
+`SCOREBOARD.md` has the per-phase breakdown.
+
+| Stages | Theme | Count | Difficulty |
+| ------ | ----- | ----- | ---------- |
+| P1-xx | Web access control and Linux files | 3 | Easy |
+| P2-xx | Networking and exposed services | 2 | Easy-Medium |
+| P3-xx | Injection, XSS, sessions, privilege escalation | 4 | Medium |
+| P4-xx | Server tools: chains that end in full control | 4 | Hard |
+| P5-xx | Secrets, supply chain and error handling | 4 | Medium-Hard |
+| F-xx | Forensics: images, GIF, audio, video | 7 | Easy to Medium |
+
+<details>
+<summary><b>Networking notes</b></summary>
+
+The lab publishes a few services on your loopback interface only:
 
 ```sh
 nmap -sV 127.0.0.1
 ```
 
-Ports you should expect to find:
+| Port | Service |
+| ---- | ------- |
+| 8080 | Web portal (Flask) |
+| 5432 | PostgreSQL "results backup" database |
 
-| Port | Service | Notes |
-| ---- | ------- | ----- |
-| 8080 | Web portal | The Flask app |
-| 5432 | PostgreSQL | A "results backup" database |
+A small internal grading service also runs inside the Docker network. It isn't
+published to your machine, so `nmap` from the host won't see it. Reaching it is
+a later challenge.
 
-A small internal grading service also runs, but it is **not** published to your
-machine, so nmap will not see it. Reaching it is a later exercise.
+</details>
 
-To poke at the backup database you can use any Postgres client, e.g. `psql`.
+<details>
+<summary><b>Supply-chain notes</b></summary>
 
-> **Only scan and probe this lab, on your own machine. Never scan hosts,
-> networks, or services you do not own or have written permission to test.**
+One dependency is pinned to an old, known-vulnerable version on purpose. The
+lesson is **detection**: find it, read the advisory, note the fixed version.
 
-## A note on the server tools
+```sh
+# Kali blocks system-wide pip installs, so use pipx or a virtualenv
+sudo apt install -y pipx && pipx install pip-audit
+python3 labctl.py audit
+```
 
-The admin "server tools" (diagnostics, bulk upload, logo import) are powerful on
-purpose and can run commands and fetch URLs from the lab box. This is exactly
-why the lab must stay on your own machine.
+Never run an exploit against an external target.
 
-> **Never deploy this anywhere public. Run it on localhost only, or behind
-> Tailscale / Cloudflare Access so that only you can reach it.**
+</details>
 
-## Forensics practice
+<details>
+<summary><b>Forensics notes</b></summary>
 
-The [`forensics/`](forensics/) folder has seven offline challenges about a
-leaked exam paper: three images, a GIF, two audio clips and a CCTV video. You
-do not need Docker for them. Read [`forensics/README.md`](forensics/README.md)
-for the case brief, then submit flags with `labctl` as usual.
+The [`forensics/`](forensics/) folder holds seven evidence files from a leaked
+mock exam. You don't need Docker for these. Read the case brief in
+[`forensics/README.md`](forensics/README.md). On Kali, most of the tools are
+already installed or one `apt install` away:
 
-## Flags
+```sh
+sudo apt install -y exiftool binwalk foremost ffmpeg audacity sonic-visualiser
+sudo apt install -y ruby && sudo gem install zsteg
+```
 
-Exploiting a bug reveals a flag that looks like `MFANO{...}`. `flags.sha256` holds only the hashes, so `labctl` can check a flag without storing the answer. See `SCOREBOARD.md` for how many bugs exist in each OWASP category.
+</details>
 
-## About this project
+## labctl reference
 
-Writeups will be added later. This lab was built with AI agents for learning.
+| Command | What it does |
+| ------- | ------------ |
+| `python3 labctl.py start` | Build and start the lab containers in the background |
+| `python3 labctl.py stop` | Stop the containers |
+| `python3 labctl.py reset` | Rebuild the database with fresh mock data |
+| `python3 labctl.py shell` | Open a shell inside the web container |
+| `python3 labctl.py audit` | Scan `requirements.txt` with pip-audit |
+| `python3 labctl.py submit '<flag>'` | Check a flag and record it |
+| `python3 labctl.py status` | Show every stage and your progress (`score` does the same) |
+
+On Windows, use `python` in place of `python3`.
+
+## Run the tests
+
+The tests check that the lab is built correctly. They **contain spoilers**, so
+read them only after you finish.
+
+```sh
+python3 -m venv .venv
+. .venv/bin/activate            # Windows: .venv\Scripts\activate
+pip install -r requirements.txt pytest
+python -m pytest -q
+```
+
+## Troubleshooting
+
+| Problem | Fix |
+| ------- | --- |
+| `permission denied ... docker.sock` | Add yourself to the `docker` group (see the Kali steps), then log in again |
+| `Docker Compose was not found` | `sudo apt install -y docker-compose`, or install Docker Desktop |
+| Port 8080 or 5432 already in use | Stop whatever is using it (`sudo ss -ltnp \| grep 8080`) or change the left-hand port in `docker-compose.yml` |
+| `error: externally-managed-environment` on `pip install` | Use `pipx` or a virtualenv, as shown above |
+| The portal looks broken after you experiment | `python3 labctl.py reset`, or `stop` then `start` to rebuild the containers |
+| You want to start the scoring over | Delete `.labprogress.json` |
+
+## Project layout
+
+```text
+.
+├── portal/            Flask app: routes, templates, static files
+├── services/          Extra containers: grading service, backup database
+├── forensics/         Offline forensics evidence and case brief
+├── docker/            Container entrypoint
+├── tests/             Build checks (spoilers)
+├── labctl.py          Start, stop, reset, audit, submit, status
+├── seed.py            Generates the fake school data
+├── flags.sha256       Flag hashes only
+└── SCOREBOARD.md      Bug count per OWASP category
+```
+
+## Safety rules
+
+- Only attack **this lab, on your own machine**. Never scan or exploit hosts,
+  networks or services you don't own or don't have written permission to test.
+- The compose file binds every port to `127.0.0.1`. Keep it that way.
+- The admin "server tools" can run commands and fetch URLs from the lab box. That
+  is part of the lesson, and it's why the lab must never be public.
+- See [`SECURITY.md`](SECURITY.md) for what counts as a real issue in this repo.
+
+## About
+
+Built as a hands-on learning project with AI coding agents. Writeups and a
+patched version of the portal are planned, so you can compare the vulnerable
+`main` branch with the fixed one.
+
+Found a challenge that won't solve, or a flag that won't score? Open an issue
+with the **Broken challenge** template. Please don't post the flag itself.

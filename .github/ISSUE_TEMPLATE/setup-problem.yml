@@ -1,0 +1,25 @@
+name: Setup problem
+description: The lab won't install, build or start.
+labels: ["setup"]
+body:
+  - type: dropdown
+    id: os
+    attributes:
+      label: Host OS
+      options: [Kali Linux, Other Linux, Windows, macOS]
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: What did you run?
+      render: sh
+    validations:
+      required: true
+  - type: textarea
+    id: output
+    attributes:
+      label: Output
+      render: text
+    validations:
+      required: true
