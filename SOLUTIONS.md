@@ -152,3 +152,47 @@ injection and the upload give code execution on the box — the same box whose
 filesystem you first explored in Phase 1. SSRF reaches the internal grading
 service from Phase 2. Phase 5's frontend key and git-history secret are the
 quiet mistakes that tie the payment flow together.
+
+---
+
+## Phase 7: Forensics
+
+The generator is `tools/build_forensics.py` on this branch only. It uses the
+standard library and is deterministic, so `python tools/build_forensics.py
+forensics/evidence` rebuilds byte-identical files.
+
+### F-01 · PNG metadata · `MFANO{metadata_tells_the_story}`
+- **Where:** `tEXt` chunk `Comment` in `01_noticeboard.png`.
+- **Solve:** `exiftool 01_noticeboard.png` or `strings 01_noticeboard.png | grep MFANO`.
+
+### F-02 · Appended ZIP · `MFANO{binwalk_carved_the_zip}`
+- **Where:** a deflated ZIP is appended after `IEND` in `02_staff_photo.png`.
+- **Solve:** `binwalk -e 02_staff_photo.png` (or `unzip 02_staff_photo.png`,
+  which skips the PNG prefix) and read `leaked/kcse_mock_chemistry_p1.txt`.
+
+### F-03 · LSB steganography · `MFANO{least_significant_secrets}`
+- **Where:** LSB of R, G, B in turn, pixels row by row, MSB-first bytes,
+  NUL-terminated (`03_prize_giving.png`).
+- **Solve:** `zsteg 03_prize_giving.png` (shows up as `b1,rgb,lsb,xy`), or
+  Pillow: `np.packbits(np.array(img).reshape(-1) & 1)`.
+
+### F-04 · Hidden GIF frame · `MFANO{one_frame_too_fast}`
+- **Where:** frame 17 of 25 in `04_school_bell.gif`, with a 10 ms delay
+  (the others use 120 ms). The GIF comment is a decoy.
+- **Solve:** `ffmpeg -i 04_school_bell.gif f%02d.png` or `magick 04_school_bell.gif -coalesce f%02d.png`.
+
+### F-05 · Morse audio · `MFANO{morse_code_never_dies}`
+- **Where:** 700 Hz Morse at 80 ms per unit with hiss: `MORSE CODE NEVER DIES`.
+- **Solve:** Audacity waveform by eye, or any audio Morse decoder.
+
+### F-06 · Spectrogram · `MFANO{look_at_the_spectrogram}`
+- **Where:** text drawn as tone bands from 3 kHz to 9 kHz under a 110 Hz hum
+  and noise (`06_assembly_recording.wav`).
+- **Solve:** Audacity → Spectrogram view (or Sonic Visualiser). Raise the max
+  frequency to at least 10 kHz and zoom the time axis out.
+
+### F-07 · CCTV frame · `MFANO{frame_by_frame_cctv}`
+- **Where:** frame index 41 (0-based; `ffmpeg` writes it as `_42`) of
+  `07_corridor_cctv.avi`, at 02:13:04. The INFO comment hints "review every frame".
+- **Solve:** `ffmpeg -i 07_corridor_cctv.avi f%02d.png`, or step frames in VLC
+  (`e` key).
