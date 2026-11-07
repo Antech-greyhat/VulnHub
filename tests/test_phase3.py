@@ -30,7 +30,7 @@ def test_sql_injection_union_dumps_staff_vault(app):
     login(client)
     payload = "zzz%' UNION SELECT label, secret FROM staff_secrets --"
     body = client.get("/student/search", query_string={"q": payload}).data
-    assert b"MFANO{union_select_the_staff_vault}" in body
+    assert b"MFANO{un10n_s3l3ct_th3_st4ff_v4ult}" in body
 
 
 def test_search_is_normally_safe_looking(app):
@@ -62,7 +62,7 @@ def test_review_token_is_admin_only(app):
 
     admin = app.test_client()
     login(admin, "admin", "Mfano@Admin2026")
-    assert b"MFANO{stored_script_stole_the_review_token}" in admin.get("/admin/review-token").data
+    assert b"MFANO{st0r3d_scr1pt_st0l3_th3_r3v13w_t0k3n}" in admin.get("/admin/review-token").data
 
 
 def test_forgeable_cookie_grants_console(app):
@@ -71,7 +71,7 @@ def test_forgeable_cookie_grants_console(app):
     assert client.get("/admin/console").status_code == 403
     client.set_cookie("mfano_role", "admin")  # forge the plaintext role cookie
     body = client.get("/admin/console").data
-    assert b"MFANO{unsigned_cookie_made_me_admin}" in body
+    assert b"MFANO{uns1gn3d_c00k13_m4d3_m3_4dm1n}" in body
 
 
 def test_marks_tamper_trusts_client_role(app):
@@ -85,7 +85,7 @@ def test_marks_tamper_trusts_client_role(app):
         data={"role": "admin", "subject": "Mathematics", "term": "2026 Term 1", "score": 100},
     )
     body = ok.get_json()
-    assert body["flag"] == "MFANO{client_said_admin_so_marks_changed}"
+    assert body["flag"] == "MFANO{cl13nt_s41d_4dm1n_s0_m4rks_ch4ng3d}"
 
     conn = sqlite3.connect(app.config["DATABASE"])
     score = conn.execute(

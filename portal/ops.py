@@ -11,7 +11,7 @@ from .db import get_db
 bp = Blueprint("ops", __name__, url_prefix="/ops")
 
 # Shown on the unprotected page. Reaching this page at all is the exploit.
-CONSOLE_TOKEN = "MFANO{unlinked_is_not_protected}"
+CONSOLE_TOKEN = "MFANO{unl1nk3d_1s_n0t_pr0t3ct3d}"
 
 
 @bp.route("/students")

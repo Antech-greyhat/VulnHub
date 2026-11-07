@@ -139,11 +139,20 @@ account counts for more.
 
 ## Find and submit flags
 
-Every flag looks like this:
+Every flag is the word `MFANO`, then short words in **leetspeak** inside curly
+braces, joined by underscores:
 
 ```text
-MFANO{short_lowercase_words}
+MFANO{c4n_h4ck_f0r_r34l}
 ```
+
+| Plain letter | a | e | i | o | s (sometimes) |
+| ------------ | - | - | - | - | ------------- |
+| In a flag | `4` | `3` | `1` | `0` | `5` |
+
+Copy a flag exactly as you find it. Don't translate it back to plain English. A
+plain-English guess like `MFANO{can_hack_for_real}` will always print
+`wrong flag`.
 
 1. **Hunt.** Exploit a bug in the portal, or pull a secret out of a forensics
    file. A real exploit makes the flag show up: in a page, a database row, a
@@ -152,7 +161,7 @@ MFANO{short_lowercase_words}
    leaves the braces alone:
 
    ```sh
-   python3 labctl.py submit 'MFANO{example_flag}'
+   python3 labctl.py submit 'MFANO{c4n_h4ck_f0r_r34l}'
    ```
 
    ```text
@@ -182,8 +191,10 @@ How scoring works:
   you submit and compares the two, so reading the repo won't give you the answers.
 - Your progress is saved in `.labprogress.json` in the repo folder. Git ignores
   that file. Delete it to start over.
-- Flags found in pictures, audio or video are drawn in capitals. Submit the part
-  inside the braces in **lowercase**.
+- Flags found in pictures, audio or video are drawn or spoken in capitals, for
+  example `MFANO{C4N_H4CK}`. Keep `MFANO` in capitals, but write the part inside
+  the braces in **lowercase** and keep the digits: `MFANO{c4n_h4ck}`. In the
+  pixel font, a zero has a slash through it and a one has a hook at the top.
 
 ## The challenges
 
@@ -266,8 +277,8 @@ On Windows, use `python` in place of `python3`.
 
 ## Run the tests
 
-The tests check that the lab is built correctly. They **contain spoilers**, so
-read them only after you finish.
+The tests check that the lab is built correctly. They **contain every flag**,
+so read them only after you finish.
 
 ```sh
 python3 -m venv .venv
@@ -286,6 +297,7 @@ python -m pytest -q
 | `error: externally-managed-environment` on `pip install` | Use `pipx` or a virtualenv, as shown above |
 | The portal looks broken after you experiment | `python3 labctl.py reset`, or `stop` then `start` to rebuild the containers |
 | You want to start the scoring over | Delete `.labprogress.json` |
+| A flag you found prints `wrong flag` after you ran `git pull` | The lab still has old data. Rebuild it: `docker compose down -v` (or `docker-compose down -v`), then `python3 labctl.py start` |
 
 ## Project layout
 
@@ -296,11 +308,17 @@ python -m pytest -q
 ├── forensics/         Offline forensics evidence and case brief
 ├── docker/            Container entrypoint
 ├── tests/             Build checks (spoilers)
+├── docs/.internal/    Maintainer notes and the answer key (spoilers)
 ├── labctl.py          Start, stop, reset, audit, submit, status
 ├── seed.py            Generates the fake school data
 ├── flags.sha256       Flag hashes only
 └── SCOREBOARD.md      Bug count per OWASP category
 ```
+
+> [!WARNING]
+> **Spoilers live in `tests/` and `docs/.internal/`.** The answer key, the
+> forensics generator and every plaintext flag are in there. Stay out until
+> you're done, or until you're really stuck.
 
 ## Safety rules
 

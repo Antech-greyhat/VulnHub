@@ -38,7 +38,7 @@ def test_report_idor_exposes_other_student(app):
     victim = student_id(app, "MHS1013")
     body = client.get(f"/student/report?sid={victim}").data
     # Pulling another student's report (not our own) reveals the flag in it.
-    assert b"MFANO{idor_reports_are_not_private}" in body
+    assert b"MFANO{1d0r_r3p0rt5_4r3_n0t_pr1v4t3}" in body
 
 
 def test_own_report_has_no_flag(app):
@@ -54,7 +54,7 @@ def test_report_requires_login(app):
 def test_ops_console_is_unprotected(app):
     # No login at all, yet the page opens and shows its token.
     body = app.test_client().get("/ops/students").data
-    assert b"MFANO{unlinked_is_not_protected}" in body
+    assert b"MFANO{unl1nk3d_1s_n0t_pr0t3ct3d}" in body
 
 
 def test_report_points_at_ops_console(app):
@@ -67,4 +67,4 @@ def test_report_files_and_notes_on_disk(app):
     report_dir = Path(app.config["REPORT_DIR"])
     assert (report_dir / "report_1.html").exists()
     notes = (report_dir / "ADMIN_NOTES.txt").read_text(encoding="utf-8")
-    assert "MFANO{ls_cat_grep_find_the_trail}" in notes and "/ops/students" in notes
+    assert "MFANO{ls_c4t_gr3p_f1nd_th3_tr41l}" in notes and "/ops/students" in notes

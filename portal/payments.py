@@ -10,7 +10,7 @@ from .student import own_student
 bp = Blueprint("payments", __name__, url_prefix="/payments")
 
 # Revealed when a client-driven "payment" clears the balance with no real money.
-CLEARED_FLAG = "MFANO{paid_nothing_fees_cleared}"
+CLEARED_FLAG = "MFANO{p41d_n0th1ng_f33s_cl34r3d}"
 
 
 @bp.route("/")

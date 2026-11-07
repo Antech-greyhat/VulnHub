@@ -15,13 +15,13 @@ import zlib
 from pathlib import Path
 
 FLAGS = {
-    "F-01": "MFANO{metadata_tells_the_story}",
-    "F-02": "MFANO{binwalk_carved_the_zip}",
-    "F-03": "MFANO{least_significant_secrets}",
-    "F-04": "MFANO{one_frame_too_fast}",
-    "F-05": "MFANO{morse_code_never_dies}",
-    "F-06": "MFANO{look_at_the_spectrogram}",
-    "F-07": "MFANO{frame_by_frame_cctv}",
+    "F-01": "MFANO{m3t4d4t4_t3lls_th3_st0ry}",
+    "F-02": "MFANO{b1nw4lk_c4rv3d_th3_z1p}",
+    "F-03": "MFANO{l34st_s1gn1f1c4nt_s3cr3ts}",
+    "F-04": "MFANO{0n3_fr4m3_t00_f4st}",
+    "F-05": "MFANO{m0rs3_c0d3_n3v3r_d13s}",
+    "F-06": "MFANO{l00k_4t_th3_sp3ctr0gr4m}",
+    "F-07": "MFANO{fr4m3_by_fr4m3_cctv}",
 }
 
 # ---------------------------------------------------------------- 5x7 font
@@ -313,6 +313,8 @@ MORSE = {
     "I": "..", "J": ".---", "K": "-.-", "L": ".-..", "M": "--", "N": "-.", "O": "---", "P": ".--.",
     "Q": "--.-", "R": ".-.", "S": "...", "T": "-", "U": "..-", "V": "...-", "W": ".--", "X": "-..-",
     "Y": "-.--", "Z": "--..",
+    "0": "-----", "1": ".----", "2": "..---", "3": "...--", "4": "....-",
+    "5": ".....", "6": "-....", "7": "--...", "8": "---..", "9": "----.",
 }
 
 

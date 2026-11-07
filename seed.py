@@ -18,7 +18,7 @@ DEMO_ADMIN = ("admin", "Mfano@Admin2026")
 # in the data, not in the fetch route, so it only appears when you pull this
 # student's report instead of your own.
 FLAG_REMARK_ADMISSION = "MHS1013"
-FLAG_REMARK = "Excellent term. Head teacher's commendation: MFANO{idor_reports_are_not_private}"
+FLAG_REMARK = "Excellent term. Head teacher's commendation: MFANO{1d0r_r3p0rt5_4r3_n0t_pr1v4t3}"
 PLAIN_REMARK = "A steady, improving term. Keep it up."
 
 FIRST_NAMES = """Achieng Amani Baraka Chebet Daudi Eunice Faraja Gathoni Halima Imani Jabali Kamau
@@ -49,7 +49,7 @@ def seed_core(conn, rng):
     # A staff-only table the SQL-injectable search can reach with a UNION.
     conn.execute(
         "INSERT INTO staff_secrets (label, secret) VALUES (?, ?)",
-        ("exams_vault_key", "MFANO{union_select_the_staff_vault}"),
+        ("exams_vault_key", "MFANO{un10n_s3l3ct_th3_st4ff_v4ult}"),
     )
     names = rng.sample([f"{a} {b}" for a in FIRST_NAMES for b in LAST_NAMES], STUDENT_COUNT)
     for index, full_name in enumerate(names, start=1):
@@ -103,7 +103,7 @@ def write_reports(app):
     # command (e.g. `; cat /srv/mfano/server.flag`) can read it.
     Path(app.config["MFANO_HOME"]).mkdir(parents=True, exist_ok=True)
     (Path(app.config["MFANO_HOME"]) / "server.flag").write_text(
-        "MFANO{semicolon_reached_the_shell}\n", encoding="utf-8"
+        "MFANO{s3m1c0l0n_r34ch3d_th3_sh3ll}\n", encoding="utf-8"
     )
     (report_dir / "ADMIN_NOTES.txt").write_text(
         "Mfano reporting - internal notes\n"
@@ -111,7 +111,7 @@ def write_reports(app):
         "Reports are written here, one HTML file per student id (report_<id>.html).\n"
         "TODO before term opens: put the legacy ops console at /ops/students behind\n"
         "the staff login - right now anyone who knows the path can open it.\n"
-        "Housekeeping flag: MFANO{ls_cat_grep_find_the_trail}\n",
+        "Housekeeping flag: MFANO{ls_c4t_gr3p_f1nd_th3_tr41l}\n",
         encoding="utf-8",
     )
 

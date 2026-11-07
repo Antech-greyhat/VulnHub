@@ -19,10 +19,10 @@ bp = Blueprint("admin", __name__, url_prefix="/admin")
 
 # Only an admin session can read this. A stored script running in an admin's
 # browser can fetch it, which is the point of the stored-XSS exercise.
-REVIEW_TOKEN = "MFANO{stored_script_stole_the_review_token}"
+REVIEW_TOKEN = "MFANO{st0r3d_scr1pt_st0l3_th3_r3v13w_t0k3n}"
 
 # Shown by the console that is gated on a forgeable cookie instead of the session.
-CONSOLE_FLAG = "MFANO{unsigned_cookie_made_me_admin}"
+CONSOLE_FLAG = "MFANO{uns1gn3d_c00k13_m4d3_m3_4dm1n}"
 
 
 @bp.route("/")

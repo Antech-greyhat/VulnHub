@@ -5,7 +5,7 @@
 const MFANO_PAYMENTS = {
   publicKey: "FAKE_MPESA_PUBLIC_KEY_123",
   // Oops: a "secret" key committed into client-side code.
-  secretKey: "MFANO{frontend_key_opened_the_till}",
+  secretKey: "MFANO{fr0nt3nd_k3y_0p3n3d_th3_t1ll}",
   endpoint: "/payments/pay",
 };
 
