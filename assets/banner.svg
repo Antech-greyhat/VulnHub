@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="260" viewBox="0 0 960 260" role="img" aria-label="Mfano High School Portal: a deliberately vulnerable lab">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0b2416"/>
+      <stop offset="1" stop-color="#0f1a14"/>
+    </linearGradient>
+    <pattern id="grid" width="24" height="24" patternUnits="userSpaceOnUse">
+      <path d="M24 0H0V24" fill="none" stroke="#1d3a28" stroke-width="1"/>
+    </pattern>
+  </defs>
+  <rect width="960" height="260" rx="14" fill="url(#bg)"/>
+  <rect width="960" height="260" rx="14" fill="url(#grid)" opacity="0.55"/>
+
+  <!-- Crest: a shield with a cracked lock -->
+  <g transform="translate(70 52)">
+    <path d="M70 0 L140 24 V82 C140 128 108 152 70 166 C32 152 0 128 0 82 V24 Z" fill="#14532d" stroke="#e3b341" stroke-width="4"/>
+    <rect x="44" y="72" width="52" height="44" rx="6" fill="#e3b341"/>
+    <path d="M54 72 V56 C54 44 62 36 70 36 C78 36 86 44 86 56" fill="none" stroke="#e3b341" stroke-width="8" stroke-linecap="round" transform="rotate(-18 86 72)"/>
+    <path d="M70 80 L64 94 L74 98 L68 112" fill="none" stroke="#0b2416" stroke-width="4" stroke-linejoin="round"/>
+  </g>
+
+  <g font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace">
+    <text x="250" y="92" fill="#e3b341" font-size="16" letter-spacing="4">MFANO · "EXAMPLE" IN SWAHILI</text>
+    <text x="250" y="136" fill="#f0f6f0" font-size="40" font-weight="700">Mfano High School Portal</text>
+    <text x="250" y="170" fill="#9fc5a8" font-size="18">A deliberately vulnerable school portal for learning</text>
+    <text x="250" y="194" fill="#9fc5a8" font-size="18">web pentesting and forensics, one flag at a time.</text>
+    <text x="250" y="230" fill="#58d68d" font-size="16">$ python3 labctl.py submit 'MFANO{...}'</text>
+    <rect x="604" y="216" width="10" height="18" fill="#58d68d"/>
+  </g>
+</svg>

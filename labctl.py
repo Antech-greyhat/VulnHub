@@ -103,11 +103,29 @@ def cmd_audit(_args):
     return 0
 
 
+def compose_command():
+    """Return the Compose CLI to use: the `docker compose` plugin, else the
+    standalone `docker-compose` (common on Kali and older Debian)."""
+    if shutil.which("docker"):
+        probe = subprocess.run(["docker", "compose", "version"], capture_output=True)
+        if probe.returncode == 0:
+            return ["docker", "compose"]
+    if shutil.which("docker-compose"):
+        return ["docker-compose"]
+    return None
+
+
 def compose(*parts):
-    if shutil.which("docker") is None:
-        print("Docker was not found. Install Docker Desktop, then try again.", file=sys.stderr)
+    command = compose_command()
+    if command is None:
+        print(
+            "Docker Compose was not found. On Kali/Debian run:\n"
+            "  sudo apt install -y docker.io docker-compose\n"
+            "On Windows or macOS install Docker Desktop. Then try again.",
+            file=sys.stderr,
+        )
         return 1
-    return subprocess.call(["docker", "compose", *parts], cwd=ROOT)
+    return subprocess.call([*command, *parts], cwd=ROOT)
 
 
 def cmd_start(_args):

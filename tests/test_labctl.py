@@ -45,3 +45,14 @@ def test_empty_flag_file(lab, capsys):
     assert labctl.main(["status"]) == 0
     assert "0 / 0 solved" in capsys.readouterr().out
     assert labctl.main(["submit", FLAG]) == 1
+
+
+def test_compose_falls_back_to_standalone(monkeypatch):
+    monkeypatch.setattr(labctl.shutil, "which", lambda name: "/usr/bin/docker-compose" if name == "docker-compose" else None)
+    assert labctl.compose_command() == ["docker-compose"]
+
+
+def test_compose_missing_is_reported(monkeypatch, capsys):
+    monkeypatch.setattr(labctl.shutil, "which", lambda name: None)
+    assert labctl.main(["stop"]) == 1
+    assert "docker-compose" in capsys.readouterr().err
