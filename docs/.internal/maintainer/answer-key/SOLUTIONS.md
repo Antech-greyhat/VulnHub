@@ -157,8 +157,8 @@ quiet mistakes that tie the payment flow together.
 
 ## Phase 7: Forensics
 
-The generator is `tools/build_forensics.py` on this branch only. It uses the
-standard library and is deterministic, so `python tools/build_forensics.py
+The generator is `docs/.internal/maintainer/answer-key/build_forensics.py` on this branch only. It uses the
+standard library and is deterministic, so `python docs/.internal/maintainer/answer-key/build_forensics.py
 forensics/evidence` rebuilds byte-identical files.
 
 ### F-01 · PNG metadata · `MFANO{metadata_tells_the_story}`
