@@ -1,5 +1,6 @@
 DROP TABLE IF EXISTS payments;
 DROP TABLE IF EXISTS marks;
+DROP TABLE IF EXISTS legacy_staff;
 DROP TABLE IF EXISTS students;
 DROP TABLE IF EXISTS users;
 
@@ -27,6 +28,17 @@ CREATE TABLE staff_secrets (
     id     INTEGER PRIMARY KEY,
     label  TEXT NOT NULL,
     secret TEXT NOT NULL
+);
+
+-- Legacy staff logins kept around from an old system. Passwords are stored as
+-- unsalted MD5 hashes (the Phase 5b weak-hashing bug). The injectable student
+-- search can UNION these rows out; the hash then cracks against a wordlist.
+CREATE TABLE legacy_staff (
+    id           INTEGER PRIMARY KEY,
+    username     TEXT NOT NULL UNIQUE,
+    md5_password TEXT NOT NULL,
+    display_name TEXT NOT NULL,
+    memo         TEXT NOT NULL DEFAULT ''
 );
 
 CREATE TABLE marks (

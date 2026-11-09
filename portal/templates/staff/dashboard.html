@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block title %}Staff room · Mfano High School{% endblock %}
+{% block content %}
+<section class="card">
+  <h1>Welcome, {{ staff['display_name'] }}</h1>
+  <p class="muted">Legacy exams-office console.</p>
+  <p>You recovered this account's password from an unsalted MD5 hash.</p>
+  <p class="notice">{{ flag }}</p>
+  <p class="muted">{{ staff['memo'] }}</p>
+</section>
+{% endblock %}
