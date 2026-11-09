@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block title %}Noticeboard · Mfano intranet{% endblock %}
+{% block content %}
+<section class="card">
+  <h1>Staff noticeboard</h1>
+  <p class="muted">The staff social wall. People share more than they think.</p>
+  {% for post in posts %}
+  <article class="post">
+    <p><b>{{ post.who }}</b> <span class="muted">· {{ post.when }}</span></p>
+    <p>{{ post.text }}</p>
+  </article>
+  {% endfor %}
+</section>
+{% endblock %}

@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block title %}Staff directory · Mfano intranet{% endblock %}
+{% block content %}
+<section class="card">
+  <h1>Staff directory</h1>
+  <p class="muted">Usernames follow <b>first-initial dot surname</b>.</p>
+  {% for person in staff %}
+  <article class="profile">
+    <h2>{{ person.name }}</h2>
+    <p class="muted">{{ person.role }} · <code>{{ person.username }}</code></p>
+    <p>{{ person.bio }}</p>
+  </article>
+  {% endfor %}
+</section>
+{% endblock %}

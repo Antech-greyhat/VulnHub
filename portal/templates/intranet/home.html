@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block title %}Staff intranet · Mfano High School{% endblock %}
+{% block content %}
+<section class="card">
+  <h1>Mfano staff intranet</h1>
+  <p class="muted">A training sandbox for social-engineering awareness. Every
+    person, post and message here is <b>made up</b>. Nothing sends real mail.</p>
+  <ul class="linklist">
+    <li><a href="{{ url_for('social.directory') }}">Staff directory</a> — who's who.</li>
+    <li><a href="{{ url_for('social.noticeboard') }}">Staff noticeboard</a> — the social wall.</li>
+    <li><a href="{{ url_for('social.staff_login') }}">Staff sign-in</a> — SE-01: profile a password from what people post.</li>
+    <li><a href="{{ url_for('social.webmail') }}">Webmail</a> — SE-02: pick the phishing messages.</li>
+    <li><a href="{{ url_for('social.helpdesk') }}">Helpdesk chat</a> — SE-03: talk to the support bot.</li>
+  </ul>
+</section>
+{% endblock %}

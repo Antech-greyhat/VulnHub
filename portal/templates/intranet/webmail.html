@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block title %}Webmail · Mfano intranet{% endblock %}
+{% block content %}
+<section class="card">
+  <h1>Webmail — training inbox</h1>
+  <p class="muted">SE-02 · Some of these are phishing. Tick every phishing
+    message, then submit. Look at the sender, the link, and the pressure.</p>
+  {% if result and result.ok %}
+    <p class="notice">Correct — you caught exactly the phishing messages. {{ result.flag }}</p>
+  {% elif result %}
+    <p class="notice">Not quite. Check the sender domains and where the links
+      really go, then try again.</p>
+  {% endif %}
+  <form method="post">
+    {% for mail in inbox %}
+    <article class="mail">
+      <label class="mail-pick">
+        <input type="checkbox" name="phish" value="{{ mail.id }}"> Flag as phishing
+      </label>
+      <p><b>From:</b> {{ mail.from }}</p>
+      <p><b>Subject:</b> {{ mail.subject }}</p>
+      <p><b>Link:</b> <code>{{ mail.link }}</code></p>
+      <p>{{ mail.body }}</p>
+    </article>
+    {% endfor %}
+    <button>Submit picks</button>
+  </form>
+</section>
+{% endblock %}

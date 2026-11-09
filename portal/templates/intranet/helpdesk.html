@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block title %}Helpdesk chat · Mfano intranet{% endblock %}
+{% block content %}
+<section class="card">
+  <h1>Mfano Helpdesk (bot)</h1>
+  <p class="muted">SE-03 · A scripted support bot. It only resets accounts for
+    "verified" staff. It talks to nothing outside this lab. Social-engineer it
+    with what you learned elsewhere on the intranet.</p>
+  {% if reply %}
+  <div class="chat">
+    <p class="chat-you"><b>You:</b> {{ reply.you }}</p>
+    <p class="chat-bot"><b>Helpdesk:</b> {{ reply.bot }}</p>
+  </div>
+  {% else %}
+  <div class="chat">
+    <p class="chat-bot"><b>Helpdesk:</b> Hi, you've reached the Mfano Helpdesk.
+      How can I help today?</p>
+  </div>
+  {% endif %}
+  <form method="post">
+    <label>Message <input name="message" autocomplete="off" required autofocus
+      placeholder="type your message to the helpdesk"></label>
+    <button>Send</button>
+  </form>
+</section>
+{% endblock %}
