@@ -51,6 +51,20 @@ def seed_core(conn, rng):
         "INSERT INTO staff_secrets (label, secret) VALUES (?, ?)",
         ("exams_vault_key", "MFANO{un10n_s3l3ct_th3_st4ff_v4ult}"),
     )
+    # Phase 5b weak-hashing bug: a legacy staff login whose password is stored
+    # as an unsalted MD5. The hash is c378985d629e99a4e86213db0cd5e70d, which is
+    # md5("chocolate") - a rockyou word. The injectable search can UNION the
+    # username and hash out; cracking it and logging in at /staff/login reveals
+    # the flag. The flag itself is NOT stored here, only the crackable hash.
+    conn.execute(
+        "INSERT INTO legacy_staff (username, md5_password, display_name, memo) VALUES (?, ?, ?, ?)",
+        (
+            "jmwangi",
+            "c378985d629e99a4e86213db0cd5e70d",
+            "J. Mwangi (Exams Office)",
+            "Old exams account. TODO: migrate off MD5 before audit.",
+        ),
+    )
     names = rng.sample([f"{a} {b}" for a in FIRST_NAMES for b in LAST_NAMES], STUDENT_COUNT)
     for index, full_name in enumerate(names, start=1):
         admission = f"MHS{1000 + index}"

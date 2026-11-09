@@ -1,6 +1,6 @@
 # Scoreboard
 
-Total intentional bugs so far: **17**
+Total intentional bugs so far: **22**
 
 | Phase | Count | OWASP 2025 category |
 | ----- | ----- | ------------------- |
@@ -17,6 +17,8 @@ Total intentional bugs so far: **17**
 | 5 | 2 | A04 Cryptographic Failures |
 | 5 | 1 | A03 Software Supply Chain Failures |
 | 5 | 1 | A10 Mishandling of Exceptional Conditions |
+| 5b | 4 | A04 Cryptographic Failures |
+| 5b | 1 | A07 Authentication Failures |
 
 Categories follow the [OWASP Top 10:2025](https://top10.owasp.org/2025/). Locations are not listed here on purpose.
 
