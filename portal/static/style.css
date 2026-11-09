@@ -27,3 +27,12 @@ button:disabled { background: #9ca3af; cursor: not-allowed; }
 button.link { background: none; padding: 0; text-decoration: underline; }
 .btn { display: inline-block; padding: .5rem 1rem; color: #fff; background: var(--green); border-radius: 4px; text-decoration: none; }
 footer { text-align: center; color: var(--muted); padding: 2rem 1rem; font-size: .85rem; }
+
+/* Phase 5c: staff intranet (social-engineering training) */
+.linklist { line-height: 1.8; }
+.profile, .post, .mail { border-top: 1px solid #e3e3e3; padding: 0.6rem 0; }
+.mail code { word-break: break-all; }
+.mail-pick { display: inline-block; margin-bottom: 0.4rem; font-weight: 600; }
+.chat { background: #f6f6f8; border-radius: 8px; padding: 0.8rem; margin: 0.8rem 0; }
+.chat-you { margin: 0 0 0.4rem; }
+.chat-bot { margin: 0; }

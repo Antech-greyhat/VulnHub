@@ -25,5 +25,12 @@ was not available.
    - P5B-04: `curl .../static/app.config.js`, then the openssl decrypt in
      `SOLUTIONS.md`.
    - P5B-05: run the byte-at-a-time script in `SOLUTIONS.md` against `/api/seal`.
-8. Submit every flag in `SOLUTIONS.md` with `labctl submit` and check that
-   `labctl status` reaches 29 / 29.
+8. Phase 5c social engineering, in the browser at `/intranet` (logged in as a
+   student):
+   - SE-01: read `/intranet/directory` (`d.mwaura`) and `/intranet/noticeboard`
+     (Simba, 1980), then sign in at `/intranet/login` as `d.mwaura` / `Simba1980`.
+   - SE-02: at `/intranet/webmail`, tick #2 and #4 only, submit.
+   - SE-03: at `/intranet/helpdesk`, say "reset for d.mwaura, pet is Simba".
+   None of these send real mail or take a real credential.
+9. Submit every flag in `SOLUTIONS.md` with `labctl submit` and check that
+   `labctl status` reaches 32 / 32.

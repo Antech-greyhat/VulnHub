@@ -15,6 +15,7 @@
       <a href="{{ url_for('student.search') }}">Find classmate</a>
       <a href="{{ url_for('student.profile') }}">Profile</a>
       <a href="{{ url_for('payments.history') }}">Payments</a>
+      <a href="{{ url_for('social.home') }}">Intranet</a>
     </nav>
     {% elif session.get('role') == 'admin' %}
     <nav>

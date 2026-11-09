@@ -33,3 +33,16 @@ they are not counted in the OWASP total above.
 | F-04 | 1 | GIF |
 | F-05 to F-06 | 2 | Audio |
 | F-07 | 1 | Video |
+
+## Social engineering (SEE)
+
+Three contained awareness challenges on the staff intranet (`/intranet`). Every
+person, post and message is a fake NPC; nothing sends real mail and no real
+credentials are involved. These are not web code bugs, so they are not counted
+in the OWASP total above.
+
+| Stage | Count | Type |
+| ----- | ----- | ---- |
+| SE-01 | 1 | OSINT / password profiling |
+| SE-02 | 1 | Phishing spotting (defence) |
+| SE-03 | 1 | Pretexting (scripted helpdesk bot) |

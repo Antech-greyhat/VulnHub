@@ -289,3 +289,59 @@ forensics/evidence` rebuilds byte-identical files.
   `07_corridor_cctv.avi`, at 02:13:04. The INFO comment hints "review every frame".
 - **Solve:** `ffmpeg -i 07_corridor_cctv.avi f%02d.png`, or step frames in VLC
   (`e` key).
+
+---
+
+## Phase 5c — Social engineering (SEE) (Easy–Medium)
+
+A contained awareness module on the staff **Intranet** (`/intranet`, in the
+student nav). Everyone is a fake NPC, nothing sends real mail, there is no
+working phishing page and no credential capture. Reach it as any student
+(`MHS1007` / `Student@123`).
+
+### SE-01 · OSINT password profiling · `MFANO{0s1nt_bu1lt_th3_p4ssw0rd}`
+- **Where:** `portal/social.py`. The target NPC is **Daniel Mwaura**, username
+  `d.mwaura` (directory). His public noticeboard posts give away the password:
+  the dog **Simba** and birth year **1980**; a third post spells out the habit
+  ("the dog + the year"). `/intranet/login` accepts `d.mwaura` / `Simba1980`.
+- **Solve:**
+  1. `/intranet/directory` → usernames are first-initial dot surname → `d.mwaura`.
+  2. `/intranet/noticeboard` → pet `Simba`, born `1980`.
+  3. `/intranet/login` as `d.mwaura` / **`Simba1980`** → flag.
+- **Hint:** *people build passwords out of their public life.*
+
+### SE-02 · Phishing spotting · `MFANO{sp0tt3d_th3_ph1sh}`
+- **Where:** `portal/social.py` `INBOX` — five static samples at
+  `/intranet/webmail`. Scoring is server-side (`PHISH_IDS`), so the answer is
+  not on the page. The two phishing items are:
+  - **#2** "URGENT: your mailbox will be CLOSED" — look-alike sender
+    `admin@mfan0-support.com` (zero for the "o"), link to a `.tk` host under a
+    fake subdomain, pressure/deadline.
+  - **#4** "Mfano Bank — salary on hold" — fake brand, `secure-mfano-bank.tk`
+    login link, two-hour deadline.
+  The legitimate three (#1 exams, #3 library, #5 principal) all come from
+  `@mfano.sch.ke` and link to `portal.mfano.sch.ke` with no pressure.
+- **Solve:** tick **exactly #2 and #4**, submit → flag. Any other set
+  (including "select all") fails.
+- **Hint:** *check the sender domain, where the link really goes, and the
+  urgency.*
+
+### SE-03 · Pretext helpdesk bot · `MFANO{pr3t3xt_ch41n3d_th3_r3s3t}`
+- **Where:** `portal/social.py` `_helpdesk_reply()` at `/intranet/helpdesk`. A
+  rule-based, offline bot. It releases the "reset code" only after the caller
+  presents the staff username from SE-01 (`d.mwaura`) **and** the security
+  answer, the pet name (`Simba`) from the noticeboard. That info-chain is the
+  lesson.
+- **Solve (scripted path):**
+  1. "I need a password reset" → bot asks for the staff username.
+  2. "my username is d.mwaura" → bot asks the security question (pet's name).
+  3. "Simba" → bot returns the reset code (the flag).
+  Or all-in-one: *"reset for d.mwaura, pet is Simba"*. A naive demand, or a
+  wrong pet, gets nothing.
+- **Hint:** *chain the username and the pet answer you already found.*
+
+### Containment note
+Nothing in Phase 5c sends a message or captures a credential: the webmail items
+are static strings, the helpdesk bot is a pure function of the message text, and
+the fake sign-in only compares against the invented NPC password. `social.py`
+imports no mail/network client (enforced by `tests/test_phase5c.py`).

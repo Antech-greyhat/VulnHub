@@ -55,6 +55,7 @@ fake, and the lab never calls a real payment API.
 | Networking | Port and service discovery with `nmap`, weak database credentials |
 | Secrets and supply chain | Secrets in frontend code and git history, vulnerable dependencies, leaky errors |
 | Cryptography | Cracking weak password hashes, spotting fake "encryption", forging weakly-signed tokens, hardcoded keys, ECB structure leaks |
+| Social engineering | OSINT password profiling, spotting phishing, and pretexting — all against fake NPCs in the lab |
 | Forensics | Image metadata, file carving, LSB steganography, GIF frames, Morse, spectrograms, video frames |
 
 ## Requirements
@@ -199,7 +200,7 @@ How scoring works:
 
 ## The challenges
 
-There are 29 flags. The categories are listed below, but not where the bugs are.
+There are 32 flags. The categories are listed below, but not where the bugs are.
 `SCOREBOARD.md` has the per-phase breakdown.
 
 | Stages | Theme | Count | Difficulty |
@@ -210,6 +211,7 @@ There are 29 flags. The categories are listed below, but not where the bugs are.
 | P4-xx | Server tools: chains that end in full control | 4 | Hard |
 | P5-xx | Secrets, supply chain and error handling | 4 | Medium-Hard |
 | P5B-xx | Weak cryptography: hashes, fake encryption, tokens, keys, ECB | 5 | Medium-Hard |
+| SE-xx | Social engineering: OSINT, phishing, pretexting (fake NPCs) | 3 | Easy-Medium |
 | F-xx | Forensics: images, GIF, audio, video | 7 | Easy to Medium |
 
 <details>
@@ -265,6 +267,24 @@ ls /usr/share/wordlists/rockyou.txt.gz && gunzip -k /usr/share/wordlists/rockyou
 The lessons: encoding is not encryption, a key shipped to the browser is not a
 secret, a guessable signing secret is forgeable, unsalted hashes fall to a
 wordlist, and ECB mode leaks the structure of what it encrypts.
+
+</details>
+
+<details>
+<summary><b>Social-engineering notes</b></summary>
+
+Three awareness challenges live on the staff **Intranet** (in the student nav,
+or `/intranet`). They are a safe sandbox:
+
+- **Everyone is a fake NPC.** No real people, companies or brands.
+- **Nothing sends a real message.** The webmail items are static samples and the
+  helpdesk "bot" is a rule-based script that talks to nothing outside the lab.
+- **No working phishing page, no credential capture.** You never type a real
+  password anywhere; the fake sign-in only checks an invented NPC account.
+
+What you practise: reading a person's public posts to profile a weak password
+(OSINT), telling phishing from legitimate mail by sender/link/pressure, and
+chaining small facts into a convincing pretext. No tools needed beyond the browser.
 
 </details>
 
