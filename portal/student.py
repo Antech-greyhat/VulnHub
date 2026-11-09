@@ -1,9 +1,13 @@
 """Student dashboard, report download, classmate search and profile."""
 from pathlib import Path
 
-from flask import Blueprint, abort, current_app, flash, redirect, render_template, request, send_file, url_for
+from flask import (
+    Blueprint, abort, current_app, flash, make_response, redirect, render_template,
+    request, send_file, url_for,
+)
 
 from .auth import current_user, login_required
+from .crypto import issue_student_cookies
 from .db import get_db
 
 bp = Blueprint("student", __name__, url_prefix="/student")
@@ -27,7 +31,11 @@ def dashboard():
         "SELECT subject, term, score FROM marks WHERE student_id = ? ORDER BY term, subject",
         (student["id"],),
     ).fetchall()
-    return render_template("student/dashboard.html", student=student, marks=marks)
+    # Phase 5b: hand the browser two weak artefacts. mfano_vault is a base64
+    # "locker" value dressed up as encrypted (C2); mfano_api is a JWT signed with
+    # a weak secret (C3). Both are visible in the browser's cookie store.
+    response = make_response(render_template("student/dashboard.html", student=student, marks=marks))
+    return issue_student_cookies(response, student["admission"])
 
 
 @bp.route("/report")

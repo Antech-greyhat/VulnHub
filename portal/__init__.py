@@ -5,7 +5,7 @@ from pathlib import Path
 
 from flask import Flask, redirect, session, url_for
 
-from . import admin, auth, db, diagnostics, ops, payments, social, student
+from . import admin, auth, crypto, db, diagnostics, ops, payments, social, student
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -41,6 +41,7 @@ def create_app(overrides=None):
     app.register_blueprint(payments.bp)
     app.register_blueprint(ops.bp)
     app.register_blueprint(diagnostics.bp)
+    app.register_blueprint(crypto.bp)
     app.register_blueprint(social.bp)
 
     @app.route("/")

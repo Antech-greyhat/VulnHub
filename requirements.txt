@@ -3,3 +3,5 @@ Werkzeug==3.1.9
 # Pinned to an old, known-vulnerable version on purpose (supply-chain lesson).
 # Run `python labctl.py audit` or `pip-audit -r requirements.txt` to see it.
 requests==2.19.1
+# AES/JWT helpers for the Phase 5b weak-crypto challenges.
+pycryptodome==3.20.0
