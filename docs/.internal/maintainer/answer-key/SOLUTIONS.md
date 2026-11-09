@@ -148,6 +148,93 @@ All demo logins: students `MHS1001`–`MHS1030` / `Student@123`, admin `admin` /
   interactive traceback shows the message with the token.
 - **Hint:** *make it crash and read the stack trace.*
 
+## Phase 5b — Cryptography (Medium–Hard)
+
+Each flag falls out of *breaking* the crypto at runtime, never from reading the
+source. Demo student `MHS1007` / `Student@123` reaches every entry point.
+
+### P5B-01 · Weak password hashing (unsalted MD5) · A04 · `MFANO{md5_cr4ck3d_th3_st4ff_h4sh}`
+- **Where:** `seed.py` seeds `legacy_staff` with `jmwangi` whose password is
+  stored as unsalted MD5 `c378985d629e99a4e86213db0cd5e70d`. `portal/crypto.py`
+  `staff_login()` verifies the password as `md5(pw)`. The flag is a constant in
+  `crypto.py`, shown only after a successful login — it is *not* in the table,
+  so the SQLi that leaks the hash cannot also leak the flag.
+- **Exploit:**
+  1. Leak the hash through the Phase-3 SQL injection in `/student/search`
+     (two columns), e.g.
+     `/student/search?q=zzz%25' UNION SELECT username, md5_password FROM legacy_staff-- -`
+     → `jmwangi:c378985d629e99a4e86213db0cd5e70d`.
+  2. Crack it against a wordlist:
+     `echo c378985d629e99a4e86213db0cd5e70d > h.txt`
+     `hashcat -m 0 h.txt /usr/share/wordlists/rockyou.txt` (or
+     `john --format=raw-md5 --wordlist=rockyou.txt h.txt`) → **`chocolate`**.
+  3. Log in at `/staff/login` as `jmwangi` / `chocolate`. The page shows the flag.
+- **Hint:** *the hash is unsalted and the password is an ordinary word.*
+
+### P5B-02 · Fake encryption (base64) · A04 · `MFANO{b4s3_s1xtyf0ur_1s_n0t_crypt0}`
+- **Where:** `portal/crypto.py` sets the `mfano_vault` cookie on the student
+  dashboard to `VAULT_COOKIE_B64`, labelled an "AES-wrapped locker token". It is
+  only base64 — encoding, not encryption.
+- **Exploit:** log in as a student, read the `mfano_vault` cookie (DevTools →
+  Application → Cookies, or `curl -c jar -b jar`), then
+  `echo 'TUZBTk97YjRzM19zMXh0eWYwdXJfMXNfbjB0X2NyeXB0MH0=' | base64 -d`.
+- **Hint:** *that is not ciphertext — try decoding it.*
+
+### P5B-03 · Weak token signing (JWT) · A07 · `MFANO{w34k_jwt_s3cr3t_f0rg3d_4dm1n}`
+- **Where:** `portal/crypto.py` issues the `mfano_api` JWT (HS256) signed with
+  the weak secret **`mfano123`**, carrying `role: "student"`. `/api/exam-key`
+  returns the flag only when the token's `role` is `admin`.
+- **Exploit:**
+  1. Grab your `mfano_api` token (student dashboard cookie).
+  2. Crack the secret: `hashcat -m 16500 token.txt /usr/share/wordlists/rockyou.txt`
+     or `jwt_tool <token> -C -d rockyou.txt` → **`mfano123`**.
+  3. Forge an admin token with that secret, e.g.
+     `jwt_tool <token> -S hs256 -p 'mfano123' -T` (set `role` to `admin`), or in
+     Python with the repo helper:
+     `python -c "from portal.cryptolib import jwt_encode; print(jwt_encode({'sub':'MHS1007','role':'admin'},'mfano123'))"`.
+  4. `curl -H "Authorization: Bearer <forged>" http://127.0.0.1:8080/api/exam-key`
+     → the flag. A student token gets `403`.
+- **Hint:** *the signature is real HMAC; the secret is guessable.*
+
+### P5B-04 · Hardcoded key · A04 · `MFANO{h4rdc0d3d_k3y_1s_n0t_s3cr3t}`
+- **Where:** `portal/static/app.config.js` ships, side by side, the AES-128-CBC
+  `keyHex` `0f1e2d3c4b5a69788796a5b4c3d2e1f0` and the
+  `encryptedTranscript` = base64(IV‖ciphertext). A key shipped with the
+  ciphertext is not a secret.
+- **Exploit:** `curl http://127.0.0.1:8080/static/app.config.js`, then decrypt
+  (IV is the first 16 bytes of the blob):
+  ```sh
+  echo 'ABEiM0RVZneImaq7zN3u/zZq3RYslyRepYavVAOlBbh+iLPcq610DptUyeh4UcXZ0dq4EnXt/FMxcSVth4sh9g==' \
+    | base64 -d | tail -c +17 \
+    | openssl enc -d -aes-128-cbc -K 0f1e2d3c4b5a69788796a5b4c3d2e1f0 \
+        -iv 00112233445566778899aabbccddeeff
+  ```
+  (or CyberChef: *From Base64* → *AES Decrypt*, CBC, key hex, IV = first block.)
+- **Hint:** *the key is in the file you just downloaded.*
+
+### P5B-05 · ECB mode leak · A04 · `MFANO{3cb_r3p34ts_g1v3_1t_4w4y}`
+- **Where:** `portal/crypto.py` `/api/seal?q=<base64>` returns
+  `AES-ECB(key, your_bytes ‖ secret_flag)` as hex, with a key random per process.
+  ECB maps equal 16-byte plaintext blocks to equal ciphertext blocks, so the
+  appended secret can be peeled off a byte at a time (CryptoPals #12).
+- **Exploit:** confirm ECB first — two identical input blocks give two identical
+  ciphertext blocks (`?q=` of 32 × `A`). Then byte-at-a-time recovery:
+  ```python
+  import base64, requests
+  S = requests.Session(); S.post("http://127.0.0.1:8080/login",
+      data={"username":"MHS1007","password":"Student@123"})
+  oracle = lambda p: bytes.fromhex(S.get("http://127.0.0.1:8080/api/seal",
+      params={"q": base64.b64encode(p).decode()}).text)
+  B, out = 16, b""
+  while not out.endswith(b"}"):
+      pad = b"A"*(B-1-(len(out)%B)); i = len(out)//B
+      tgt = oracle(pad)[i*B:(i+1)*B]
+      out += bytes(b for b in range(256)
+                   if oracle(pad+out+bytes([b]))[i*B:(i+1)*B]==tgt)[:1]
+  print(out.decode())
+  ```
+- **Hint:** *same input block, same output block — lean on that.*
+
 ---
 
 ## The intended chain
