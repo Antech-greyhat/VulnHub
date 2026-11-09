@@ -15,5 +15,12 @@ was not available.
    Linux container, so test it there.
 6. `pipx install pip-audit && python3 labctl.py audit` prints the P5-03 flag. If
    it can't resolve, run `pip-audit` inside the container.
-7. Submit every flag in `SOLUTIONS.md` with `labctl submit` and check that
-   `labctl status` reaches 24 / 24.
+7. Phase 5c social engineering, in the browser at `/intranet` (logged in as a
+   student):
+   - SE-01: read `/intranet/directory` (`d.mwaura`) and `/intranet/noticeboard`
+     (Simba, 1980), then sign in at `/intranet/login` as `d.mwaura` / `Simba1980`.
+   - SE-02: at `/intranet/webmail`, tick #2 and #4 only, submit.
+   - SE-03: at `/intranet/helpdesk`, say "reset for d.mwaura, pet is Simba".
+   None of these send real mail or take a real credential.
+8. Submit every flag in `SOLUTIONS.md` with `labctl submit` and check that
+   `labctl status` reaches 27 / 27.
