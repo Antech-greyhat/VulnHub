@@ -131,8 +131,11 @@ All demo logins: students `MHS1001`–`MHS1030` / `Student@123`, admin `admin` /
 - **Where:** `deploy/secrets.env`. It was added and removed twice. The first
   copy holds an old plain-English secret marked as rotated, which is now a
   decoy (`wrong flag`). The second copy, labelled "rotate", holds the real flag.
-- **Exploit:** `git log -p -- deploy/secrets.env`, `git log -p -S g1t_h1st0ry`,
-  or `gitleaks detect`. Take the newest secret.
+- **Exploit:** `git log -p --full-history -- deploy/secrets.env`,
+  `git log -p -S g1t_h1st0ry`, or `gitleaks detect`. Take the newest secret.
+  `--full-history` matters: each add is undone by a later remove, so after the
+  phase branches were merged a plain `git log -- deploy/secrets.env` prints
+  nothing (history simplification).
 - **Hint:** *the latest tree is clean; the history is not.*
 
 ### P5-03 · Outdated dependency · A03 · `MFANO{p1p_4ud1t_f0und_th3_0ld_r3qu3sts}`

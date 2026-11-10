@@ -7,7 +7,7 @@
   <img alt="Flask 3" src="https://img.shields.io/badge/flask-3.1-000000?logo=flask&logoColor=white">
   <img alt="Docker Compose" src="https://img.shields.io/badge/docker-compose-2496ED?logo=docker&logoColor=white">
   <img alt="OWASP Top 10 2025" src="https://img.shields.io/badge/OWASP-Top%2010%3A2025-000000?logo=owasp&logoColor=white">
-  <img alt="24 flags" src="https://img.shields.io/badge/flags-24-e3b341">
+  <img alt="32 flags" src="https://img.shields.io/badge/flags-32-e3b341">
   <img alt="Kali ready" src="https://img.shields.io/badge/kali-ready-557C94?logo=kalilinux&logoColor=white">
   <img alt="Vulnerable by design" src="https://img.shields.io/badge/vulnerable-by%20design-b91c1c">
 </p>
@@ -184,7 +184,7 @@ plain-English guess like `MFANO{can_hack_for_real}` will always print
    P1-01   A01 Broken Access Control                   Easy          solved
    P1-02   A01 Broken Access Control                   Easy          -
    ...
-   1 / 24 solved
+   1 / 32 solved
    ```
 
 How scoring works:

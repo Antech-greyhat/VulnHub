@@ -38,8 +38,10 @@ def test_secret_is_recoverable_from_git_history():
     )
     assert tree.returncode != 0  # not in the current tree
 
+    # --full-history: the add-then-remove pairs cancel out, so once the phase
+    # branches were merged git's default history simplification hides them.
     history = subprocess.run(
-        ["git", "log", "-p", "--", "deploy/secrets.env"], cwd=ROOT, capture_output=True, text=True
+        ["git", "log", "-p", "--full-history", "--", "deploy/secrets.env"], cwd=ROOT, capture_output=True, text=True
     )
     assert "MFANO{g1t_h1st0ry_n3v3r_f0rg3ts}" in history.stdout
 
