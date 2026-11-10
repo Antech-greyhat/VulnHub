@@ -5,6 +5,13 @@ list for the running lab are next door in `../answer-key/`.
 
 ## Done
 
+- Phase 5d (branch `phase-5d-integrity-design`) adds 3 integrity/insecure-design
+  challenges in the student account area: P5D-01 insecure deserialization
+  (pickle cookie, A08), P5D-02 mass assignment (A06), P5D-03 secrets in an
+  exposed log (A09). New files `portal/integrity.py`, `tests/test_phase5d.py`,
+  `portal/templates/account/*`; the log viewer is in `portal/diagnostics.py`.
+  Brings `flags.sha256` to 35 and the OWASP total to 25 once merged.
+
 - Phases 0 to 5 (17 web, network and supply-chain bugs) and Phase 7 (7
   forensics challenges) are on `main`. That makes 24 stages in `flags.sha256`.
 - Every flag uses leetspeak, e.g. `MFANO{c4n_h4ck_f0r_r34l}`. The old

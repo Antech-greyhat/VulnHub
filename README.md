@@ -7,7 +7,7 @@
   <img alt="Flask 3" src="https://img.shields.io/badge/flask-3.1-000000?logo=flask&logoColor=white">
   <img alt="Docker Compose" src="https://img.shields.io/badge/docker-compose-2496ED?logo=docker&logoColor=white">
   <img alt="OWASP Top 10 2025" src="https://img.shields.io/badge/OWASP-Top%2010%3A2025-000000?logo=owasp&logoColor=white">
-  <img alt="24 flags" src="https://img.shields.io/badge/flags-24-e3b341">
+  <img alt="35 flags" src="https://img.shields.io/badge/flags-35-e3b341">
   <img alt="Kali ready" src="https://img.shields.io/badge/kali-ready-557C94?logo=kalilinux&logoColor=white">
   <img alt="Vulnerable by design" src="https://img.shields.io/badge/vulnerable-by%20design-b91c1c">
 </p>
@@ -55,6 +55,7 @@ fake, and the lab never calls a real payment API.
 | Networking | Port and service discovery with `nmap`, weak database credentials |
 | Secrets and supply chain | Secrets in frontend code and git history, vulnerable dependencies, leaky errors |
 | Cryptography | Cracking weak password hashes, spotting fake "encryption", forging weakly-signed tokens, hardcoded keys, ECB structure leaks |
+| Integrity and design | Insecure deserialization, mass assignment, secrets leaking into exposed logs |
 | Social engineering | OSINT password profiling, spotting phishing, and pretexting — all against fake NPCs in the lab |
 | Forensics | Image metadata, file carving, LSB steganography, GIF frames, Morse, spectrograms, video frames |
 
@@ -184,7 +185,7 @@ plain-English guess like `MFANO{can_hack_for_real}` will always print
    P1-01   A01 Broken Access Control                   Easy          solved
    P1-02   A01 Broken Access Control                   Easy          -
    ...
-   1 / 24 solved
+   1 / 35 solved
    ```
 
 How scoring works:
@@ -200,7 +201,7 @@ How scoring works:
 
 ## The challenges
 
-There are 32 flags. The categories are listed below, but not where the bugs are.
+There are 35 flags. The categories are listed below, but not where the bugs are.
 `SCOREBOARD.md` has the per-phase breakdown.
 
 | Stages | Theme | Count | Difficulty |
@@ -211,6 +212,7 @@ There are 32 flags. The categories are listed below, but not where the bugs are.
 | P4-xx | Server tools: chains that end in full control | 4 | Hard |
 | P5-xx | Secrets, supply chain and error handling | 4 | Medium-Hard |
 | P5B-xx | Weak cryptography: hashes, fake encryption, tokens, keys, ECB | 5 | Medium-Hard |
+| P5D-xx | Integrity and design: deserialization, mass assignment, logged secrets | 3 | Medium |
 | SE-xx | Social engineering: OSINT, phishing, pretexting (fake NPCs) | 3 | Easy-Medium |
 | F-xx | Forensics: images, GIF, audio, video | 7 | Easy to Medium |
 

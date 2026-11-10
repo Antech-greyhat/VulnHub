@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title %}Forgot password · Mfano High School{% endblock %}
+{% block content %}
+<h1>Reset your password</h1>
+{% if submitted %}
+<section class="card narrow">
+  <p class="notice">
+    If an account for <strong>{{ username }}</strong> exists, a recovery code has
+    been generated and recorded for the office to read back to you.
+  </p>
+  <p class="muted">Audit event written to {{ log_hint }}.</p>
+</section>
+{% else %}
+<section class="card narrow">
+  <p class="muted">Enter your username. The office will read the recovery code back to you.</p>
+  <form method="post">
+    <label>Username <input name="username" required autofocus></label>
+    <button>Request reset</button>
+  </form>
+</section>
+{% endif %}
+{% endblock %}

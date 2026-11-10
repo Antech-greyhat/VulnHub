@@ -5,7 +5,7 @@ from pathlib import Path
 
 from flask import Flask, redirect, session, url_for
 
-from . import admin, auth, crypto, db, diagnostics, ops, payments, social, student
+from . import admin, auth, crypto, db, diagnostics, integrity, ops, payments, social, student
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -19,6 +19,8 @@ def create_app(overrides=None):
         DATABASE=home / "data" / "mfano.db",
         REPORT_DIR=home / "reports",
         UPLOAD_DIR=home / "uploads",
+        # Phase 5d: the security audit log, served unprotected by /diagnostics/logs.
+        SECURITY_LOG=home / "logs" / "portal-security.log",
         # Reached by rendering an uploaded template (upload -> SSTI code exec).
         SERVER_FLAG=os.environ.get("MFANO_SERVER_FLAG", "MFANO{upl04d3d_scr1pt_r4n_0n_th3_s3rv3r}"),
         # The internal grading service, pointed at by the SSRF "import logo" tool.
@@ -43,6 +45,7 @@ def create_app(overrides=None):
     app.register_blueprint(diagnostics.bp)
     app.register_blueprint(crypto.bp)
     app.register_blueprint(social.bp)
+    app.register_blueprint(integrity.bp)
 
     @app.route("/")
     def index():

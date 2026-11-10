@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block title %}Account settings · Mfano High School{% endblock %}
+{% block content %}
+<h1>Account settings</h1>
+<section class="card">
+  <p>{{ student.full_name }} ({{ student.admission }})</p>
+  <form method="post">
+    <label>Display name
+      <input name="full_name" value="{{ student.full_name }}">
+    </label>
+    <label>About me (shown to your class teacher)
+      <textarea name="about" rows="4">{{ student.about }}</textarea>
+    </label>
+    <button>Save settings</button>
+  </form>
+</section>
+<section class="card">
+  <h2>Class representatives</h2>
+  <p class="muted">
+    Class reps can open the <a href="{{ url_for('integrity.rep_room') }}">Rep Room</a>
+    for the staff briefing. Reps are appointed by the deputy's office.
+  </p>
+</section>
+{% endblock %}

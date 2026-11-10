@@ -32,5 +32,13 @@ was not available.
    - SE-02: at `/intranet/webmail`, tick #2 and #4 only, submit.
    - SE-03: at `/intranet/helpdesk`, say "reset for d.mwaura, pet is Simba".
    None of these send real mail or take a real credential.
-9. Submit every flag in `SOLUTIONS.md` with `labctl submit` and check that
-   `labctl status` reaches 32 / 32.
+9. Phase 5d integrity and design, logged in as a student:
+   - P5D-01: `GET /account/prefs` once to get the `mfano_prefs` cookie; replace
+     it with the base64 pickle from `SOLUTIONS.md` and re-request — the flag
+     comes back in the JSON.
+   - P5D-02: `POST /account/settings` with `is_rep=1`, then open
+     `/account/rep-room`.
+   - P5D-03: `POST /account/forgot` with `username=admin`, then
+     `GET /diagnostics/logs?name=portal-security.log` (no login needed).
+10. Submit every flag in `SOLUTIONS.md` with `labctl submit` and check that
+    `labctl status` reaches 35 / 35.

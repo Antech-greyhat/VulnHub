@@ -119,6 +119,18 @@ def write_reports(app):
     (Path(app.config["MFANO_HOME"]) / "server.flag").write_text(
         "MFANO{s3m1c0l0n_r34ch3d_th3_sh3ll}\n", encoding="utf-8"
     )
+    # Phase 5d (A09): a security audit log that /diagnostics/logs serves to
+    # anyone. It starts with only benign history; the password-reset flow writes
+    # the sensitive recovery codes into it at runtime.
+    log_path = Path(app.config["SECURITY_LOG"])
+    log_path.parent.mkdir(parents=True, exist_ok=True)
+    log_path.write_text(
+        "2026-09-01 06:02:11 AUDIT service start version=2026.9.1\n"
+        "2026-09-01 07:41:55 AUDIT login ok user=admin ip=127.0.0.1\n"
+        "2026-09-02 08:13:40 AUDIT login fail user=MHS1007 ip=127.0.0.1\n"
+        "2026-09-02 08:14:07 AUDIT login ok user=MHS1007 ip=127.0.0.1\n",
+        encoding="utf-8",
+    )
     (report_dir / "ADMIN_NOTES.txt").write_text(
         "Mfano reporting - internal notes\n"
         "--------------------------------\n"

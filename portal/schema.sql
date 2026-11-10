@@ -21,7 +21,10 @@ CREATE TABLE students (
     fee_total   INTEGER NOT NULL,
     fee_balance INTEGER NOT NULL,
     remark      TEXT NOT NULL DEFAULT '',
-    about       TEXT NOT NULL DEFAULT ''
+    about       TEXT NOT NULL DEFAULT '',
+    -- Class-representative flag. Meant to be set by staff only, but the Phase 5d
+    -- mass-assignment bug lets a student set it on their own row.
+    is_rep      INTEGER NOT NULL DEFAULT 0
 );
 
 CREATE TABLE staff_secrets (
