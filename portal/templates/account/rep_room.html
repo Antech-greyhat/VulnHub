@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block title %}Rep Room · Mfano High School{% endblock %}
+{% block content %}
+<h1>Rep Room</h1>
+<section class="card">
+  <p>Welcome, class representative {{ student.full_name }}.</p>
+  <p>This week's staff briefing code for class reps:</p>
+  <p class="figure">{{ flag }}</p>
+</section>
+{% endblock %}
