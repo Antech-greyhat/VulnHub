@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Helper CLI for the Mfano lab. Run `python labctl.py --help`."""
+"""Legacy maintainer helper. Linux learners should use the Bash `./labctl` CLI."""
 import argparse
 import hashlib
 import json

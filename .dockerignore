@@ -1,5 +1,9 @@
 .git
 .labprogress.json
+.labprogress.json.lock
+.labprogress.json.tmp.*
+.labctl-work.*
+cli
 .pytest_cache
 __pycache__
 *.pyc

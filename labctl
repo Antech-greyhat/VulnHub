@@ -1,0 +1,41 @@
+#!/usr/bin/env bash
+# Linux entry point. Resolve symlinks so a PATH installation works from any cwd.
+set -uo pipefail
+
+VERSION=1.0.0
+JSON_MODE=false
+PLAIN_MODE=false
+[[ -z ${NO_COLOR:-} ]] || PLAIN_MODE=true
+COMMAND=menu
+ARGS=()
+for arg in "$@"; do
+    case "$arg" in
+        --json) JSON_MODE=true ;;
+        --no-color) PLAIN_MODE=true ;;
+        *) ARGS+=("$arg") ;;
+    esac
+done
+
+if (( BASH_VERSINFO[0] < 4 )); then
+    if $JSON_MODE; then
+        printf '%s\n' '{"ok":false,"error":{"code":"bash_version","message":"labctl requires Bash 4 or newer on Linux."}}'
+    else
+        printf '%s\n' 'labctl requires Bash 4 or newer on Linux.' >&2
+    fi
+    exit 1
+fi
+
+ENTRY_POINT=$(readlink -f -- "${BASH_SOURCE[0]}") || exit 1
+CODE_ROOT=$(cd -- "$(dirname -- "$ENTRY_POINT")" && pwd -P) || exit 1
+LAB_ROOT=$(readlink -m -- "${LABCTL_ROOT:-$CODE_ROOT}") || exit 1
+FLAGS_FILE=$LAB_ROOT/flags.sha256
+CATALOG_FILE=$CODE_ROOT/cli/challenges.json
+PROGRESS_FILE=${LABCTL_PROGRESS_FILE:-$LAB_ROOT/.labprogress.json}
+[[ "$PROGRESS_FILE" == /* ]] || PROGRESS_FILE=$PWD/$PROGRESS_FILE
+
+# These libraries are Bash; jq handles data, and whiptail draws the menus.
+# shellcheck source=cli/lib/core.sh
+source "$CODE_ROOT/cli/lib/core.sh"
+# shellcheck source=cli/lib/ui.sh
+source "$CODE_ROOT/cli/lib/ui.sh"
+main "${ARGS[@]}"
