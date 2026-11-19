@@ -1,5 +1,7 @@
 # Personal lab progress
 .labprogress.json
+.labprogress.json.lock
+.labprogress.json.tmp.*
 
 # Runtime data (database, generated reports, uploads)
 var/

@@ -24,8 +24,10 @@ zero `0` has a slash through it, and a one `1` has a hook at the top while an
 `I` has bars at the top and bottom.
 
 ```sh
-python labctl.py submit 'MFANO{...}'
-python labctl.py status
+labctl                      # menu: choose Submit a flag, track F, then a challenge
+labctl submit F-01           # hidden flag entry for a known challenge
+labctl status
+labctl hints F-01
 ```
 
 ## The evidence
