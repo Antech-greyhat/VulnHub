@@ -1,6 +1,6 @@
 # Scoreboard
 
-Total intentional bugs so far: **25**
+Total intentional bugs so far: **29**
 
 | Phase | Count | OWASP 2025 category |
 | ----- | ----- | ------------------- |
@@ -22,6 +22,7 @@ Total intentional bugs so far: **25**
 | 5d | 1 | A06 Insecure Design |
 | 5d | 1 | A08 Software and Data Integrity Failures |
 | 5d | 1 | A09 Security Logging and Monitoring Failures |
+| BF | 4 | A07 Authentication Failures |
 
 Categories follow the [OWASP Top 10:2025](https://top10.owasp.org/2025/). Locations are not listed here on purpose.
 

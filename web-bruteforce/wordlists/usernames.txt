@@ -1,0 +1,14 @@
+admin
+administrator
+bursar
+headteacher
+secretary
+teacher
+registrar
+student
+operator
+archivist
+examadmin
+manager
+support
+guest

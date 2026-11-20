@@ -1,0 +1,16 @@
+admin
+administrator
+archive
+assets
+backup
+console
+dashboard
+exams
+internal
+legacy
+login
+management
+office
+reports
+staff
+support

@@ -8,7 +8,7 @@
   <img alt="Bash CLI" src="https://img.shields.io/badge/CLI-Bash-4EAA25?logo=gnubash&logoColor=white">
   <img alt="Docker Compose" src="https://img.shields.io/badge/docker-compose-2496ED?logo=docker&logoColor=white">
   <img alt="OWASP Top 10 2025" src="https://img.shields.io/badge/OWASP-Top%2010%3A2025-000000?logo=owasp&logoColor=white">
-  <img alt="35 flags" src="https://img.shields.io/badge/flags-35-e3b341">
+  <img alt="39 flags" src="https://img.shields.io/badge/flags-39-e3b341">
   <img alt="Kali ready" src="https://img.shields.io/badge/kali-ready-557C94?logo=kalilinux&logoColor=white">
   <img alt="Vulnerable by design" src="https://img.shields.io/badge/vulnerable-by%20design-b91c1c">
 </p>
@@ -49,7 +49,7 @@ fake, and the lab never calls a real payment API.
 
 | Track | Skills |
 | ----- | ------ |
-| Web | Access control, injection, broken auth and sessions, file upload, SSRF, business logic |
+| Web | Access control, injection, broken auth and sessions, login discovery and brute forcing, file upload, SSRF, business logic |
 | Linux | Moving around the filesystem of a compromised box |
 | Networking | Port and service discovery with `nmap`, weak database credentials |
 | Secrets and supply chain | Secrets in frontend code and git history, vulnerable dependencies, leaky errors |
@@ -191,7 +191,7 @@ How scoring works:
 
 ## The challenges
 
-There are 35 flags. The categories are listed below, but not where the bugs are.
+There are 39 flags. The categories are listed below, but not where the bugs are.
 `SCOREBOARD.md` has the per-phase breakdown.
 
 | Stages | Theme | Count | Difficulty |
@@ -203,6 +203,7 @@ There are 35 flags. The categories are listed below, but not where the bugs are.
 | P5-xx | Secrets, supply chain and error handling | 4 | Medium-Hard |
 | P5B-xx | Weak cryptography: hashes, fake encryption, tokens, keys, ECB | 5 | Medium-Hard |
 | P5D-xx | Integrity and design: deserialization, mass assignment, logged secrets | 3 | Medium |
+| BF-xx | Web brute-force basics: discovery, request fields, login errors, hidden accounts | 4 | Easy-Medium |
 | SE-xx | Social engineering: OSINT, phishing, pretexting (fake NPCs) | 3 | Easy-Medium |
 | F-xx | Forensics: images, GIF, audio, video | 7 | Easy to Medium |
 
@@ -223,6 +224,18 @@ nmap -sV 127.0.0.1
 A small internal grading service also runs inside the Docker network. It isn't
 published to your machine, so `nmap` from the host won't see it. Reaching it is
 a later challenge.
+
+</details>
+
+<details>
+<summary><b>Web brute-force notes</b></summary>
+
+Four retired consoles teach a beginner workflow: discover pages, inspect browser
+source and requests, recover an account, then test a small password wordlist.
+The interface is intentionally plain. Read the spoiler-free
+[`web-bruteforce/README.md`](web-bruteforce/README.md) for the practice sequence
+and bundled wordlists. `labctl labs --track BF` lists the exercises;
+`labctl hints BF-01` offers a gentle clue.
 
 </details>
 
