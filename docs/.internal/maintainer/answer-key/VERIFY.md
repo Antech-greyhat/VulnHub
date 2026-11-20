@@ -40,5 +40,20 @@ was not available.
      `/account/rep-room`.
    - P5D-03: `POST /account/forgot` with `username=admin`, then
      `GET /diagnostics/logs?name=portal-security.log` (no login needed).
-10. Submit every flag in `SOLUTIONS.md` with `labctl submit` and check that
-    `labctl status` reaches 35 / 35.
+10. Web brute-force basics, without logging into the main portal:
+    - Inspect `/robots.txt`; discover `/management/` independently with
+      Gobuster and `web-bruteforce/wordlists/paths.txt`.
+    - BF-01: `/archive/login` source contains a Base64 username. Decode to
+      `a.njeri`, inspect the JavaScript mapping `Username` to `username`, and
+      guess the password `sunshine` from the practice list.
+    - BF-02: enumerate usernames at `/office/login` using a wrong password.
+      `incorrect password` identifies `registrar`; then guess `welcome1`.
+    - BF-03: at `/backup/login`, use an invalid username and guess passwords.
+      `incorrect username` identifies shared password `football`. Hold it
+      constant and enumerate usernames to find `archivist`.
+    - BF-04: `/management/login` source leaks an MD5 username digest. Match
+      it against the username list to recover `examadmin`, then guess `dragon`.
+    All errors return HTTP 200. Only a complete, successful login shows its
+    flag; the new accounts do not grant a main-portal admin session.
+11. Submit every flag in `SOLUTIONS.md` with `labctl submit` and check that
+    `labctl status` reaches 39 / 39.

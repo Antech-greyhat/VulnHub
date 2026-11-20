@@ -1,23 +1,29 @@
 # Build status (maintainer notes)
 
-Last updated: 2026-11-10. The answer key, the forensics generator and a check
+Last updated: 2026-11-20. The answer key, the forensics generator and a check
 list for the running lab are next door in `../answer-key/`.
 
 ## Done
+
+- Web brute-force basics adds BF-01 through BF-04: an uppercase form field
+  remapped by JavaScript, a Base64 account clue, username-first enumeration,
+  a deliberately shared-password-first gate, and an MD5 username clue behind
+  a console absent from robots.txt. All four share one plain template, and
+  successful logins show a flag and the lesson. Small practice wordlists and
+  21 exploit checks are included. Totals are now 39 flags and 29 OWASP bugs.
 
 - Phase 5d (branch `phase-5d-integrity-design`) adds 3 integrity/insecure-design
   challenges in the student account area: P5D-01 insecure deserialization
   (pickle cookie, A08), P5D-02 mass assignment (A06), P5D-03 secrets in an
   exposed log (A09). New files `portal/integrity.py`, `tests/test_phase5d.py`,
   `portal/templates/account/*`; the log viewer is in `portal/diagnostics.py`.
-  Brings `flags.sha256` to 35 and the OWASP total to 25 once merged.
+  These three merged challenges are included in the totals above.
 
 - Phases 0 to 5 (17 web, network and supply-chain bugs) and Phase 7 (7
   forensics challenges) are on `main`.
 - Phase 5b (5 weak-crypto challenges, P5B-01 to 05) and Phase 5c (3
   social-engineering challenges on `/intranet`, SE-01 to 03) are merged too.
-  That makes 32 stages in `flags.sha256`; the OWASP count in `SCOREBOARD.md`
-  is 22, because forensics and social engineering are listed separately.
+  Forensics and social engineering are listed separately from the OWASP total.
 - Every flag uses leetspeak, e.g. `MFANO{c4n_h4ck_f0r_r34l}`. The old
   plain-English flags still show up in old commits, but they only return
   `wrong flag` now.

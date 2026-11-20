@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block title %}{{ title }} · Mfano High School{% endblock %}
+{% block content %}
+<section class="card narrow">
+  <h1>{{ title }}</h1>
+  {% if flag %}
+  <p>Login successful · {{ stage_id }}</p>
+  <p><code>{{ flag }}</code></p>
+  <p>{{ lesson }}</p>
+  {% elif directory %}
+  <p>Retired exams-office records. Administrator access is required.</p>
+  <a href="{{ login_url }}">Administrator sign in</a>
+  {% else %}
+  <p class="muted">Use your office account to continue.</p>
+  {% if error %}<p class="notice" role="alert">{{ error }}</p>{% endif %}
+  {% if clue %}<!-- Directory cache: {{ clue }} -->{% endif %}
+  <form id="challenge-login" method="post">
+    <label for="login-user">Username</label>
+    <input id="login-user" name="{{ 'Username' if legacy_field else 'username' }}" autocomplete="username" required autofocus>
+    <label for="login-password">{{ 'Shared access password' if shared_password else 'Password' }}</label>
+    <input id="login-password" name="password" type="password" autocomplete="current-password" required>
+    <button>Sign in</button>
+  </form>
+  {% if legacy_field %}<noscript>This legacy sign-in form requires JavaScript.</noscript>{% endif %}
+  {% endif %}
+</section>
+{% endblock %}
+{% block scripts %}
+{% if legacy_field %}<script src="{{ url_for('static', filename='legacy-login.js') }}"></script>{% endif %}
+{% endblock %}
