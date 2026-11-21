@@ -8,7 +8,7 @@
   <img alt="Bash CLI" src="https://img.shields.io/badge/CLI-Bash-4EAA25?logo=gnubash&logoColor=white">
   <img alt="Docker Compose" src="https://img.shields.io/badge/docker-compose-2496ED?logo=docker&logoColor=white">
   <img alt="OWASP Top 10 2025" src="https://img.shields.io/badge/OWASP-Top%2010%3A2025-000000?logo=owasp&logoColor=white">
-  <img alt="39 flags" src="https://img.shields.io/badge/flags-39-e3b341">
+  <img alt="47 flags" src="https://img.shields.io/badge/flags-47-e3b341">
   <img alt="Kali ready" src="https://img.shields.io/badge/kali-ready-557C94?logo=kalilinux&logoColor=white">
   <img alt="Vulnerable by design" src="https://img.shields.io/badge/vulnerable-by%20design-b91c1c">
 </p>
@@ -50,7 +50,7 @@ fake, and the lab never calls a real payment API.
 | Track | Skills |
 | ----- | ------ |
 | Web | Access control, injection, broken auth and sessions, login discovery and brute forcing, file upload, SSRF, business logic |
-| Linux | Moving around the filesystem of a compromised box |
+| Linux | Reading, writing, filtering and combining files; moving around the filesystem of a compromised box |
 | Networking | Port and service discovery with `nmap`, weak database credentials |
 | Secrets and supply chain | Secrets in frontend code and git history, vulnerable dependencies, leaky errors |
 | Cryptography | Cracking weak password hashes, spotting fake "encryption", forging weakly-signed tokens, hardcoded keys, ECB structure leaks |
@@ -69,7 +69,8 @@ fake, and the lab never calls a real payment API.
 | Python 3.10 or newer | Maintainer tests | The portal's Python runtime is provided by Docker |
 | About 2 GB free disk | Docker images | |
 
-You don't need Docker or Python for scoring or the forensics track. Bash, jq,
+You don't need Docker or Python for scoring or the forensics track. The offline
+Linux file exercises use Python 3 only to prepare and check your work. Bash, jq,
 and your usual forensics tools are enough; whiptail provides the menus.
 
 ## Install and run
@@ -91,6 +92,8 @@ cd VulnHub
 make install-local
 export PATH="$HOME/.local/bin:$PATH"
 labctl
+
+# Beginner first step: follow linux-files/README.md before the web challenges.
 
 # 4. Start the web lab through the menu's "Manage lab services" option,
 #    or use the direct command
@@ -145,7 +148,8 @@ Copy a flag exactly as you find it. Don't translate it back to plain English. A
 plain-English guess like `MFANO{can_hack_for_real}` will be rejected as a
 `wrong flag`.
 
-1. **Hunt.** Exploit a bug in the portal, or pull a secret out of a forensics
+1. **Hunt.** Complete an exercise in [`linux-files/`](linux-files/README.md),
+   exploit a bug in the portal, or pull a secret out of a forensics
    file. A real exploit makes the flag show up: in a page, a database row, a
    file on the box, a frame of video.
 2. **Submit.** Open the menu, choose **Submit a flag**, then choose the track
@@ -191,11 +195,12 @@ How scoring works:
 
 ## The challenges
 
-There are 39 flags. The categories are listed below, but not where the bugs are.
+There are 47 flags. The categories are listed below, but not where the bugs are.
 `SCOREBOARD.md` has the per-phase breakdown.
 
 | Stages | Theme | Count | Difficulty |
 | ------ | ----- | ----- | ---------- |
+| FM-xx | Linux file manipulation (start here) | 8 | Easy to Easy-Medium |
 | P1-xx | Web access control and Linux files | 3 | Easy |
 | P2-xx | Networking and exposed services | 2 | Easy-Medium |
 | P3-xx | Injection, XSS, sessions, privilege escalation | 4 | Medium |
@@ -206,6 +211,12 @@ There are 39 flags. The categories are listed below, but not where the bugs are.
 | BF-xx | Web brute-force basics: discovery, request fields, login errors, hidden accounts | 4 | Easy-Medium |
 | SE-xx | Social engineering: OSINT, phishing, pretexting (fake NPCs) | 3 | Easy-Medium |
 | F-xx | Forensics: images, GIF, audio, video | 7 | Easy to Medium |
+
+Start with [`linux-files/README.md`](linux-files/README.md) for eight guided
+exercises covering `cat`, `echo`, `less`, `head`, `tail`, `tac`, `grep`, `wc`,
+`paste`, and `join`. Their flags use the same menu and submission flow as the
+existing challenges. The new track comes first; existing IDs and saved solves
+stay valid.
 
 <details>
 <summary><b>Networking notes</b></summary>
@@ -365,6 +376,7 @@ make test
 .
 ├── portal/            Flask app: routes, templates, static files
 ├── services/          Extra containers: grading service, backup database
+├── linux-files/      Offline beginner file exercises and checker
 ├── forensics/         Offline forensics evidence and case brief
 ├── docker/            Container entrypoint
 ├── tests/             Build checks (spoilers)

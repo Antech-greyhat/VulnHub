@@ -56,4 +56,11 @@ was not available.
     All errors return HTTP 200. Only a complete, successful login shows its
     flag; the new accounts do not grant a main-portal admin session.
 11. Submit every flag in `SOLUTIONS.md` with `labctl submit` and check that
-    `labctl status` reaches 39 / 39.
+    `labctl status` reaches 47 / 47.
+
+## Linux file manipulation
+
+`python3 -B linux-files/lab.py prepare` creates disposable mock inputs.
+The exact command solutions are in `tests/test_linux_files.py`. Every checker
+result must match its registered hash, validate in a dry run, record one solve,
+reject another challenge ID, and count repeat submissions once.

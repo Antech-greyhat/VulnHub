@@ -46,6 +46,7 @@ Direct commands use styled dialogs when a terminal and whiptail are available:
 
 ```bash
 labctl tracks
+labctl labs --track FM
 labctl labs --track P3
 labctl resolve 'Private report forms'
 labctl solved
@@ -54,6 +55,12 @@ labctl hints F-01
 labctl submit P1-01
 labctl submit P1-01 --dry-run
 ```
+
+New learners should start with the eight file manipulation exercises in
+[`linux-files/README.md`](../linux-files/README.md). Prepare their workspace with
+`python3 -B linux-files/lab.py prepare`, complete the requested output, and run
+`python3 -B linux-files/lab.py check FM-01` to reveal the flag. Submit it with
+`labctl submit FM-01`. The checker never changes scoring progress on its own.
 
 `status` and `score` are aliases for the all-challenges progress view. Lists
 accept `--limit` (default 50, range 1–1000) and `--offset` (default 0).

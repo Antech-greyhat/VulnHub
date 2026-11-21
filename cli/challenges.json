@@ -1,5 +1,6 @@
 {
   "tracks": [
+    {"id": "FM", "title": "Linux file manipulation (start here)"},
     {"id": "P1", "title": "Web access and Linux files"},
     {"id": "P2", "title": "Networking and services"},
     {"id": "P3", "title": "Web exploitation"},
@@ -12,6 +13,14 @@
     {"id": "F", "title": "Forensics"}
   ],
   "challenges": {
+    "FM-01": {"title": "Read and combine", "hint": "Read the two parts in order. A missing final newline affects how concatenation joins them.", "evidence": "linux-files/README.md"},
+    "FM-02": {"title": "Write a handover", "hint": "Compare replacement with append redirection. Inspect the finished file for any stale line.", "evidence": "linux-files/README.md"},
+    "FM-03": {"title": "Search a long document", "hint": "Search within the pager and distinguish the active instruction from the retired one.", "evidence": "linux-files/README.md"},
+    "FM-04": {"title": "Read the bookends", "hint": "Request explicit line counts from the beginning and the end, then preserve that order.", "evidence": "linux-files/README.md"},
+    "FM-05": {"title": "Restore time order", "hint": "Reverse the records while keeping the characters within each record unchanged.", "evidence": "linux-files/README.md"},
+    "FM-06": {"title": "Count real failures", "hint": "A matching word in the middle is not the same as a matching record prefix. Count selected lines.", "evidence": "linux-files/README.md"},
+    "FM-07": {"title": "Pair aligned columns", "hint": "These inputs correspond by line position. Preserve a tab between each pair of values.", "evidence": "linux-files/README.md"},
+    "FM-08": {"title": "Match records by ID", "hint": "Matching by key needs consistently sorted inputs. Row position is not a student identity.", "evidence": "linux-files/README.md"},
     "BF-01": {"title": "The misleading form", "hint": "Discover retired pages, then compare the form with its JavaScript and the actual request. A directory value in browser source may be reversible."},
     "BF-02": {"title": "The helpful login error", "hint": "Hold one credential constant while changing the other. Which response confirms an account exists, and which credential has not yet been checked?"},
     "BF-03": {"title": "The shared password gate", "hint": "Do not assume all logins validate in the same order. Compare failures and inspect the retired client's migration notes before deciding what a response proves."},

@@ -1,5 +1,13 @@
 # Mfano lab flag hashes. Hashes only: no flags, no locations.
-# Format: stage_id:sha256_of_flag:owasp_category:difficulty
+# Format: stage_id:sha256_of_flag:category:difficulty
+FM-01:d1f78f60dfda6e00c2deb4dee6735606df4571727049df86d1af5bac3f068a93:Linux file manipulation:Easy
+FM-02:19eec90b1ee0b8673622438bbbe28019a938717ad1924ef1737f9206b7f63a44:Linux file manipulation:Easy
+FM-03:64ca74f685f466918b7a6aed6cbedaff50c8eacdab054bb113f3e69d88022f46:Linux file manipulation:Easy
+FM-04:41fd37100a0d8dc196ba7bdf1c859ce68f1178047294f439f1222518b7003516:Linux file manipulation:Easy
+FM-05:891599dc18607e8ab4902fcaa923751f895c57d39aa441152e9b1c62b9a5d73b:Linux file manipulation:Easy
+FM-06:aa5b4ed47a39c26e2cadda55a04166e39466ffdca673ca52cb430374002e3d05:Linux file manipulation:Easy
+FM-07:0ce6ff16f0c71bec5feb3f0f29c261d7b69b9d89cf2eed36d9b8e408878adb1b:Linux file manipulation:Easy
+FM-08:c1040cd737e2dc53a48da0cd333bf4b947576ef5bee251472b4d81e4f5e8b0b6:Linux file manipulation:Easy-Medium
 P1-01:f475bdd9bab758f6cbbbacbd2e5978e62eb8bdcfb488df2e2fbe888ae867713e:A01 Broken Access Control:Easy
 P1-02:6359f0a604f960dc8ca8244ab80d4cc5d2677a21cbbb15c6df3b579edae37403:A01 Broken Access Control:Easy
 P1-03:79ee4f19f594dd9e1f54234ea6302fe9206b064de0907af7dcf2372251c9eeae:A02 Security Misconfiguration:Easy
