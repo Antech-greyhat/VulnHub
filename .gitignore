@@ -15,3 +15,6 @@ venv/
 
 # Local environment
 .env
+
+# Disposable challenge validation workspaces
+.linux-challenges-work.*/

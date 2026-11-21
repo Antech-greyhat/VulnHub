@@ -27,6 +27,7 @@ check:
 	bash -n cli/lib/ui.sh
 	jq -e . cli/challenges.json >/dev/null
 	shellcheck -x labctl
+	python3 -B -c 'import ast; from pathlib import Path; ast.parse(Path("linux-files/lab.py").read_text())'
 
 test:
 	PYTHONDONTWRITEBYTECODE=1 python3 -B -m pytest -q -p no:cacheprovider tests/test_bash_cli.py

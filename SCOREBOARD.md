@@ -50,3 +50,15 @@ in the OWASP total above.
 | SE-01 | 1 | OSINT / password profiling |
 | SE-02 | 1 | Phishing spotting (defence) |
 | SE-03 | 1 | Pretexting (scripted helpdesk bot) |
+
+## Linux foundations
+
+Eight file manipulation exercises precede the web tracks. These teach filesystem
+commands and are not counted as OWASP bugs.
+
+| Stage | Count | Skills |
+| ----- | ----- | ------ |
+| FM-01 to FM-08 | 8 | cat, echo, less, head, tail, tac, grep, wc, paste, join |
+
+Total scored challenges: **47** (29 web bugs, 3 social engineering, 7 forensics,
+8 Linux file manipulation). Existing challenge IDs retain their meaning.
