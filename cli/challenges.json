@@ -1,6 +1,7 @@
 {
   "tracks": [
     {"id": "FM", "title": "Linux file manipulation (start here)"},
+    {"id": "FO", "title": "Linux permissions and ownership"},
     {"id": "P1", "title": "Web access and Linux files"},
     {"id": "P2", "title": "Networking and services"},
     {"id": "P3", "title": "Web exploitation"},
@@ -21,6 +22,13 @@
     "FM-06": {"title": "Count real failures", "hint": "A matching word in the middle is not the same as a matching record prefix. Count selected lines.", "evidence": "linux-files/README.md"},
     "FM-07": {"title": "Pair aligned columns", "hint": "These inputs correspond by line position. Preserve a tab between each pair of values.", "evidence": "linux-files/README.md"},
     "FM-08": {"title": "Match records by ID", "hint": "Matching by key needs consistently sorted inputs. Row position is not a student identity.", "evidence": "linux-files/README.md"},
+    "FO-01": {"title": "Private notes", "hint": "Compare the owner, group and other permission sets. Remove only the access the task forbids.", "evidence": "linux-ownership/README.md"},
+    "FO-02": {"title": "Team reference", "hint": "Add the read, write and execute values for each permission class before choosing a numeric mode.", "evidence": "linux-ownership/README.md"},
+    "FO-03": {"title": "Directory traversal", "hint": "Listing names and accessing a file inside a directory require different directory permissions.", "evidence": "linux-ownership/README.md"},
+    "FO-04": {"title": "Return a misplaced file", "hint": "An owner change and a group change are separate operations. Preserve the fields the task does not ask to change.", "evidence": "linux-ownership/README.md"},
+    "FO-05": {"title": "Share with the right team", "hint": "Compare the file group with your memberships. Group read bits help only the matching group.", "evidence": "linux-ownership/README.md"},
+    "FO-06": {"title": "Hand over an archive", "hint": "Check owner, group and mode together. Consider when you will still have permission to change the file.", "evidence": "linux-ownership/README.md"},
+    "FO-07": {"title": "Keep new files in the team", "hint": "A shared directory can control the group inherited by new files. Special directory bits differ from ordinary execute bits.", "evidence": "linux-ownership/README.md"},
     "BF-01": {"title": "The misleading form", "hint": "Discover retired pages, then compare the form with its JavaScript and the actual request. A directory value in browser source may be reversible."},
     "BF-02": {"title": "The helpful login error", "hint": "Hold one credential constant while changing the other. Which response confirms an account exists, and which credential has not yet been checked?"},
     "BF-03": {"title": "The shared password gate", "hint": "Do not assume all logins validate in the same order. Compare failures and inspect the retired client's migration notes before deciding what a response proves."},
