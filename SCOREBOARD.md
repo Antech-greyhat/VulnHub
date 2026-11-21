@@ -53,12 +53,14 @@ in the OWASP total above.
 
 ## Linux foundations
 
-Eight file manipulation exercises precede the web tracks. These teach filesystem
-commands and are not counted as OWASP bugs.
+Eight file manipulation and seven permissions/ownership exercises precede the
+web tracks. These teach filesystem commands and are not counted as OWASP bugs.
 
 | Stage | Count | Skills |
 | ----- | ----- | ------ |
 | FM-01 to FM-08 | 8 | cat, echo, less, head, tail, tac, grep, wc, paste, join |
+| FO-01 to FO-07 | 7 | Symbolic/numeric chmod, directory traversal, chown, chgrp, setgid |
 
-Total scored challenges: **47** (29 web bugs, 3 social engineering, 7 forensics,
-8 Linux file manipulation). Existing challenge IDs retain their meaning.
+Total scored challenges: **54** (29 web bugs, 3 social engineering, 7 forensics,
+8 Linux file manipulation, 7 Linux permissions/ownership). Existing challenge
+IDs retain their meaning.

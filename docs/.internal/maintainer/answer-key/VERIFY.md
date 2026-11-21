@@ -56,7 +56,7 @@ was not available.
     All errors return HTTP 200. Only a complete, successful login shows its
     flag; the new accounts do not grant a main-portal admin session.
 11. Submit every flag in `SOLUTIONS.md` with `labctl submit` and check that
-    `labctl status` reaches 47 / 47.
+    `labctl status` reaches 54 / 54.
 
 ## Linux file manipulation
 
@@ -64,3 +64,11 @@ was not available.
 The exact command solutions are in `tests/test_linux_files.py`. Every checker
 result must match its registered hash, validate in a dry run, record one solve,
 reject another challenge ID, and count repeat submissions once.
+
+## Linux permissions and ownership
+
+Run `MFANO_TEST_DOCKER=1 python3 -m pytest -q tests/test_linux_ownership.py`
+on a Docker-enabled host. The suite builds the image, solves all seven tasks
+with actual chmod/chown/chgrp operations, tests access as separate users,
+checks group inheritance, rejects mode 0777, and submits every revealed flag.
+The same container checks run in the linux-ownership CI job.
