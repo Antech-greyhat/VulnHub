@@ -11,6 +11,12 @@ below. Each contains its own `MFANO{...}` flag, scored by the existing `labctl`.
 
 ## Start the sandbox
 
+If you have not cloned the project yet, follow
+[steps 1–3 of the main setup guide](../README.md#install-and-run). They explain
+how to open a terminal, install the tools, clone into `~/VulnHub`, and get Docker
+ready. The same guide provides the default menu and backup Compose routes for
+running the web lab.
+
 You need Docker for the practice shell. It supplies separate Unix accounts for
 the owner/group search. The sandbox includes Bash, coreutils, `find`, `file`, and
 `less`; you do not need to install these tools on your host.
@@ -20,12 +26,15 @@ If this is your first Docker lab, follow the numbered
 Check `docker info`, then run these commands from the VulnHub checkout:
 
 ```bash
+cd ~/VulnHub
 ./linux-discovery/lab
 ```
 
 The first build needs internet to download Debian and the tools. The learner
 shell runs with networking disabled, limited resources, and no host folders or
-ports shared. You are logged in as `learner`; practice files live in `/practice`.
+ports shared. Wait for a prompt beginning **`(Mfano discovery)`**. You are now
+inside the **sandbox**, logged in as `learner`; practice files live in `/practice`.
+Your **host terminal** is the normal Linux terminal where you cloned the project.
 
 ```bash
 task LD-01
@@ -38,6 +47,7 @@ Read a task with `task LD-01` through `task LD-07`. Each exercise also has a
 the closing brace. In a **second terminal on your host**, from this checkout:
 
 ```bash
+cd ~/VulnHub
 ./labctl submit LD-01
 ./labctl labs --track LD
 ./labctl hints LD-04

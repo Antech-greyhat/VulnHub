@@ -7,6 +7,12 @@ Docker provides a separate practice environment so you can change ownership
 without changing your host's files. You do not need to know Docker commands to
 launch the exercises.
 
+New to the project? First complete [steps 1–2 of the main setup guide](../README.md#install-and-run)
+to install the basic tools and clone it into `~/VulnHub`. In this guide, the
+**host** is your normal Linux desktop; the **sandbox** is the practice shell
+opened by the launcher. The main guide also gives the default menu route and
+backup Compose route for starting the web lab.
+
 ## First-time Docker setup
 
 An **image** is the prepared Linux environment. A **container** is one running
@@ -54,6 +60,7 @@ On Kali, Debian or Ubuntu, run these on your **host** once:
 From the repository folder on your **host**, run:
 
 ```sh
+cd ~/VulnHub
 ./linux-ownership/lab
 ```
 
@@ -81,6 +88,7 @@ Keep that sandbox open. Open a **second host terminal**, return to this checkout
 and submit the earned flag:
 
 ```sh
+cd ~/VulnHub
 ./labctl submit FO-01
 ```
 
@@ -197,6 +205,7 @@ the directory. This is a bonus step after basic ownership and permissions.
 | `labctl` not found inside the sandbox | Submit on the host with `./labctl`; the practice image contains only the filesystem exercises. |
 | Lost practice changes after exit | Each launch starts fresh. Host submissions are preserved; repeat the exercise if its flag was not submitted. |
 
-After FO-07, continue with P1. Avoid broad changes such as `chmod -R 777` or
+After FO-07, continue with [file discovery](../linux-discovery/README.md), then P1.
+Avoid broad changes such as `chmod -R 777` or
 changing ownership of `/` on your host: all requested changes belong to the
 specific practice paths in this container.
