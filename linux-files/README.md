@@ -3,17 +3,16 @@
 Eight short exercises introduce reading, writing, filtering and combining text
 files before the web challenges. All school records are invented. You need
 Python 3.10+, Bash, coreutils, grep and less; Docker is not needed for this track.
-On Kali, Debian or Ubuntu, missing tools can be installed with:
-
-```sh
-sudo apt install python3 bash coreutils grep less
-```
+First follow [steps 1–2 of the main setup guide](../README.md#install-and-run)
+to install the tools and clone the project. They also install the menu and
+scoring tools. Commands in this guide run in your normal Linux **host terminal**.
 
 ## Prepare, practise and submit
 
 Run this once from the repository folder:
 
 ```sh
+cd ~/VulnHub
 python3 -B linux-files/lab.py prepare
 ```
 
@@ -43,6 +42,10 @@ The checker reveals the challenge's flag only after the output is correct. Paste
 it into labctl's hidden box to record the solve. Checking does not change your
 score. For another exercise, replace FM-01 in the directory and commands.
 `./labctl labs --track FM` lists the exercises; `./labctl hints FM-01` offers a clue.
+
+When returning later, run `cd ~/VulnHub` and continue with your existing exercise
+files. The prepare command is only for the first setup. If it reports
+`Workspace already exists`, your previous work is still there.
 
 To start another attempt without overwriting your first, use a new directory:
 
@@ -132,4 +135,4 @@ The checker assesses your result, not your shell history. For the intended
 practice, use each task's named commands and explain why its options and
 redirections work. Keep the original inputs for comparison. Once this track is
 complete, move on to [permissions and ownership](../linux-ownership/README.md),
-then P1's web and Linux labs.
+then [file discovery](../linux-discovery/README.md), then P1's web and Linux labs.

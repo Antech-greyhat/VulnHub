@@ -6,20 +6,24 @@ navigation. Windows support is planned for a later release.
 
 ## Install and open
 
-On Kali, Debian, or Ubuntu:
+First complete the [beginner setup guide](../README.md#install-and-run) for
+installing tools, cloning the project, and checking Docker. The recommended
+way to open the console is from a normal Linux terminal:
 
 ```bash
-sudo apt update
-sudo apt install -y bash jq whiptail coreutils util-linux make
-make install-local
-export PATH="$HOME/.local/bin:$PATH"
-labctl
+cd ~/VulnHub
+./labctl
 ```
 
-Before installation, run `./labctl` from the checkout. `make install-local`
-creates `~/.local/bin/labctl` as a symlink to this checkout, so it finds its data
-from any working directory. Keep the checkout in place. An existing, different
-command is preserved; use `make install-local BINDIR=/another/bin` if necessary.
+The examples below use `./labctl` from the project folder. The `./` tells Linux
+to start the program in this folder. An optional shortcut for use from other
+folders is explained later.
+
+For the web lab, choose **Manage lab services**, then **Build and start containers**.
+The first build can take a few minutes. The main guide's
+[backup Compose route](../README.md#option-2-direct-compose-commands-backup)
+starts the same services if you need to work without the menu. Both routes open
+the portal at <http://127.0.0.1:8080> in a browser on the same Linux desktop.
 
 Use arrows to select, Tab to move between controls, and Enter to confirm. Back
 or Escape returns to the previous screen; Escape at the main menu exits. Long
@@ -30,7 +34,8 @@ is respected.
 
 ## Lab workflow
 
-1. Open `labctl`, then choose **Submit a flag**.
+1. Complete a challenge using its track guide, then open `./labctl` on the host
+   and choose **Submit a flag**.
 2. Choose the track and challenge ID. The list shows title, difficulty, and status.
 3. Paste the exact flag into the hidden input box.
 4. The CLI compares its SHA-256 hash with that challenge's registered hash,
@@ -45,28 +50,34 @@ clues identify the corresponding evidence file.
 Direct commands use styled dialogs when a terminal and whiptail are available:
 
 ```bash
-labctl tracks
-labctl labs --track FM
-labctl labs --track P3
-labctl resolve 'Private report forms'
-labctl solved
-labctl unsolved --track F
-labctl hints F-01
-labctl submit P1-01
-labctl submit P1-01 --dry-run
+./labctl tracks
+./labctl labs --track FM
+./labctl labs --track P3
+./labctl resolve 'Private report forms'
+./labctl solved
+./labctl unsolved --track F
+./labctl hints F-01
+./labctl submit P1-01
+./labctl submit P1-01 --dry-run
 ```
 
 New learners should start with the eight file manipulation exercises in
 [`linux-files/README.md`](../linux-files/README.md). Prepare their workspace with
 `python3 -B linux-files/lab.py prepare`, complete the requested output, and run
 `python3 -B linux-files/lab.py check FM-01` to reveal the flag. Submit it with
-`labctl submit FM-01`. The checker never changes scoring progress on its own.
+`./labctl submit FM-01`. The checker never changes scoring progress on its own.
 
 Next, follow [`linux-ownership/README.md`](../linux-ownership/README.md) and run
 `./linux-ownership/lab` from the checkout. Its single-command Docker launcher
 opens the permissions sandbox; `task FO-01` and `check-ownership FO-01` work
-inside. Submit each earned flag on the host with `labctl submit FO-01`.
+inside. Submit each earned flag on the host with `./labctl submit FO-01`.
 The guide includes Docker installation, first launch, exit and fresh attempts.
+
+After ownership, follow [`linux-discovery/README.md`](../linux-discovery/README.md)
+and run `./linux-discovery/lab` from the project folder. Recover each flag inside
+that sandbox, then open a second host terminal, use `cd ~/VulnHub`, and submit it
+with `./labctl submit LD-01` for the matching ID. Type `exit` in either sandbox
+to leave; submitted scores remain on the host.
 
 `status` and `score` are aliases for the all-challenges progress view. Lists
 accept `--limit` (default 50, range 1–1000) and `--offset` (default 0).
@@ -77,12 +88,29 @@ Flags are read from a password box or one stdin line, never from a flag argument
 For scripts, provide `--flag-stdin`; this here-string uses an illustrative flag:
 
 ```bash
-labctl --json submit P1-01 --flag-stdin --dry-run <<<'MFANO{your_flag_here}'
+./labctl --json submit P1-01 --flag-stdin --dry-run <<<'MFANO{your_flag_here}'
 ```
 
 Use the password box for ordinary submissions so a flag does not enter shell
 history. Flag contents are case-sensitive. Surrounding whitespace is trimmed;
 uppercase text inside the braces is not converted automatically.
+
+## Optional shortcut: labctl from any folder
+
+After the normal `./labctl` workflow works, you can install a shortcut:
+
+```bash
+cd ~/VulnHub
+make install-local
+export PATH="$HOME/.local/bin:$PATH"
+labctl --no-color doctor
+```
+
+This creates `~/.local/bin/labctl` as a link to this checkout. Keep the project
+folder in place. The export line applies to the current terminal; if `labctl`
+is not found in a later terminal, repeat that line or return to the project and
+use `./labctl`. An existing, different command is preserved; an advanced custom
+location can be selected with `make install-local BINDIR=/another/bin`.
 
 ## Offline configuration and persistence
 
@@ -142,31 +170,31 @@ Examples by command family:
 
 ```bash
 # Diagnostics: data.ready, data.dependencies, data.issues, data.auth
-labctl --json doctor
+./labctl --json doctor
 
 # Discovery: data.tracks with per-track solved/remaining counts
-labctl --json tracks
+./labctl --json tracks
 
 # Resolution: data.stage, including its stable id
-labctl --json resolve 'The noticeboard'
+./labctl --json resolve 'The noticeboard'
 
 # Collections: data.labs, total, limit, offset, next_offset, progress
-labctl --json labs --track F --state unsolved --limit 3 --offset 0
-labctl --json solved
+./labctl --json labs --track F --state unsolved --limit 3 --offset 0
+./labctl --json solved
 
 # Exact read: data.stage with hint and optional evidence path
-labctl --json hints F-01
+./labctl --json hints F-01
 
 # Write preview: data.stage, result, recorded, dry_run, progress
-labctl --json submit P1-01 --flag-stdin --dry-run <<<'MFANO{your_flag_here}'
+./labctl --json submit P1-01 --flag-stdin --dry-run <<<'MFANO{your_flag_here}'
 
 # Service preview: data.argv, data.dry_run
-labctl --json start --dry-run
+./labctl --json start --dry-run
 
 # Read-only escape hatch: data is the sanitized resource itself
-labctl --json inspect stages
-labctl --json inspect progress
-labctl --json inspect hints
+./labctl --json inspect stages
+./labctl --json inspect progress
+./labctl --json inspect hints
 ```
 
 Submission results are `"solved"`, `"already_solved"`, or `"valid"` (preview).
@@ -186,13 +214,13 @@ requirement. `doctor` returns a diagnostic envelope with `ok: true` and
 ## Docker and audit helpers
 
 ```bash
-labctl start                  # Build and start the local lab
-labctl stop                   # Stop containers
-labctl reset --dry-run        # Preview reseeding
-labctl reset                  # Confirm in a terminal dialog
-labctl reset --yes            # Explicit confirmation for scripts
-labctl shell                  # Bash inside the web container
-labctl audit                  # Requires pip-audit and advisory connectivity
+./labctl start                  # Build and start the local lab
+./labctl stop                   # Stop containers
+./labctl reset --dry-run        # Preview reseeding
+./labctl reset                  # Confirm in a terminal dialog
+./labctl reset --yes            # Explicit confirmation for scripts
+./labctl shell                  # Bash inside the web container
+./labctl audit                  # Requires pip-audit and advisory connectivity
 ```
 
 The Bash helper tries the `docker compose` plugin, then `docker-compose`. It
