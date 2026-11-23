@@ -28,6 +28,10 @@ check:
 	jq -e . cli/challenges.json >/dev/null
 	shellcheck -x labctl
 	python3 -B -c 'import ast; from pathlib import Path; ast.parse(Path("linux-files/lab.py").read_text())'
+	bash -n linux-ownership/lab
+	bash -n linux-ownership/check-ownership
+	bash -n linux-ownership/welcome.sh
+	shellcheck linux-ownership/lab linux-ownership/check-ownership linux-ownership/welcome.sh
 
 test:
 	PYTHONDONTWRITEBYTECODE=1 python3 -B -m pytest -q -p no:cacheprovider tests/test_bash_cli.py

@@ -131,4 +131,5 @@ would pair rows by position and give the wrong student a score.
 The checker assesses your result, not your shell history. For the intended
 practice, use each task's named commands and explain why its options and
 redirections work. Keep the original inputs for comparison. Once this track is
-complete, move on to permissions and ownership, then P1's web and Linux labs.
+complete, move on to [permissions and ownership](../linux-ownership/README.md),
+then P1's web and Linux labs.
