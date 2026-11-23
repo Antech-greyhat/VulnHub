@@ -62,6 +62,12 @@ New learners should start with the eight file manipulation exercises in
 `python3 -B linux-files/lab.py check FM-01` to reveal the flag. Submit it with
 `labctl submit FM-01`. The checker never changes scoring progress on its own.
 
+Next, follow [`linux-ownership/README.md`](../linux-ownership/README.md) and run
+`./linux-ownership/lab` from the checkout. Its single-command Docker launcher
+opens the permissions sandbox; `task FO-01` and `check-ownership FO-01` work
+inside. Submit each earned flag on the host with `labctl submit FO-01`.
+The guide includes Docker installation, first launch, exit and fresh attempts.
+
 `status` and `score` are aliases for the all-challenges progress view. Lists
 accept `--limit` (default 50, range 1–1000) and `--offset` (default 0).
 `labs --state all|solved|unsolved` filters by completion. IDs and exact titles

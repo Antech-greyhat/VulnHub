@@ -8,7 +8,7 @@
   <img alt="Bash CLI" src="https://img.shields.io/badge/CLI-Bash-4EAA25?logo=gnubash&logoColor=white">
   <img alt="Docker Compose" src="https://img.shields.io/badge/docker-compose-2496ED?logo=docker&logoColor=white">
   <img alt="OWASP Top 10 2025" src="https://img.shields.io/badge/OWASP-Top%2010%3A2025-000000?logo=owasp&logoColor=white">
-  <img alt="47 flags" src="https://img.shields.io/badge/flags-47-e3b341">
+  <img alt="54 flags" src="https://img.shields.io/badge/flags-54-e3b341">
   <img alt="Kali ready" src="https://img.shields.io/badge/kali-ready-557C94?logo=kalilinux&logoColor=white">
   <img alt="Vulnerable by design" src="https://img.shields.io/badge/vulnerable-by%20design-b91c1c">
 </p>
@@ -50,7 +50,7 @@ fake, and the lab never calls a real payment API.
 | Track | Skills |
 | ----- | ------ |
 | Web | Access control, injection, broken auth and sessions, login discovery and brute forcing, file upload, SSRF, business logic |
-| Linux | Reading, writing, filtering and combining files; moving around the filesystem of a compromised box |
+| Linux | Reading, writing, filtering and combining files; chmod, chown, chgrp; moving around the filesystem of a compromised box |
 | Networking | Port and service discovery with `nmap`, weak database credentials |
 | Secrets and supply chain | Secrets in frontend code and git history, vulnerable dependencies, leaky errors |
 | Cryptography | Cracking weak password hashes, spotting fake "encryption", forging weakly-signed tokens, hardcoded keys, ECB structure leaks |
@@ -63,10 +63,11 @@ fake, and the lab never calls a real payment API.
 | Tool | Needed for | Notes |
 | ---- | ---------- | ----- |
 | Git | Getting the lab | Any recent version |
-| Docker and Docker Compose | The web, network and server challenges | `docker.io` and Compose on Linux |
+| Docker | Ownership, web, network and server challenges | `docker.io` on Linux |
+| Docker Compose | Web, network and server challenges | Not needed for the ownership launcher |
 | Bash 4+, jq, whiptail | Linux CLI, menus, and offline flag scoring | Whiptail uses the libnewt terminal UI library |
 | coreutils, util-linux, Make | Hashing, progress locking, and PATH installation | Usually present on Kali/Debian/Ubuntu |
-| Python 3.10 or newer | Maintainer tests | The portal's Python runtime is provided by Docker |
+| Python 3.10 or newer | File manipulation checks and maintainer tests | File exercises use the standard library; the portal's runtime is provided by Docker |
 | About 2 GB free disk | Docker images | |
 
 You don't need Docker or Python for scoring or the forensics track. The offline
@@ -74,6 +75,11 @@ Linux file exercises use Python 3 only to prepare and check your work. Bash, jq,
 and your usual forensics tools are enough; whiptail provides the menus.
 
 ## Install and run
+
+New to Linux? Begin with [file manipulation](linux-files/README.md), then
+[permissions and ownership](linux-ownership/README.md), then P1. Text exercises
+work offline. Ownership practice uses `./linux-ownership/lab`; its guide walks
+through Docker setup from the beginning.
 
 ### Kali Linux / Debian / Ubuntu
 
@@ -195,12 +201,13 @@ How scoring works:
 
 ## The challenges
 
-There are 47 flags. The categories are listed below, but not where the bugs are.
+There are 54 flags. The categories are listed below, but not where the bugs are.
 `SCOREBOARD.md` has the per-phase breakdown.
 
 | Stages | Theme | Count | Difficulty |
 | ------ | ----- | ----- | ---------- |
 | FM-xx | Linux file manipulation (start here) | 8 | Easy to Easy-Medium |
+| FO-xx | Linux permissions and ownership | 7 | Easy to Easy-Medium |
 | P1-xx | Web access control and Linux files | 3 | Easy |
 | P2-xx | Networking and exposed services | 2 | Easy-Medium |
 | P3-xx | Injection, XSS, sessions, privilege escalation | 4 | Medium |
@@ -215,8 +222,11 @@ There are 47 flags. The categories are listed below, but not where the bugs are.
 Start with [`linux-files/README.md`](linux-files/README.md) for eight guided
 exercises covering `cat`, `echo`, `less`, `head`, `tail`, `tac`, `grep`, `wc`,
 `paste`, and `join`. Their flags use the same menu and submission flow as the
-existing challenges. The new track comes first; existing IDs and saved solves
-stay valid.
+existing challenges. Next, follow [`linux-ownership/README.md`](linux-ownership/README.md)
+and run `./linux-ownership/lab` for seven `chmod`, `chown`, and `chgrp` exercises
+in a Docker sandbox. The guide includes first-time Docker setup and explains
+how to check, exit and submit on the host. The Linux tracks come first;
+existing IDs and saved solves stay valid.
 
 <details>
 <summary><b>Networking notes</b></summary>
@@ -377,6 +387,7 @@ make test
 ├── portal/            Flask app: routes, templates, static files
 ├── services/          Extra containers: grading service, backup database
 ├── linux-files/      Offline beginner file exercises and checker
+├── linux-ownership/  One-command Docker sandbox for permissions and ownership
 ├── forensics/         Offline forensics evidence and case brief
 ├── docker/            Container entrypoint
 ├── tests/             Build checks (spoilers)

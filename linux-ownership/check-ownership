@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+set -euo pipefail
+if [[ $# -ne 1 || ! "$1" =~ ^FO-0[1-7]$ ]]; then
+    printf '%s\n' 'Usage: check-ownership FO-01 (through FO-07)' >&2
+    exit 2
+fi
+exec sudo /usr/local/lib/mfano/ownership.py "$1"

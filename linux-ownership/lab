@@ -1,0 +1,55 @@
+#!/usr/bin/env bash
+# One-command, disposable ownership sandbox. No host folders or ports are mounted.
+set -euo pipefail
+ROOT=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")/.." && pwd)
+IMAGE=${MFANO_OWNERSHIP_IMAGE:-mfano-linux-ownership:local}
+MODE=${1:-shell}
+
+usage() {
+    cat <<'HELP'
+Linux permissions and ownership practice
+
+  ./linux-ownership/lab          Build the sandbox and open the learner shell
+  ./linux-ownership/lab build    Build only (maintainer check)
+  ./linux-ownership/lab --help   Show this help without starting Docker
+
+Run from a normal Linux terminal. The first launch needs internet to download
+the image and tools; later builds reuse Docker's cache. Inside, type task FO-01
+for the first exercise and check-ownership FO-01 to check your changes.
+Type exit to return to your host. Each launch starts with fresh practice files.
+Submit earned flags with ./labctl on the HOST, in a second terminal.
+Setup and troubleshooting: linux-ownership/README.md
+HELP
+}
+
+if [[ $# -gt 1 ]]; then usage >&2; exit 2; fi
+case "$MODE" in
+    --help|-h|help) usage; exit 0 ;;
+    shell|build) ;;
+    *) usage >&2; exit 2 ;;
+esac
+if [[ "$MODE" == shell && ( ! -t 0 || ! -t 1 ) ]]; then
+    printf '%s\n' 'Open a normal terminal and run ./linux-ownership/lab there.' >&2
+    exit 2
+fi
+if ! command -v docker >/dev/null 2>&1; then
+    printf '%s\n' 'Docker is not installed. Follow the numbered setup steps in linux-ownership/README.md.' >&2
+    exit 1
+fi
+if ! docker info >/dev/null 2>&1; then
+    printf '%s\n' 'Docker is not ready for this user. Run docker info to see the error.' \
+        'For a stopped service: sudo systemctl start docker' \
+        'For permission denied: follow the docker group and login steps in linux-ownership/README.md.' >&2
+    exit 1
+fi
+printf '%s\n' 'Preparing the ownership sandbox. The first build can take a few minutes.'
+# Stream only the required sources. No temporary build directory or shared
+# repository .dockerignore rules are needed; learner data is never sent to Docker.
+tar -C "$ROOT" -cf - linux-ownership/Dockerfile linux-ownership/check-ownership \
+    linux-ownership/welcome.sh linux-ownership/README.md \
+    docs/.internal/maintainer/answer-key/linux_ownership.py |
+    docker build --tag "$IMAGE" --file linux-ownership/Dockerfile -
+if [[ "$MODE" == build ]]; then exit 0; fi
+printf '%s\n' 'Opening the sandbox. Type exit inside it to return here.'
+exec docker run --rm --interactive --tty --network none --pids-limit 128 \
+    --memory 256m --cpus 1 "$IMAGE"
