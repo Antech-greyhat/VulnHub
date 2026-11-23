@@ -1,0 +1,51 @@
+#!/usr/bin/env bash
+# Local file-discovery practice with real Unix users; no host mounts or ports.
+set -euo pipefail
+ROOT=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")/.." && pwd)
+IMAGE=${MFANO_DISCOVERY_IMAGE:-mfano-linux-discovery:local}
+MODE=${1:-shell}
+
+usage() {
+    cat <<'HELP'
+Linux file discovery practice
+
+  ./linux-discovery/lab          Build the sandbox and open the learner shell
+  ./linux-discovery/lab build    Build only (maintainer check)
+  ./linux-discovery/lab --help   Show this help without starting Docker
+
+Run from a normal Linux terminal. The first launch downloads the image and
+tools; later builds reuse Docker's cache. Inside, type task LD-01 to start.
+Recover each flag from the practice files, then submit it with ./labctl on
+the HOST in a second terminal. Type exit to return to your host.
+Each launch starts fresh practice files. Setup: linux-discovery/README.md
+HELP
+}
+
+if [[ $# -gt 1 ]]; then usage >&2; exit 2; fi
+case "$MODE" in
+    --help|-h|help) usage; exit 0 ;;
+    shell|build) ;;
+    *) usage >&2; exit 2 ;;
+esac
+if [[ "$MODE" == shell && ( ! -t 0 || ! -t 1 ) ]]; then
+    printf '%s\n' 'Open a normal terminal and run ./linux-discovery/lab there.' >&2
+    exit 2
+fi
+if ! command -v docker >/dev/null 2>&1; then
+    printf '%s\n' 'Docker is not installed. Follow the setup steps in linux-discovery/README.md.' >&2
+    exit 1
+fi
+if ! docker info >/dev/null 2>&1; then
+    printf '%s\n' 'Docker is not ready for this user. Run docker info to see the error.' \
+        'For a stopped service: sudo systemctl start docker' \
+        'For permission denied: follow the docker group and login steps in linux-ownership/README.md.' >&2
+    exit 1
+fi
+printf '%s\n' 'Preparing the discovery sandbox. The first build can take a few minutes.'
+tar -C "$ROOT" -cf - linux-discovery/Dockerfile linux-discovery/welcome.sh \
+    linux-discovery/README.md docs/.internal/maintainer/answer-key/linux_discovery.py |
+    docker build --tag "$IMAGE" --file linux-discovery/Dockerfile -
+if [[ "$MODE" == build ]]; then exit 0; fi
+printf '%s\n' 'Opening the sandbox. Type exit inside it to return here.'
+exec docker run --rm --interactive --tty --network none --pids-limit 128 \
+    --memory 256m --cpus 1 --cap-drop ALL --security-opt no-new-privileges "$IMAGE"

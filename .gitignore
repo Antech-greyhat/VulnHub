@@ -18,3 +18,4 @@ venv/
 
 # Disposable challenge validation workspaces
 .linux-challenges-work.*/
+.bandit-challenges-work.*/

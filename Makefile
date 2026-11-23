@@ -32,6 +32,10 @@ check:
 	bash -n linux-ownership/check-ownership
 	bash -n linux-ownership/welcome.sh
 	shellcheck linux-ownership/lab linux-ownership/check-ownership linux-ownership/welcome.sh
+	bash -n linux-discovery/lab
+	bash -n linux-discovery/welcome.sh
+	shellcheck linux-discovery/lab linux-discovery/welcome.sh
+	python3 -B -c 'import ast; from pathlib import Path; ast.parse(Path("docs/.internal/maintainer/answer-key/linux_discovery.py").read_text())'
 
 test:
 	PYTHONDONTWRITEBYTECODE=1 python3 -B -m pytest -q -p no:cacheprovider tests/test_bash_cli.py

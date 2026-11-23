@@ -56,7 +56,7 @@ was not available.
     All errors return HTTP 200. Only a complete, successful login shows its
     flag; the new accounts do not grant a main-portal admin session.
 11. Submit every flag in `SOLUTIONS.md` with `labctl submit` and check that
-    `labctl status` reaches 54 / 54.
+    `labctl status` reaches 61 / 61.
 
 ## Linux file manipulation
 
@@ -72,3 +72,14 @@ on a Docker-enabled host. The suite builds the image, solves all seven tasks
 with actual chmod/chown/chgrp operations, tests access as separate users,
 checks group inheritance, rejects mode 0777, and submits every revealed flag.
 The same container checks run in the linux-ownership CI job.
+
+## Linux file discovery
+
+Run `MFANO_TEST_DOCKER=1 python3 -m pytest -q tests/test_linux_discovery.py`
+on a Docker-enabled host. All seven tasks are solved as learner using real
+shell tools, then submitted through labctl. LD-06 combines actual teacher/archive
+ownership with a 33-byte size and preserves results despite permission-denied
+directories. The tests also check quoting, hidden listings, executable/binary
+decoys, shuffled duplicates, dry runs, repeat submissions, wrong IDs, and saved
+progress compatibility. Six content-only tasks run without Docker too.
+The linux-ownership CI job runs both Linux container suites.
