@@ -1,16 +1,24 @@
 # Build status (maintainer notes)
 
-Last updated: 2026-11-20. The answer key, the forensics generator and a check
+Last updated: 2026-11-23. The answer key, the forensics generator and a check
 list for the running lab are next door in `../answer-key/`.
 
 ## Done
+
+- Linux foundations now has 22 exercises: FM-01 through FM-08, FO-01 through
+  FO-07, and LD-01 through LD-07. The discovery sandbox adds the missing skills
+  from the reference Bandit writeups at levels 1–6 and 8; levels 0 and 7 overlap
+  existing file-reading/search tasks and are skipped. All Linux tracks use the
+  same offline scoring, with existing IDs and progress preserved. Totals are
+  now 61 flags and 29 OWASP bugs. Docker CI solves both container-based tracks.
 
 - Web brute-force basics adds BF-01 through BF-04: an uppercase form field
   remapped by JavaScript, a Base64 account clue, username-first enumeration,
   a deliberately shared-password-first gate, and an MD5 username clue behind
   a console absent from robots.txt. All four share one plain template, and
   successful logins show a flag and the lesson. Small practice wordlists and
-  21 exploit checks are included. Totals are now 39 flags and 29 OWASP bugs.
+  21 exploit checks are included. This brought the web/social/forensics total
+  to 39 flags and 29 OWASP bugs before the Linux foundation tracks.
 
 - Phase 5d (branch `phase-5d-integrity-design`) adds 3 integrity/insecure-design
   challenges in the student account area: P5D-01 insecure deserialization
