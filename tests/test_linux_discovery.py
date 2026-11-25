@@ -194,7 +194,7 @@ cd /practice/{stage}
 
 def test_discovery_follows_ownership_and_keeps_all_saved_solves(tmp_path):
     metadata = json.loads((ROOT / "cli/challenges.json").read_text())
-    assert [track["id"] for track in metadata["tracks"][:4]] == ["FM", "FO", "LD", "P1"]
+    assert [track["id"] for track in metadata["tracks"][:5]] == ["FM", "FO", "LD", "NM", "P1"]
     records = [line.split(":")[0] for line in (ROOT / "flags.sha256").read_text().splitlines()
                if line and not line.startswith("#")]
     existing = [stage for stage in records if stage not in SOLUTIONS]
@@ -206,8 +206,8 @@ def test_discovery_follows_ownership_and_keeps_all_saved_solves(tmp_path):
     data = json.loads(result.stdout)["data"]
     ids = [stage["id"] for stage in data["labs"]]
     assert ids[15:22] == list(SOLUTIONS)
-    assert data["progress"]["total"] == 61
-    assert data["progress"]["solved"] == 54 and data["progress"]["remaining"] == 7
+    assert data["progress"]["total"] == len(records)
+    assert data["progress"]["solved"] == len(existing) and data["progress"]["remaining"] == 7
     assert data["progress"]["next"]["id"] == "LD-01"
     assert progress.read_bytes() == before
     submitted = command(str(ROOT / "labctl"), "--json", "submit", "LD-01", "--flag-stdin",

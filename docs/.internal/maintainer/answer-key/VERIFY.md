@@ -56,7 +56,7 @@ was not available.
     All errors return HTTP 200. Only a complete, successful login shows its
     flag; the new accounts do not grant a main-portal admin session.
 11. Submit every flag in `SOLUTIONS.md` with `labctl submit` and check that
-    `labctl status` reaches 61 / 61.
+    `labctl status` reaches 73 / 73.
 
 ## Linux file manipulation
 
@@ -83,3 +83,17 @@ directories. The tests also check quoting, hidden listings, executable/binary
 decoys, shuffled duplicates, dry runs, repeat submissions, wrong IDs, and saved
 progress compatibility. Six content-only tasks run without Docker too.
 The linux-ownership CI job runs both Linux container suites.
+
+## Nmap enumeration
+
+Run `MFANO_TEST_NMAP=1 python3 -m pytest -q tests/test_nmap_enumeration.py`
+on a Docker Compose host. The dedicated CI job builds the two minimal-context
+images and runs all twelve scans in the isolated scanner against the actual
+HTTP/HTTPS, OpenSSH, vsftpd and dnsmasq services. Each report is checked through
+the host launcher, then its revealed flag is submitted through labctl, including
+dry runs, repeat submissions and wrong-ID rejection. The final report also
+produces all three `-oA` output formats. Tests verify no external default route,
+report persistence after stopping/restarting, and compatibility with all old
+saved solves. Unit checks reject malformed/unfinished XML, foreign targets,
+oversized/entity-bearing input, port-name guesses and ambiguous UDP states.
+Local protocol tests also run real Nmap HTTP and TLS scripts on loopback.

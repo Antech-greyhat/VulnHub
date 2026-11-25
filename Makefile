@@ -36,6 +36,10 @@ check:
 	bash -n linux-discovery/welcome.sh
 	shellcheck linux-discovery/lab linux-discovery/welcome.sh
 	python3 -B -c 'import ast; from pathlib import Path; ast.parse(Path("docs/.internal/maintainer/answer-key/linux_discovery.py").read_text())'
+	bash -n nmap-enumeration/lab
+	bash -n nmap-enumeration/welcome.sh
+	shellcheck nmap-enumeration/lab nmap-enumeration/welcome.sh
+	python3 -B -c 'import ast; from pathlib import Path; ast.parse(Path("nmap-enumeration/target.py").read_text()); ast.parse(Path("docs/.internal/maintainer/answer-key/nmap_enumeration.py").read_text())'
 
 test:
 	PYTHONDONTWRITEBYTECODE=1 python3 -B -m pytest -q -p no:cacheprovider tests/test_bash_cli.py

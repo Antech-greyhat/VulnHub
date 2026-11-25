@@ -1,0 +1,23 @@
+FROM debian:bookworm-slim
+
+RUN apt-get update \
+    && apt-get install --no-install-recommends -y python3 openssh-server vsftpd dnsmasq openssl \
+    && mkdir -p /opt/mfano/certs /srv/ftp \
+    && printf '%s\n' 'FAKE school archive: read-only Nmap practice.' > /srv/ftp/README.txt \
+    && printf '%s\n' 'FAKE handover: inventory services before connecting.' > /srv/ftp/handover.txt \
+    && chmod 0555 /srv/ftp \
+    && chmod 0444 /srv/ftp/README.txt /srv/ftp/handover.txt \
+    && openssl req -x509 -newkey rsa:2048 -nodes -days 3650 \
+       -keyout /opt/mfano/certs/training.key -out /opt/mfano/certs/training.crt \
+       -subj '/CN=portal.mfano.test/O=Mfano Nmap Training' \
+       -addext 'subjectAltName=DNS:portal.mfano.test,DNS:archive.mfano.test'
+
+COPY --chown=0:0 nmap-enumeration/config/ /opt/mfano/config/
+COPY --chown=0:0 nmap-enumeration/target.py /opt/mfano/target.py
+COPY --chown=0:0 docs/.internal/maintainer/answer-key/nmap_enumeration.py /opt/mfano/check.py
+
+RUN python3 -B -c 'from pathlib import Path; config = Path("/opt/mfano/config/vsftpd.conf"); assert config.is_file() and config.stat().st_uid == 0, "FTP configuration must be a root-owned regular file"'
+
+ENV PYTHONDONTWRITEBYTECODE=1 LC_ALL=C
+WORKDIR /opt/mfano
+CMD ["python3", "-B", "/opt/mfano/target.py", "portal"]

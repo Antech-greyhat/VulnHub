@@ -168,5 +168,5 @@ def test_permissions_follow_files_and_preserve_existing_ids(tmp_path):
     assert ids[:8] == [f"FM-{n:02d}" for n in range(1, 9)]
     assert ids[8:15] == list(SPEC["FLAGS"])
     assert data["progress"]["next"]["id"] == "LD-01"
-    assert data["progress"]["total"] == 61
+    assert data["progress"]["total"] == 73
     assert progress.read_bytes() == original

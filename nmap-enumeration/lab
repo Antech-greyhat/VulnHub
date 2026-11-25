@@ -1,0 +1,106 @@
+#!/usr/bin/env bash
+# Dedicated local Nmap network. Learner reports stay in a Docker-managed volume.
+set -euo pipefail
+ROOT=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")/.." && pwd)
+SCANNER_IMAGE=${MFANO_NMAP_SCANNER_IMAGE:-mfano-nmap-scanner:local}
+TARGET_IMAGE=${MFANO_NMAP_TARGET_IMAGE:-mfano-nmap-target:local}
+PROJECT=${MFANO_NMAP_PROJECT:-mfano-nmap-enumeration}
+MODE=${1:-shell}
+
+usage() {
+    cat <<'HELP'
+Nmap enumeration practice (NM-01 to NM-12)
+
+  ./nmap-enumeration/lab                         Build, start, and open the scanner
+  ./nmap-enumeration/lab start                   Build and start without a shell
+  ./nmap-enumeration/lab shell                   Open a running scanner shell
+  ./nmap-enumeration/lab check NM-01 scans/01.xml Verify scan evidence; reveal a flag
+  ./nmap-enumeration/lab status                  Show the training containers
+  ./nmap-enumeration/lab stop                    Stop; preserve reports and progress
+  ./nmap-enumeration/lab build                   Build the two training images only
+  ./nmap-enumeration/lab --help                  Show help without starting Docker
+
+Run from a normal Linux terminal. The first launch downloads the images and
+Nmap tools. Targets are on the internal 172.30.77.0/28 Docker network; no host
+ports are published. In the scanner, type task NM-01. Use check and ./labctl
+in a second HOST terminal to verify your report and submit the revealed flag.
+Scans persist in the dedicated Docker volume when you stop or rebuild.
+Setup and official reference links: nmap-enumeration/README.md
+HELP
+}
+
+case "$MODE" in
+    --help|-h|help)
+        if [[ $# -gt 1 ]]; then usage >&2; exit 2; fi
+        usage; exit 0 ;;
+    check)
+        if [[ $# != 3 || ! $2 =~ ^NM-(0[1-9]|1[0-2])$ ||
+              ! $3 =~ ^scans/[a-zA-Z0-9_./-]+\.xml$ || $3 == *'/../'* ]]; then
+            printf '%s\n' 'Usage: ./nmap-enumeration/lab check NM-01 scans/01.xml' >&2
+            exit 2
+        fi ;;
+    start|shell|status|stop|build)
+        if [[ $# -gt 1 ]]; then usage >&2; exit 2; fi ;;
+    *) usage >&2; exit 2 ;;
+esac
+if [[ "$MODE" == shell && ( ! -t 0 || ! -t 1 ) ]]; then
+    printf '%s\n' 'Open a normal terminal and run ./nmap-enumeration/lab there.' >&2
+    exit 2
+fi
+if ! command -v docker >/dev/null 2>&1; then
+    printf '%s\n' 'Docker is not installed. Follow nmap-enumeration/README.md.' >&2
+    exit 1
+fi
+if ! docker info >/dev/null 2>&1; then
+    printf '%s\n' 'Docker is not ready. Run docker info to see the error.' \
+        'For a stopped service: sudo systemctl start docker' \
+        'For permission denied: follow the Docker group/login steps in linux-ownership/README.md.' >&2
+    exit 1
+fi
+if docker compose version >/dev/null 2>&1; then
+    COMPOSE=(docker compose)
+elif command -v docker-compose >/dev/null 2>&1; then
+    COMPOSE=(docker-compose)
+else
+    printf '%s\n' 'Docker Compose is missing. Follow nmap-enumeration/README.md.' >&2
+    exit 1
+fi
+compose() {
+    "${COMPOSE[@]}" --project-name "$PROJECT" --file "$ROOT/nmap-enumeration/compose.yml" "$@"
+}
+build_images() {
+    printf '%s\n' 'Preparing Nmap training images. The first build can take a few minutes.'
+    tar -C "$ROOT" -cf - nmap-enumeration/Dockerfile.scanner \
+        nmap-enumeration/welcome.sh nmap-enumeration/README.md |
+        docker build --tag "$SCANNER_IMAGE" --file nmap-enumeration/Dockerfile.scanner -
+    tar -C "$ROOT" -cf - nmap-enumeration/Dockerfile.target nmap-enumeration/target.py \
+        nmap-enumeration/config docs/.internal/maintainer/answer-key/nmap_enumeration.py |
+        docker build --tag "$TARGET_IMAGE" --file nmap-enumeration/Dockerfile.target -
+}
+start_services() {
+    if ! compose up --detach; then
+        compose logs --no-color target archive >&2 || true
+        return 1
+    fi
+}
+
+case "$MODE" in
+    build) build_images ;;
+    start)
+        build_images
+        start_services
+        printf '%s\n' 'Ready. Open the scanner with ./nmap-enumeration/lab shell.' ;;
+    shell)
+        if [[ $# == 0 ]]; then
+            build_images
+            start_services
+        fi
+        compose exec scanner bash --rcfile /practice/welcome.sh -i ;;
+    check)
+        compose exec -T scanner cat -- "$3" |
+            compose exec -T target python3 -B /opt/mfano/check.py check "$2" ;;
+    status) compose ps ;;
+    stop)
+        compose stop
+        printf '%s\n' 'Training services stopped. Saved scans and labctl progress are preserved.' ;;
+esac

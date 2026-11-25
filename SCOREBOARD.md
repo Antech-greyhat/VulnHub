@@ -63,6 +63,19 @@ counted as OWASP bugs.
 | FO-01 to FO-07 | 7 | Symbolic/numeric chmod, directory traversal, chown, chgrp, setgid |
 | LD-01 to LD-07 | 7 | Unusual and hidden filenames, file types, find size/permission/owner/group filters, sort and uniq |
 
-Total scored challenges: **61** (29 web bugs, 3 social engineering, 7 forensics,
-8 Linux file manipulation, 7 Linux permissions/ownership, 7 Linux file discovery).
+## Nmap enumeration
+
+Twelve exercises use a dedicated internal Docker network: ten guided labs and
+two final challenges. These teach enumeration and are not counted as OWASP bugs.
+Scan reports are checked before their flags can be submitted through labctl.
+
+| Stage | Count | Skills |
+| ----- | ----- | ------ |
+| NM-01 to NM-05 | 5 | Host discovery, TCP connect/SYN scans, port ranges, service versions, UDP/DNS |
+| NM-06 to NM-10 | 5 | Named HTTP, TLS, SSH and FTP NSE scripts, script help and arguments |
+| NM-11 to NM-12 | 2 | Independent service discovery, combined TCP/UDP inventory and saved reports |
+
+Total scored challenges: **73** (29 web bugs, 3 social engineering, 7 forensics,
+8 Linux file manipulation, 7 Linux permissions/ownership, 7 Linux file discovery,
+12 Nmap enumeration).
 Existing challenge IDs retain their meaning.

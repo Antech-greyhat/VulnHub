@@ -8,7 +8,7 @@
   <img alt="Bash CLI" src="https://img.shields.io/badge/CLI-Bash-4EAA25?logo=gnubash&logoColor=white">
   <img alt="Docker Compose" src="https://img.shields.io/badge/docker-compose-2496ED?logo=docker&logoColor=white">
   <img alt="OWASP Top 10 2025" src="https://img.shields.io/badge/OWASP-Top%2010%3A2025-000000?logo=owasp&logoColor=white">
-  <img alt="61 flags" src="https://img.shields.io/badge/flags-61-e3b341">
+  <img alt="73 flags" src="https://img.shields.io/badge/flags-73-e3b341">
   <img alt="Kali ready" src="https://img.shields.io/badge/kali-ready-557C94?logo=kalilinux&logoColor=white">
   <img alt="Vulnerable by design" src="https://img.shields.io/badge/vulnerable-by%20design-b91c1c">
 </p>
@@ -51,7 +51,7 @@ fake, and the lab never calls a real payment API.
 | ----- | ------ |
 | Web | Access control, injection, broken auth and sessions, login discovery and brute forcing, file upload, SSRF, business logic |
 | Linux | Reading, writing, filtering and combining files; chmod, chown, chgrp; hidden and unusual filenames, file types, find filters, sort and uniq |
-| Networking | Port and service discovery with `nmap`, weak database credentials |
+| Networking | Guided Nmap host discovery, TCP/UDP scans, service versions and named NSE scripts; later exposed-service challenges |
 | Secrets and supply chain | Secrets in frontend code and git history, vulnerable dependencies, leaky errors |
 | Cryptography | Cracking weak password hashes, spotting fake "encryption", forging weakly-signed tokens, hardcoded keys, ECB structure leaks |
 | Integrity and design | Insecure deserialization, mass assignment, secrets leaking into exposed logs |
@@ -63,8 +63,8 @@ fake, and the lab never calls a real payment API.
 | Tool | Needed for | Notes |
 | ---- | ---------- | ----- |
 | Git | Getting the lab | Any recent version |
-| Docker | Ownership, file discovery, web, network and server challenges | `docker.io` on Linux |
-| Docker Compose | Web, network and server challenges | Ownership and discovery launchers use Docker directly |
+| Docker | Ownership, file discovery, Nmap, web, network and server challenges | `docker.io` on Linux |
+| Docker Compose | Nmap, web, network and server challenges | Ownership and discovery launchers use Docker directly |
 | Bash 4+, jq, whiptail | Linux CLI, menus, and offline flag scoring | Whiptail uses the libnewt terminal UI library |
 | coreutils, util-linux, Make | Hashing, progress locking, and PATH installation | Usually present on Kali/Debian/Ubuntu |
 | Python 3.10 or newer | File manipulation checks and maintainer tests | File exercises use the standard library; the portal's runtime is provided by Docker |
@@ -81,6 +81,12 @@ New to Linux? Begin with [file manipulation](linux-files/README.md), then
 [file discovery](linux-discovery/README.md), then P1. Text manipulation exercises
 work offline. Ownership and discovery each have a Docker launcher; the ownership
 guide walks through Docker setup from the beginning.
+
+For network enumeration, follow [Nmap practice](nmap-enumeration/README.md)
+after the Linux tracks. Run `./nmap-enumeration/lab` for an isolated scanner
+and service targets, complete ten guided exercises and two final challenges,
+then check scan reports and submit the flags with `labctl`. This training
+network starts separately from the web portal.
 
 ### Kali Linux / Debian / Ubuntu
 
@@ -157,7 +163,8 @@ plain-English guess like `MFANO{can_hack_for_real}` will be rejected as a
 
 1. **Hunt.** Complete a Linux exercise in [`linux-files/`](linux-files/README.md),
    [`linux-ownership/`](linux-ownership/README.md), or
-   [`linux-discovery/`](linux-discovery/README.md). You can also exploit a bug in
+   [`linux-discovery/`](linux-discovery/README.md), or verify a scan in
+   [`nmap-enumeration/`](nmap-enumeration/README.md). You can also exploit a bug in
    the portal or pull a secret out of a forensics file. A real exploit makes
    the flag show up: in a page, a database row, a
    file on the box, a frame of video.
@@ -204,7 +211,7 @@ How scoring works:
 
 ## The challenges
 
-There are 61 flags. The categories are listed below, but not where the bugs are.
+There are 73 flags. The categories are listed below, but not where the bugs are.
 `SCOREBOARD.md` has the per-phase breakdown.
 
 | Stages | Theme | Count | Difficulty |
@@ -212,6 +219,7 @@ There are 61 flags. The categories are listed below, but not where the bugs are.
 | FM-xx | Linux file manipulation (start here) | 8 | Easy to Easy-Medium |
 | FO-xx | Linux permissions and ownership | 7 | Easy to Easy-Medium |
 | LD-xx | Linux file discovery (Bandit-inspired) | 7 | Easy to Easy-Medium |
+| NM-xx | Nmap enumeration: discovery, TCP/UDP, service versions and NSE | 12 | Easy to Easy-Medium |
 | P1-xx | Web access control and Linux files | 3 | Easy |
 | P2-xx | Networking and exposed services | 2 | Easy-Medium |
 | P3-xx | Injection, XSS, sessions, privilege escalation | 4 | Medium |
@@ -232,11 +240,19 @@ in a Docker sandbox. The guide includes first-time Docker setup and explains
 how to check, exit and submit on the host. Then run `./linux-discovery/lab` for
 seven [file discovery exercises](linux-discovery/README.md) inspired by Bandit
 levels 1–6 and 8. Reading and known-entry searching are already covered, so
-levels 0 and 7 are skipped. The Linux tracks come first; existing IDs and saved
-solves stay valid.
+levels 0 and 7 are skipped. The Linux tracks come first, followed by the
+[Nmap track](nmap-enumeration/README.md); existing IDs and saved solves stay valid.
 
 <details>
 <summary><b>Networking notes</b></summary>
+
+Start with twelve [Nmap enumeration exercises](nmap-enumeration/README.md) on
+a dedicated internal Docker network. They cover scan flags and named scripts
+for HTTP, TLS, SSH, FTP and DNS. The checker verifies saved XML and reveals
+each practice flag; `labctl labs --track NM` lists the track. Its services
+publish no host ports, and its reports persist in a dedicated volume.
+
+The later P2 challenges use the web lab's exposed services:
 
 The lab publishes a few services on your loopback interface only:
 
@@ -364,7 +380,7 @@ so read them only after you finish.
 ```sh
 python3 -m venv .venv
 . .venv/bin/activate
-pip install -r requirements.txt pytest
+pip install -r requirements.txt pytest pyyaml
 python -m pytest -q
 
 # Bash syntax and ShellCheck, then the CLI checks alone
@@ -374,6 +390,9 @@ make test
 
 # With Docker running, solve the ownership and discovery tasks in real containers
 MFANO_TEST_DOCKER=1 python -m pytest -q tests/test_linux_ownership.py tests/test_linux_discovery.py
+
+# With Docker Compose running, solve every Nmap exercise against real services
+MFANO_TEST_NMAP=1 python -m pytest -q tests/test_nmap_enumeration.py
 ```
 
 ## Troubleshooting
@@ -399,6 +418,7 @@ MFANO_TEST_DOCKER=1 python -m pytest -q tests/test_linux_ownership.py tests/test
 ├── linux-files/      Offline beginner file exercises and checker
 ├── linux-ownership/  One-command Docker sandbox for permissions and ownership
 ├── linux-discovery/  Bandit-inspired file discovery sandbox and task guide
+├── nmap-enumeration/ Isolated Nmap scanner, service targets and guided exercises
 ├── forensics/         Offline forensics evidence and case brief
 ├── docker/            Container entrypoint
 ├── tests/             Build checks (spoilers)
@@ -422,6 +442,7 @@ MFANO_TEST_DOCKER=1 python -m pytest -q tests/test_linux_ownership.py tests/test
 - Only attack **this lab, on your own machine**. Never scan or exploit hosts,
   networks or services you don't own or don't have written permission to test.
 - The compose file binds every port to `127.0.0.1`. Keep it that way.
+- Nmap practice uses a separate internal Docker network with no published ports.
 - The admin "server tools" can run commands and fetch URLs from the lab box. That
   is part of the lesson, and it's why the lab must never be public.
 - See [`SECURITY.md`](SECURITY.md) for what counts as a real issue in this repo.
