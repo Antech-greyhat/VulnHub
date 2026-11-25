@@ -35,6 +35,7 @@ fake, and the lab never calls a real payment API.
 - [Requirements](#requirements)
 - [Install and run](#install-and-run)
   - [Kali Linux / Debian / Ubuntu](#kali-linux--debian--ubuntu)
+  - [Start the Nmap lab](#start-the-nmap-lab)
 - [Log in](#log-in)
 - [Find and submit flags](#find-and-submit-flags)
 - [The challenges](#the-challenges)
@@ -127,11 +128,61 @@ Escape returns to the previous menu; Escape at the main menu exits.
 
 ### Stop and reset
 
+For the web portal's services:
+
 ```sh
 labctl stop                 # stop the containers
 labctl reset --dry-run      # preview reseeding
 labctl reset                # confirm, then reseed fresh mock data
 ```
+
+### Start the Nmap lab
+
+For enumeration practice, use the Nmap track's launcher. `labctl` handles its
+flag scoring; the **Manage lab services** menu and `labctl start`, `stop` and
+`reset` commands manage the web portal's stack. The Nmap guide includes
+[first-time tools and Docker setup](nmap-enumeration/README.md#install-and-check-the-tools).
+
+In **host terminal A**, from this checkout:
+
+```sh
+docker info
+./nmap-enumeration/lab
+```
+
+Wait for the scanner prompt, `nmap-lab:/practice#`. **Inside the scanner**:
+
+```sh
+targets
+task NM-01
+nmap -n -sn 172.30.77.0/28 -oX scans/01.xml
+```
+
+Wait for `Nmap done`. In **host terminal B**, in the same checkout on the same
+Linux machine or VM:
+
+```sh
+./nmap-enumeration/lab check NM-01 scans/01.xml
+./labctl submit NM-01
+```
+
+Copy the flag returned by the checker into the hidden submission box. Checking
+the report reveals the flag; `labctl` records the solve. Repeat with the matching
+ID and XML filename for each exercise, then view `./labctl solved --track NM`.
+
+To pause, type `exit` in the scanner and run `./nmap-enumeration/lab stop` on
+the host. Running `./nmap-enumeration/lab` again starts the services and reopens
+the scanner. Reports persist in the scanner's Docker volume; scores persist
+in the host's `.labprogress.json`.
+
+> [!CAUTION]
+> Port-scan only the two practice targets, `172.30.77.10` and `172.30.77.11`,
+> from the provided scanner. Keep its Docker network internal and its ports
+> unpublished. `exit` leaves the services running, so use the Nmap launcher
+> to stop them. Choose new report names to preserve earlier attempts.
+
+Follow the [full Nmap guide](nmap-enumeration/README.md) for the two-terminal
+walkthrough, all twelve exercises, command reference, cautions and troubleshooting.
 
 ## Log in
 
