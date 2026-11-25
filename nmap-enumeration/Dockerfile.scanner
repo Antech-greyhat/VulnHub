@@ -1,0 +1,12 @@
+FROM debian:bookworm-slim
+
+RUN apt-get update \
+    && apt-get install --no-install-recommends -y nmap iproute2 less \
+    && mkdir -p /practice/scans
+
+COPY nmap-enumeration/README.md /practice/README.md
+COPY nmap-enumeration/welcome.sh /practice/welcome.sh
+
+WORKDIR /practice
+ENV LC_ALL=C
+CMD ["sleep", "infinity"]

@@ -1,9 +1,17 @@
 # Build status (maintainer notes)
 
-Last updated: 2026-11-23. The answer key, the forensics generator and a check
+Last updated: 2026-11-25. The answer key, the forensics generator and a check
 list for the running lab are next door in `../answer-key/`.
 
 ## Done
+
+- Nmap enumeration adds NM-01 through NM-12: ten guided labs and two final
+  challenges for host discovery, connect/SYN scans, full port ranges, versions,
+  UDP/DNS and named HTTP/TLS/SSH/FTP scripts. Real services run on a dedicated
+  internal Docker network without published ports; learner scan reports persist
+  in a named volume. The XML checker reveals flags only after required findings,
+  with hashes/catalogue integrated into existing scoring. Totals are now 73
+  challenges and 29 OWASP bugs. A dedicated Docker CI job solves all twelve.
 
 - Linux foundations now has 22 exercises: FM-01 through FM-08, FO-01 through
   FO-07, and LD-01 through LD-07. The discovery sandbox adds the missing skills

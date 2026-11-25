@@ -3,6 +3,7 @@
 .labprogress.json.lock
 .labprogress.json.tmp.*
 .labctl-work.*
+.nmap-labs-work.*
 cli
 .pytest_cache
 __pycache__
