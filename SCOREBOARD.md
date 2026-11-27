@@ -55,6 +55,7 @@ All three use the [offline book fair sources](osint/README.md).
 | Stage | Evidence | Skill |
 | ----- | -------- | ----- |
 | STEG-01 | Club notice | Identify invisible Unicode characters by name |
+| STEG-02 | Open-day ticket | Isolate the PNG alpha channel and stretch its contrast |
 
 The [media club guide](steganography/README.md) includes local commands and
 links to 0xRick's tool notes for each exercise.
@@ -96,7 +97,7 @@ Scan reports are checked before their flags can be submitted through labctl.
 | NM-06 to NM-10 | 5 | Named HTTP, TLS, SSH and FTP NSE scripts, script help and arguments |
 | NM-11 to NM-12 | 2 | Independent service discovery, combined TCP/UDP inventory and saved reports |
 
-Total scored challenges: **80** (29 web bugs, 3 social engineering, 3 OSINT,
-10 forensics, 1 steganography, 8 Linux file manipulation, 7 Linux permissions/ownership,
+Total scored challenges: **81** (29 web bugs, 3 social engineering, 3 OSINT,
+10 forensics, 2 steganography, 8 Linux file manipulation, 7 Linux permissions/ownership,
 7 Linux file discovery, 12 Nmap enumeration).
 Existing challenge IDs retain their meaning.

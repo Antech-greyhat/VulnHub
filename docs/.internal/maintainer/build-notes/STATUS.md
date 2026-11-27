@@ -5,7 +5,8 @@ list for the running lab are next door in `../answer-key/`.
 
 ## Done
 
-- The media club steganography track begins with STEG-01. The local evidence
+- The media club track covers a Unicode notice and a PNG ticket (STEG-01 and
+  STEG-02). The local evidence
   and CLI clues are paired with sections of 0xRick's steganography reference.
 - OSINT-01 through OSINT-03 add three offline book fair investigations to the
   catalogue. Learners verify a venue, trace a photo credit and locate a desk

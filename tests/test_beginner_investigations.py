@@ -3,11 +3,15 @@ import csv
 from email import policy
 from email.parser import BytesParser
 import hashlib
+from itertools import groupby
 import json
 import os
 from pathlib import Path
 import re
+import shutil
 import subprocess
+
+import pytest
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -88,3 +92,23 @@ def test_invisible_edition_code(tmp_path):
     code = "".join(chr(ord(character) - 0xE0000) for character in tags)
     assert code not in notice
     submit_finding("STEG-01", code, tmp_path)
+
+
+def test_recover_ticket_punches(tmp_path):
+    decoder = shutil.which("magick") or shutil.which("convert")
+    if decoder is None:
+        pytest.skip("The ticket needs ImageMagick")
+    ticket = MEDIA_CLUB / "open-day-ticket.png"
+    graymap = subprocess.check_output(
+        [decoder, str(ticket), "-alpha", "extract", "-auto-level", "-depth", "8", "pgm:-"]
+    )
+    magic, dimensions, maximum, pixels = graymap.split(b"\n", 3)
+    width, height = map(int, dimensions.split())
+    assert magic == b"P5" and maximum == b"255" and len(pixels) == width * height
+
+    # Each white-to-black transition enters a punch. Adjacent scanlines
+    # through the same row of circles give the same count.
+    counts = [pixels[i:i + width].count(b"\xff\x00") for i in range(0, len(pixels), width)]
+    digits = [str(count) for count, _ in groupby(counts) if count]
+    assert len(digits) == 3
+    submit_finding("STEG-02", "t1ck3t_" + "".join(digits), tmp_path)

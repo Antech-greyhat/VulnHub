@@ -31,6 +31,27 @@ Read each Unicode name as one character. For example, `TAG DIGIT FOUR` means
 result inside `MFANO{...}`. 0xRick lists Unicode text as one medium for
 hiding a message. [Unicode Text Steganography](https://0xrick.github.io/lists/stego/#unicode-text-steganography)
 
+## STEG-02 · The unpunched ticket
+
+The ticket desk records a three-digit serial by punching dots in three rows.
+The design looks ready to print, but the punch marks are missing. Start with
+the original PNG so you have its transparency channel. [Open-day ticket](evidence/open-day-ticket.png)
+
+The alpha channel stores how opaque each pixel is. Two almost-opaque pixels
+can look alike on screen. Extract the channel and stretch its lightest and
+darkest values across the full range. This writes a new image. Choose an
+unused output filename for `ticket-alpha.png`.
+
+```sh
+magick steganography/evidence/open-day-ticket.png -alpha extract -auto-level ticket-alpha.png
+```
+
+On Kali, Debian or Ubuntu, `sudo apt install imagemagick` provides the tool.
+ImageMagick 6 calls the command `convert`. Open `ticket-alpha.png` in an image
+viewer. Count the dots in each row, top to bottom, and join the three digits.
+Put them after `t1ck3t_` inside the flag. For the idea behind changing image
+levels to uncover a message, see [0xRick's Stegsolve notes](https://0xrick.github.io/lists/stego/#stegsolve).
+
 ## Submit a code
 
 Run the command for your challenge and paste the completed flag at the

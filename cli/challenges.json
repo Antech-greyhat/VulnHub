@@ -97,6 +97,7 @@
     "F-08": {"title": "The first completed print job", "hint": "Find the first job that finished printing programme.pdf on the hall printer. Compare completion times and use the job ID.", "evidence": "forensics/starter/print-queue.csv"},
     "F-09": {"title": "The print-room reply", "hint": "Read the headers to find the message this email answers. Take the part of that ID before the @ and leave out the angle brackets.", "evidence": "forensics/starter/print-room.eml"},
     "F-10": {"title": "The matching programme", "hint": "Compare the SHA-256 of each recovered copy with the full digest recorded at collection. Use the matching filename without its extension.", "evidence": "forensics/starter/handover.txt"},
-    "STEG-01": {"title": "The unsigned notice", "hint": "Inspect the Unicode names of the invisible characters after 'edition'. Read them in order and wrap the code in MFANO braces. https://0xrick.github.io/lists/stego/#unicode-text-steganography", "evidence": "steganography/evidence/club-notice.txt"}
+    "STEG-01": {"title": "The unsigned notice", "hint": "Inspect the Unicode names of the invisible characters after 'edition'. Read them in order and wrap the code in MFANO braces. https://0xrick.github.io/lists/stego/#unicode-text-steganography", "evidence": "steganography/evidence/club-notice.txt"},
+    "STEG-02": {"title": "The unpunched ticket", "hint": "Isolate the PNG's alpha channel and stretch its contrast. Count the dots per row from top to bottom. Put t1ck3t_ before the three digits inside the flag. https://0xrick.github.io/lists/stego/#stegsolve", "evidence": "steganography/evidence/open-day-ticket.png"}
   }
 }

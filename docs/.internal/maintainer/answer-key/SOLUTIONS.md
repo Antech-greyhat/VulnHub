@@ -508,3 +508,4 @@ source contains neither a plaintext account nor the password or flag.
 | Stage | Finding | Flag |
 | ----- | ------- | ---- |
 | STEG-01 | The six invisible Unicode tags after `edition` spell the code in file order. The low line is an underscore. | `MFANO{1nk_07}` |
+| STEG-02 | Stretching the ticket's alpha channel reveals two, five and three circular punches in successive rows. Append those counts to the printed exercise prefix. | `MFANO{t1ck3t_253}` |
