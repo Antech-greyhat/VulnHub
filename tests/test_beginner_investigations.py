@@ -14,6 +14,7 @@ ROOT = Path(__file__).resolve().parents[1]
 SOURCES = ROOT / "osint" / "sources"
 VISITOR_MAP = SOURCES / "visitor-map.md"
 PRINT_ROOM = ROOT / "forensics" / "starter"
+MEDIA_CLUB = ROOT / "steganography" / "evidence"
 
 
 def read_rows(path):
@@ -78,3 +79,12 @@ def test_copy_matches_recorded_digest(tmp_path):
     assert len(copies) == 3
     match, = [path for path in copies if hashlib.sha256(path.read_bytes()).hexdigest() == digest]
     submit_finding("F-10", match.stem, tmp_path)
+
+
+def test_invisible_edition_code(tmp_path):
+    notice = (MEDIA_CLUB / "club-notice.txt").read_text(encoding="utf-8")
+    tags, = re.findall(r"edition([^\x00-\x7f]+) ", notice)
+    assert all(0xE0020 <= ord(character) <= 0xE007E for character in tags)
+    code = "".join(chr(ord(character) - 0xE0000) for character in tags)
+    assert code not in notice
+    submit_finding("STEG-01", code, tmp_path)

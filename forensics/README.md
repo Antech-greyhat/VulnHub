@@ -10,6 +10,9 @@ short queue log, follow an email reply and compare file fingerprints. The
 guide includes the commands and shows how to submit your first finding.
 [Open the beginner print-room cases](starter/README.md)
 
+To practise recovering hidden messages, try the separate
+[media club steganography track](../steganography/README.md).
+
 ## The case
 
 In F-01 through F-07, the Form 4 mock chemistry paper leaked two days before
