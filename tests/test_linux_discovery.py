@@ -197,15 +197,17 @@ def test_discovery_follows_ownership_and_keeps_all_saved_solves(tmp_path):
     assert [track["id"] for track in metadata["tracks"][:5]] == ["FM", "FO", "LD", "NM", "P1"]
     records = [line.split(":")[0] for line in (ROOT / "flags.sha256").read_text().splitlines()
                if line and not line.startswith("#")]
+    earlier_linux = [stage for stage in records if stage.startswith(("FM-", "FO-"))]
+    expected = earlier_linux + list(SOLUTIONS)
     existing = [stage for stage in records if stage not in SOLUTIONS]
     progress = tmp_path / "score.json"
     progress.write_text(json.dumps({"solved": existing, "note": "keep"}) + "\n")
     before = progress.read_bytes()
     env = dict(os.environ, LABCTL_PROGRESS_FILE=str(progress))
-    result = command(str(ROOT / "labctl"), "--json", "status", "--limit", "30", env=env)
+    result = command(str(ROOT / "labctl"), "--json", "status", "--limit", str(len(expected)), env=env)
     data = json.loads(result.stdout)["data"]
     ids = [stage["id"] for stage in data["labs"]]
-    assert ids[15:22] == list(SOLUTIONS)
+    assert ids == expected
     assert data["progress"]["total"] == len(records)
     assert data["progress"]["solved"] == len(existing) and data["progress"]["remaining"] == 7
     assert data["progress"]["next"]["id"] == "LD-01"

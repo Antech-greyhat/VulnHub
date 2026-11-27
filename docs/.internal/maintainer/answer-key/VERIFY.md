@@ -56,7 +56,7 @@ was not available.
     All errors return HTTP 200. Only a complete, successful login shows its
     flag; the new accounts do not grant a main-portal admin session.
 11. Submit every flag in `SOLUTIONS.md` with `labctl submit` and check that
-    `labctl status` reaches 82 / 82 after the offline tracks are also complete.
+    `labctl status` reaches 83 / 83 after the offline tracks are also complete.
 
 The book fair, print-room and media club evidence can be verified offline with
 `python3 -m pytest -q tests/test_beginner_investigations.py`. The tests read

@@ -20,6 +20,11 @@ SCRIPTS = {
     "FM-06": "grep '^ERROR backup ' backup.log > failures.txt\nwc -l < failures.txt > count.txt",
     "FM-07": "paste names.txt scores.txt > results.tsv",
     "FM-08": "sort -k1,1 roster.txt > roster.sorted\nsort -k1,1 marks.txt > marks.sorted\njoin roster.sorted marks.sorted > joined.txt",
+    "FM-09": r"""printf '%s\n' Yea -v > answers.txt
+grep -F '|bench[2]|' workshop-board.txt |
+    grep -v -e '^archived[|]' -e '^draft[|]' |
+    grep -E '[|](user|password|comment)[|]' |
+    cut -d '|' -f 4 >> answers.txt""",
 }
 
 
@@ -82,6 +87,7 @@ def test_prepare_preserves_existing_answers(workspace):
     ("FM-06", "failures.txt", SPEC["FAILURES"] + "DEBUG message=ERROR backup status=failed\n"),
     ("FM-07", "results.tsv", "Amani 72\nChebet 81\nNjeri 67\nOtieno 90\n"),
     ("FM-08", "joined.txt", "MHS1004 Otieno 67\nMHS1002 Chebet 54\n"),
+    ("FM-09", "answers.txt", "Yea\n-v\nbobthebuilder\nLinuxIsGawd\nReturn the brushes to the art room.\n"),
 ])
 def test_common_mistakes_do_not_reveal_flags(workspace, stage, name, wrong):
     for output, text in SPEC["answers"](stage).items():

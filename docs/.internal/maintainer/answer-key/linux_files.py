@@ -8,6 +8,7 @@ FLAGS = {
     "FM-06": "MFANO{gr3p_f1lt3rs_wc_c0unts}",
     "FM-07": "MFANO{p4st3_4l1gns_c0lumns}",
     "FM-08": "MFANO{j01n_m4tch3s_s0rt3d_k3ys}",
+    "FM-09": "MFANO{gr3p_f1nds_th3_h4nd0v3r}",
 }
 
 TIMELINE = "08:00 session opened\n12:00 ledger reconciled\n16:00 archive sync complete\n"
@@ -26,7 +27,7 @@ MARKS = "MHS1003 67\nMHS1006 54\nMHS1001 72\nMHS1004 90\nMHS1002 81\n"
 JOINED = "MHS1001 Amani 72\nMHS1002 Chebet 81\nMHS1003 Njeri 67\nMHS1004 Otieno 90\n"
 
 
-def inputs():
+def inputs(workshop_board):
     flag = FLAGS["FM-01"]
     return {
         "FM-01": {"part-a.txt": flag[:12], "part-b.txt": flag[12:] + "\n"},
@@ -43,6 +44,7 @@ def inputs():
         "FM-06": {"backup.log": LOG},
         "FM-07": {"names.txt": "\n".join(NAMES) + "\n", "scores.txt": "\n".join(SCORES) + "\n"},
         "FM-08": {"roster.txt": ROSTER, "marks.txt": MARKS},
+        "FM-09": {"workshop-board.txt": workshop_board},
     }
 
 
@@ -56,18 +58,23 @@ def answers(stage):
         "FM-06": {"failures.txt": FAILURES, "count.txt": "9\n"},
         "FM-07": {"results.tsv": "".join(f"{name}\t{score}\n" for name, score in zip(NAMES, SCORES))},
         "FM-08": {"joined.txt": JOINED},
+        "FM-09": {"answers.txt": (
+            "Yea\n-v\nbobthebuilder\nLinuxIsGawd\n"
+            "The spare hinge is in the blue chalk tin.\n"
+        )},
     }[stage]
 
 
-def prepare(workspace):
-    for stage, files in inputs().items():
+def prepare(workspace, workshop_board):
+    fixtures = inputs(workshop_board)
+    for stage, files in fixtures.items():
         directory = workspace / stage
         directory.mkdir()
         for name, text in files.items():
             (directory / name).write_text(text, encoding="utf-8")
     # FM-02 starts with stale content so > versus >> makes a visible difference.
     (workspace / "FM-02/handover.txt").write_text(
-        inputs()["FM-02"]["old-note.txt"], encoding="utf-8")
+        fixtures["FM-02"]["old-note.txt"], encoding="utf-8")
 
 
 def check(workspace, stage):

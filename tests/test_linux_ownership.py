@@ -157,17 +157,19 @@ if grep -q 'MFANO{{' /tmp/too-open.txt; then exit 23; fi
 
 
 def test_permissions_follow_files_and_preserve_existing_ids(tmp_path):
+    catalog = json.loads((ROOT / "cli/challenges.json").read_text())
+    file_ids = [stage for stage in catalog["challenges"] if stage.startswith("FM-")]
+    expected = file_ids + list(SPEC["FLAGS"]) + ["LD-01"]
+    # The saved score predates the ninth file exercise.
     progress = tmp_path / "score.json"
     progress.write_text(json.dumps({"solved": list(SPEC["FLAGS"]) +
         [f"FM-{n:02d}" for n in range(1, 9)] + ["P1-01"], "note": "preserve"}))
     original = progress.read_bytes()
-    result = subprocess.run([str(ROOT / "labctl"), "--json", "status", "--limit", "20"],
+    result = subprocess.run([str(ROOT / "labctl"), "--json", "status", "--limit", str(len(expected))],
                             env=dict(os.environ, LABCTL_PROGRESS_FILE=str(progress)), text=True, capture_output=True, check=True)
     data = json.loads(result.stdout)["data"]
     ids = [stage["id"] for stage in data["labs"]]
-    assert ids[:8] == [f"FM-{n:02d}" for n in range(1, 9)]
-    assert ids[8:15] == list(SPEC["FLAGS"])
-    assert data["progress"]["next"]["id"] == "LD-01"
-    catalog = json.loads((ROOT / "cli/challenges.json").read_text())
+    assert ids == expected
+    assert data["progress"]["next"]["id"] == "FM-09"
     assert data["progress"]["total"] == len(catalog["challenges"])
     assert progress.read_bytes() == original

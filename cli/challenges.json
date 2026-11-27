@@ -26,6 +26,7 @@
     "FM-06": {"title": "Count real failures", "hint": "A matching word in the middle is not the same as a matching record prefix. Count selected lines.", "evidence": "linux-files/README.md"},
     "FM-07": {"title": "Pair aligned columns", "hint": "These inputs correspond by line position. Preserve a tab between each pair of values.", "evidence": "linux-files/README.md"},
     "FM-08": {"title": "Match records by ID", "hint": "Matching by key needs consistently sorted inputs. Row position is not a student identity.", "evidence": "linux-files/README.md"},
+    "FM-09": {"title": "Search the workshop board with grep", "hint": "Brackets have a special meaning in a regular expression. Match the bench label literally and check the state at the start of each record.", "evidence": "linux-files/grep.md"},
     "FO-01": {"title": "Private notes", "hint": "Compare the owner, group and other permission sets. Remove only the access the task forbids.", "evidence": "linux-ownership/README.md"},
     "FO-02": {"title": "Team reference", "hint": "Add the read, write and execute values for each permission class before choosing a numeric mode.", "evidence": "linux-ownership/README.md"},
     "FO-03": {"title": "Directory traversal", "hint": "Listing names and accessing a file inside a directory require different directory permissions.", "evidence": "linux-ownership/README.md"},

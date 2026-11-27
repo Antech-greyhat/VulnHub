@@ -6,7 +6,7 @@
   <img alt="Bash CLI" src="https://img.shields.io/badge/CLI-Bash-4EAA25?logo=gnubash&logoColor=white">
   <img alt="Docker Compose" src="https://img.shields.io/badge/docker-compose-2496ED?logo=docker&logoColor=white">
   <img alt="OWASP Top 10 2025" src="https://img.shields.io/badge/OWASP-Top%2010%3A2025-000000?logo=owasp&logoColor=white">
-  <img alt="82 flags" src="https://img.shields.io/badge/flags-82-e3b341">
+  <img alt="83 flags" src="https://img.shields.io/badge/flags-83-e3b341">
   <img alt="Kali ready" src="https://img.shields.io/badge/kali-ready-557C94?logo=kalilinux&logoColor=white">
   <img alt="Vulnerable by design" src="https://img.shields.io/badge/vulnerable-by%20design-b91c1c">
   <img alt="Python 3.12" src="https://img.shields.io/badge/python-3.12-3776AB?logo=python&logoColor=white">
@@ -288,12 +288,12 @@ How scoring works:
 
 ## The challenges
 
-There are 82 flags. The categories are listed below, but not where the bugs are.
+There are 83 flags. The categories are listed below, but not where the bugs are.
 `SCOREBOARD.md` has the per-phase breakdown.
 
 | Stages | Theme | Count | Difficulty |
 | ------ | ----- | ----- | ---------- |
-| FM-xx | Linux file manipulation (start here) | 8 | Easy to Easy-Medium |
+| FM-xx | Linux file manipulation (start here) | 9 | Easy to Easy-Medium |
 | FO-xx | Linux permissions and ownership | 7 | Easy to Easy-Medium |
 | LD-xx | Linux file discovery (Bandit-inspired) | 7 | Easy to Easy-Medium |
 | NM-xx | Nmap enumeration: discovery, TCP/UDP, service versions and NSE | 12 | Easy to Easy-Medium |
@@ -310,10 +310,11 @@ There are 82 flags. The categories are listed below, but not where the bugs are.
 | F-xx | Forensics (logs, email, checksums, images, GIF, audio, video) | 10 | Easy to Medium |
 | STEG-xx | Media club steganography | 3 | Easy |
 
-Start with [`linux-files/README.md`](linux-files/README.md) for eight guided
+Start with [`linux-files/README.md`](linux-files/README.md) for nine guided
 exercises covering `cat`, `echo`, `less`, `head`, `tail`, `tac`, `grep`, `wc`,
-`paste`, and `join`. Their flags use the same menu and submission flow as the
-existing challenges. Next, follow [`linux-ownership/README.md`](linux-ownership/README.md)
+`paste`, and `join`. Practise fixed strings and extended regular expressions
+in the [FM-09 workshop handover](linux-files/grep.md).
+Next, follow [`linux-ownership/README.md`](linux-ownership/README.md)
 and run `./linux-ownership/lab` for seven `chmod`, `chown`, and `chgrp` exercises
 in a Docker sandbox. The guide includes first-time Docker setup and explains
 how to check, exit and submit on the host. Then run `./linux-discovery/lab` for
