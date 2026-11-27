@@ -8,7 +8,7 @@
   <img alt="Bash CLI" src="https://img.shields.io/badge/CLI-Bash-4EAA25?logo=gnubash&logoColor=white">
   <img alt="Docker Compose" src="https://img.shields.io/badge/docker-compose-2496ED?logo=docker&logoColor=white">
   <img alt="OWASP Top 10 2025" src="https://img.shields.io/badge/OWASP-Top%2010%3A2025-000000?logo=owasp&logoColor=white">
-  <img alt="80 flags" src="https://img.shields.io/badge/flags-80-e3b341">
+  <img alt="81 flags" src="https://img.shields.io/badge/flags-81-e3b341">
   <img alt="Kali ready" src="https://img.shields.io/badge/kali-ready-557C94?logo=kalilinux&logoColor=white">
   <img alt="Vulnerable by design" src="https://img.shields.io/badge/vulnerable-by%20design-b91c1c">
 </p>
@@ -60,7 +60,7 @@ fake, and the lab never calls a real payment API.
 | Social engineering | OSINT password profiling, spotting phishing, and pretexting — all against fake NPCs in the lab |
 | Open-source intelligence (OSINT) | Verify a public notice, credit a photograph and locate a desk on a map |
 | Forensics | Print logs, email headers, SHA-256 checksums, image metadata, file carving, LSB steganography, GIF frames, Morse, spectrograms, video frames |
-| Steganography | Read an edition code hidden in Unicode text |
+| Steganography | Read invisible Unicode characters and reveal punch marks in a PNG transparency channel |
 
 ## Requirements
 
@@ -278,7 +278,7 @@ How scoring works:
 
 ## The challenges
 
-There are 80 flags. The categories are listed below, but not where the bugs are.
+There are 81 flags. The categories are listed below, but not where the bugs are.
 `SCOREBOARD.md` has the per-phase breakdown.
 
 | Stages | Theme | Count | Difficulty |
@@ -298,7 +298,7 @@ There are 80 flags. The categories are listed below, but not where the bugs are.
 | SE-xx | Social engineering: OSINT, phishing, pretexting (fake NPCs) | 3 | Easy-Medium |
 | OSINT-xx | Public notices, photo attribution and map reading | 3 | Easy |
 | F-xx | Forensics (logs, email, checksums, images, GIF, audio, video) | 10 | Easy to Medium |
-| STEG-xx | Media club steganography | 1 | Easy |
+| STEG-xx | Media club steganography | 2 | Easy |
 
 Start with [`linux-files/README.md`](linux-files/README.md) for eight guided
 exercises covering `cat`, `echo`, `less`, `head`, `tail`, `tac`, `grep`, `wc`,
