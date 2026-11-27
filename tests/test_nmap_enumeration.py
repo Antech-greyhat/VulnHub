@@ -155,7 +155,7 @@ def test_new_track_preserves_all_previous_solves_and_registers_hashes(tmp_path):
     assert [track["id"] for track in metadata["tracks"][:5]] == ["FM", "FO", "LD", "NM", "P1"]
     records = {parts[0]: parts[1] for line in (ROOT / "flags.sha256").read_text().splitlines()
                if line and not line.startswith("#") for parts in [line.split(":")]}
-    assert len(records) == 73
+    assert records.keys() == metadata["challenges"].keys()
     for stage, flag in SPEC["FLAGS"].items():
         assert records[stage] == hashlib.sha256(flag.encode()).hexdigest()
         assert metadata["challenges"][stage]["evidence"] == "nmap-enumeration/README.md"
@@ -166,7 +166,7 @@ def test_new_track_preserves_all_previous_solves_and_registers_hashes(tmp_path):
     env = dict(os.environ, LABCTL_PROGRESS_FILE=str(progress))
     data = json.loads(command(str(ROOT / "labctl"), "--json", "status", "--track", "NM", env=env).stdout)["data"]
     assert [stage["id"] for stage in data["labs"]] == list(SPEC["FLAGS"])
-    assert data["progress"]["total"] == 73 and data["progress"]["solved"] == 61
+    assert data["progress"]["total"] == len(records) and data["progress"]["solved"] == len(previous)
     assert data["progress"]["remaining"] == 12 and data["progress"]["next"]["id"] == "NM-01"
     assert progress.read_bytes() == before
     command(str(ROOT / "labctl"), "--json", "submit", "NM-01", "--flag-stdin",

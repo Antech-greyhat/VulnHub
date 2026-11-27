@@ -47,6 +47,7 @@ Direct commands use styled dialogs when a terminal and whiptail are available:
 ```bash
 labctl tracks
 labctl labs --track FM
+labctl labs --track OSINT
 labctl labs --track P3
 labctl resolve 'Private report forms'
 labctl solved
@@ -67,6 +68,10 @@ Next, follow [`linux-ownership/README.md`](../linux-ownership/README.md) and run
 opens the permissions sandbox; `task FO-01` and `check-ownership FO-01` work
 inside. Submit each earned flag on the host with `labctl submit FO-01`.
 The guide includes Docker installation, first launch, exit and fresh attempts.
+
+For the three book fair investigations, find the reference code in the source
+pack and wrap it in `MFANO{...}`. Use `labctl hints OSINT-01` for a clue and
+`labctl submit OSINT-01` to score the first case. [Beginner OSINT guide](../osint/README.md)
 
 `status` and `score` are aliases for the all-challenges progress view. Lists
 accept `--limit` (default 50, range 1–1000) and `--offset` (default 0).

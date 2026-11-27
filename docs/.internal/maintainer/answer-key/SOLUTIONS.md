@@ -486,3 +486,11 @@ for candidate in Path("web-bruteforce/wordlists/usernames.txt").read_text().spli
 The match is `examadmin`. Guess its password with the same Hydra success
 condition against `/management/login`; `dragon` reveals the flag. Browser
 source contains neither a plaintext account nor the password or flag.
+
+## Beginner OSINT at the book fair
+
+| Stage | Finding | Flag |
+| ----- | ------- | ---- |
+| OSINT-01 | The Fair Committee moved the swap to Fig Hall on 17 September. The Gazette reprinted an older programme. The visitor map supplies the hall's booking code. | `MFANO{f1g_h4ll}` |
+| OSINT-02 | Library Lens published *The first crate* at 11:10 on 17 September. Both later clippings credit it. Use the Library Lens edition code. | `MFANO{l3ns_021}` |
+| OSINT-03 | The volunteers name the bell tower and the fountain. The desk in the middle row, centre column, shares an edge with each. | `MFANO{f3rn_d3sk}` |

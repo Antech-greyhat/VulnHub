@@ -8,7 +8,7 @@
   <img alt="Bash CLI" src="https://img.shields.io/badge/CLI-Bash-4EAA25?logo=gnubash&logoColor=white">
   <img alt="Docker Compose" src="https://img.shields.io/badge/docker-compose-2496ED?logo=docker&logoColor=white">
   <img alt="OWASP Top 10 2025" src="https://img.shields.io/badge/OWASP-Top%2010%3A2025-000000?logo=owasp&logoColor=white">
-  <img alt="73 flags" src="https://img.shields.io/badge/flags-73-e3b341">
+  <img alt="76 flags" src="https://img.shields.io/badge/flags-76-e3b341">
   <img alt="Kali ready" src="https://img.shields.io/badge/kali-ready-557C94?logo=kalilinux&logoColor=white">
   <img alt="Vulnerable by design" src="https://img.shields.io/badge/vulnerable-by%20design-b91c1c">
 </p>
@@ -22,8 +22,9 @@
 check marks and download report forms, the bursar takes M-Pesa-style fee
 payments, and the admin runs the server tools. Hidden inside are web bugs from the
 [OWASP Top 10:2025](https://top10.owasp.org/2025/), a few network
-misconfigurations, and a box of forensics evidence. Each one gives up a
-`MFANO{...}` flag when you exploit it. The flags are scored offline by `labctl`,
+misconfigurations, and a box of forensics evidence. You can also investigate
+the school's book fair using a set of fictional public records. Each challenge
+has a `MFANO{...}` flag. The flags are scored offline by `labctl`,
 a Linux Bash CLI with full-screen menus for submissions, progress, and gentle clues.
 
 *Mfano* means "example" in Swahili. Every student, mark, fee balance and payment is
@@ -57,6 +58,7 @@ fake, and the lab never calls a real payment API.
 | Cryptography | Cracking weak password hashes, spotting fake "encryption", forging weakly-signed tokens, hardcoded keys, ECB structure leaks |
 | Integrity and design | Insecure deserialization, mass assignment, secrets leaking into exposed logs |
 | Social engineering | OSINT password profiling, spotting phishing, and pretexting — all against fake NPCs in the lab |
+| Open-source intelligence (OSINT) | Verify a public notice, credit a photograph and locate a desk on a map |
 | Forensics | Image metadata, file carving, LSB steganography, GIF frames, Morse, spectrograms, video frames |
 
 ## Requirements
@@ -82,6 +84,10 @@ New to Linux? Begin with [file manipulation](linux-files/README.md), then
 [file discovery](linux-discovery/README.md), then P1. Text manipulation exercises
 work offline. Ownership and discovery each have a Docker launcher; the ownership
 guide walks through Docker setup from the beginning.
+
+For a first investigation, open the [beginner OSINT guide](osint/README.md).
+The three book fair cases use files in this checkout. You can start reading
+immediately and use `./labctl submit OSINT-01` to score the first finding.
 
 For network enumeration, follow [Nmap practice](nmap-enumeration/README.md)
 after the Linux tracks. Run `./nmap-enumeration/lab` for an isolated scanner
@@ -216,9 +222,8 @@ plain-English guess like `MFANO{can_hack_for_real}` will be rejected as a
    [`linux-ownership/`](linux-ownership/README.md), or
    [`linux-discovery/`](linux-discovery/README.md), or verify a scan in
    [`nmap-enumeration/`](nmap-enumeration/README.md). You can also exploit a bug in
-   the portal or pull a secret out of a forensics file. A real exploit makes
-   the flag show up: in a page, a database row, a
-   file on the box, a frame of video.
+   the portal, pull a secret out of a forensics file, or find a booking or
+   publication code in the [OSINT source pack](osint/README.md).
 2. **Submit.** Open the menu, choose **Submit a flag**, then choose the track
    and challenge. Paste the exact flag into the hidden input box:
 
@@ -262,7 +267,7 @@ How scoring works:
 
 ## The challenges
 
-There are 73 flags. The categories are listed below, but not where the bugs are.
+There are 76 flags. The categories are listed below, but not where the bugs are.
 `SCOREBOARD.md` has the per-phase breakdown.
 
 | Stages | Theme | Count | Difficulty |
@@ -280,6 +285,7 @@ There are 73 flags. The categories are listed below, but not where the bugs are.
 | P5D-xx | Integrity and design: deserialization, mass assignment, logged secrets | 3 | Medium |
 | BF-xx | Web brute-force basics: discovery, request fields, login errors, hidden accounts | 4 | Easy-Medium |
 | SE-xx | Social engineering: OSINT, phishing, pretexting (fake NPCs) | 3 | Easy-Medium |
+| OSINT-xx | Public notices, photo attribution and map reading | 3 | Easy |
 | F-xx | Forensics: images, GIF, audio, video | 7 | Easy to Medium |
 
 Start with [`linux-files/README.md`](linux-files/README.md) for eight guided
@@ -470,6 +476,7 @@ MFANO_TEST_NMAP=1 python -m pytest -q tests/test_nmap_enumeration.py
 ├── linux-ownership/  One-command Docker sandbox for permissions and ownership
 ├── linux-discovery/  Bandit-inspired file discovery sandbox and task guide
 ├── nmap-enumeration/ Isolated Nmap scanner, service targets and guided exercises
+├── osint/             Book fair public records, visitor map and beginner guide
 ├── forensics/         Offline forensics evidence and case brief
 ├── docker/            Container entrypoint
 ├── tests/             Build checks (spoilers)

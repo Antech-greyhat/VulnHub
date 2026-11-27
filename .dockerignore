@@ -14,6 +14,7 @@ venv
 .venv
 .env
 forensics
+osint
 docs
 assets
 .github
