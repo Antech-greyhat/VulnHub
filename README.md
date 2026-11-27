@@ -8,7 +8,7 @@
   <img alt="Bash CLI" src="https://img.shields.io/badge/CLI-Bash-4EAA25?logo=gnubash&logoColor=white">
   <img alt="Docker Compose" src="https://img.shields.io/badge/docker-compose-2496ED?logo=docker&logoColor=white">
   <img alt="OWASP Top 10 2025" src="https://img.shields.io/badge/OWASP-Top%2010%3A2025-000000?logo=owasp&logoColor=white">
-  <img alt="76 flags" src="https://img.shields.io/badge/flags-76-e3b341">
+  <img alt="79 flags" src="https://img.shields.io/badge/flags-79-e3b341">
   <img alt="Kali ready" src="https://img.shields.io/badge/kali-ready-557C94?logo=kalilinux&logoColor=white">
   <img alt="Vulnerable by design" src="https://img.shields.io/badge/vulnerable-by%20design-b91c1c">
 </p>
@@ -59,7 +59,7 @@ fake, and the lab never calls a real payment API.
 | Integrity and design | Insecure deserialization, mass assignment, secrets leaking into exposed logs |
 | Social engineering | OSINT password profiling, spotting phishing, and pretexting — all against fake NPCs in the lab |
 | Open-source intelligence (OSINT) | Verify a public notice, credit a photograph and locate a desk on a map |
-| Forensics | Image metadata, file carving, LSB steganography, GIF frames, Morse, spectrograms, video frames |
+| Forensics | Print logs, email headers, SHA-256 checksums, image metadata, file carving, LSB steganography, GIF frames, Morse, spectrograms, video frames |
 
 ## Requirements
 
@@ -73,9 +73,10 @@ fake, and the lab never calls a real payment API.
 | Python 3.10 or newer | File manipulation checks and maintainer tests | File exercises use the standard library; the portal's runtime is provided by Docker |
 | About 2 GB free disk | Docker images | |
 
-You don't need Docker or Python for scoring or the forensics track. The offline
-Linux file exercises use Python 3 only to prepare and check your work. Bash, jq,
-and your usual forensics tools are enough; whiptail provides the menus.
+The OSINT and forensics tracks run directly on your machine. A text viewer and
+`sha256sum` cover the six beginner investigations. The Linux file exercises
+use Python 3 to prepare and check your work. For the tools needed to submit a
+flag, follow the [Linux CLI setup](cli/README.md#install-and-open).
 
 ## Install and run
 
@@ -85,9 +86,13 @@ New to Linux? Begin with [file manipulation](linux-files/README.md), then
 work offline. Ownership and discovery each have a Docker launcher; the ownership
 guide walks through Docker setup from the beginning.
 
-For a first investigation, open the [beginner OSINT guide](osint/README.md).
-The three book fair cases use files in this checkout. You can start reading
-immediately and use `./labctl submit OSINT-01` to score the first finding.
+For a first offline investigation, choose one of these guides. Both use files
+in this checkout and include the commands for submitting your findings.
+
+- Verify a book fair notice, photo credit and map location in the
+  [beginner OSINT guide](osint/README.md).
+- Read a print log and a saved email, then identify a file by its checksum in
+  the [beginner forensics guide](forensics/starter/README.md).
 
 For network enumeration, follow [Nmap practice](nmap-enumeration/README.md)
 after the Linux tracks. Run `./nmap-enumeration/lab` for an isolated scanner
@@ -218,6 +223,9 @@ Copy a flag exactly as you find it. Don't translate it back to plain English. A
 plain-English guess like `MFANO{can_hack_for_real}` will be rejected as a
 `wrong flag`.
 
+In the beginner OSINT cases and F-08 through F-10, each guide asks for a code
+from the evidence. Put that code inside `MFANO{...}` before submitting.
+
 1. **Hunt.** Complete a Linux exercise in [`linux-files/`](linux-files/README.md),
    [`linux-ownership/`](linux-ownership/README.md), or
    [`linux-discovery/`](linux-discovery/README.md), or verify a scan in
@@ -267,7 +275,7 @@ How scoring works:
 
 ## The challenges
 
-There are 76 flags. The categories are listed below, but not where the bugs are.
+There are 79 flags. The categories are listed below, but not where the bugs are.
 `SCOREBOARD.md` has the per-phase breakdown.
 
 | Stages | Theme | Count | Difficulty |
@@ -286,7 +294,7 @@ There are 76 flags. The categories are listed below, but not where the bugs are.
 | BF-xx | Web brute-force basics: discovery, request fields, login errors, hidden accounts | 4 | Easy-Medium |
 | SE-xx | Social engineering: OSINT, phishing, pretexting (fake NPCs) | 3 | Easy-Medium |
 | OSINT-xx | Public notices, photo attribution and map reading | 3 | Easy |
-| F-xx | Forensics: images, GIF, audio, video | 7 | Easy to Medium |
+| F-xx | Forensics (logs, email, checksums, images, GIF, audio, video) | 10 | Easy to Medium |
 
 Start with [`linux-files/README.md`](linux-files/README.md) for eight guided
 exercises covering `cat`, `echo`, `less`, `head`, `tail`, `tac`, `grep`, `wc`,
@@ -397,10 +405,10 @@ chaining small facts into a convincing pretext. No tools needed beyond the brows
 <details>
 <summary><b>Forensics notes</b></summary>
 
-The [`forensics/`](forensics/) folder holds seven evidence files from a leaked
-mock exam. You don't need Docker for these. Read the case brief in
-[`forensics/README.md`](forensics/README.md). On Kali, most of the tools are
-already installed or one `apt install` away:
+Start with F-08 through F-10 in the [print room](forensics/starter/README.md).
+You need only a text reader and `sha256sum` to solve them. F-01 through F-07
+use images, recordings and video from the [mock exam leak](forensics/README.md#the-case).
+On Kali, these packages help with the media evidence.
 
 ```sh
 sudo apt install -y exiftool binwalk foremost ffmpeg audacity sonic-visualiser
@@ -464,7 +472,8 @@ MFANO_TEST_NMAP=1 python -m pytest -q tests/test_nmap_enumeration.py
 | `error: externally-managed-environment` on `pip install` | Use `pipx` or a virtualenv, as shown above |
 | The portal looks broken after you experiment | `labctl reset`, or `stop` then `start` to rebuild the containers |
 | You want to start the scoring over | Move `.labprogress.json` to Trash with `gio trash -- .labprogress.json` |
-| A flag is rejected after you ran `git pull` | Check the selected challenge ID, then run `labctl reset` to reseed current web data; the backup service may also need rebuilding |
+| A beginner investigation flag is rejected | Check the challenge ID and copy the exact code inside `MFANO{...}`, including its digits and underscores |
+| A web flag is rejected after you ran `git pull` | Check the selected challenge ID, then run `labctl reset` to reseed current web data; the backup service may also need rebuilding |
 
 ## Project layout
 
@@ -477,7 +486,7 @@ MFANO_TEST_NMAP=1 python -m pytest -q tests/test_nmap_enumeration.py
 ├── linux-discovery/  Bandit-inspired file discovery sandbox and task guide
 ├── nmap-enumeration/ Isolated Nmap scanner, service targets and guided exercises
 ├── osint/             Book fair public records, visitor map and beginner guide
-├── forensics/         Offline forensics evidence and case brief
+├── forensics/         Beginner print-room cases and mock exam media evidence
 ├── docker/            Container entrypoint
 ├── tests/             Build checks (spoilers)
 ├── docs/.internal/    Maintainer notes and the answer key (spoilers)

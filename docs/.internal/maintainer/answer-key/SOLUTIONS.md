@@ -494,3 +494,11 @@ source contains neither a plaintext account nor the password or flag.
 | OSINT-01 | The Fair Committee moved the swap to Fig Hall on 17 September. The Gazette reprinted an older programme. The visitor map supplies the hall's booking code. | `MFANO{f1g_h4ll}` |
 | OSINT-02 | Library Lens published *The first crate* at 11:10 on 17 September. Both later clippings credit it. Use the Library Lens edition code. | `MFANO{l3ns_021}` |
 | OSINT-03 | The volunteers name the bell tower and the fountain. The desk in the middle row, centre column, shares an edge with each. | `MFANO{f3rn_d3sk}` |
+
+## Beginner forensics in the print room
+
+| Stage | Finding | Flag |
+| ----- | ------- | ---- |
+| F-08 | The earliest `printed` event for `programme.pdf` on the hall printer is at 09:05:12 EAT. | `MFANO{sp00l_042}` |
+| F-09 | The `In-Reply-To` header gives the direct parent. Use the part before the domain in that message ID. | `MFANO{m41l_052}` |
+| F-10 | Only `pr00f_023.txt` has the SHA-256 digest recorded by the print clerk. Use the filename stem. | `MFANO{pr00f_023}` |

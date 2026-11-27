@@ -7,7 +7,10 @@ list for the running lab are next door in `../answer-key/`.
 
 - OSINT-01 through OSINT-03 add three offline book fair investigations to the
   catalogue. Learners verify a venue, trace a photo credit and locate a desk
-  using saved public records. The project now has 76 scored challenges.
+  using saved public records.
+- F-08 through F-10 add three beginner print-room cases on log timelines,
+  email headers and SHA-256 comparisons. The project now has 79 scored
+  challenges, including ten forensics cases and the three OSINT cases.
 
 - Nmap enumeration adds NM-01 through NM-12: ten guided labs and two final
   challenges for host discovery, connect/SYN scans, full port ranges, versions,
