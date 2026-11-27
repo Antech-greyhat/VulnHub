@@ -1,4 +1,6 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="960" height="260" viewBox="0 0 960 260" role="img" aria-label="Mfano High School Portal: a deliberately vulnerable lab">
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="260" viewBox="0 0 960 260" role="img" aria-labelledby="banner-title" aria-describedby="banner-description">
+  <title id="banner-title">4NT3CH VULN3R4BL3 L4B</title>
+  <desc id="banner-description">A deliberately vulnerable capture-the-flag machine set at Mfano High School. Challenges cover web security, Linux, networking, cryptography, OSINT, social engineering, forensics and steganography. Run ./labctl tracks to browse them.</desc>
   <defs>
     <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
       <stop offset="0" stop-color="#0b2416"/>
@@ -12,19 +14,22 @@
   <rect width="960" height="260" rx="14" fill="url(#grid)" opacity="0.55"/>
 
   <!-- Crest: a shield with a cracked lock -->
-  <g transform="translate(70 52)">
+  <g transform="translate(53 47)">
     <path d="M70 0 L140 24 V82 C140 128 108 152 70 166 C32 152 0 128 0 82 V24 Z" fill="#14532d" stroke="#e3b341" stroke-width="4"/>
     <rect x="44" y="72" width="52" height="44" rx="6" fill="#e3b341"/>
     <path d="M54 72 V56 C54 44 62 36 70 36 C78 36 86 44 86 56" fill="none" stroke="#e3b341" stroke-width="8" stroke-linecap="round" transform="rotate(-18 86 72)"/>
     <path d="M70 80 L64 94 L74 98 L68 112" fill="none" stroke="#0b2416" stroke-width="4" stroke-linejoin="round"/>
   </g>
 
+  <path d="M220 32v196" stroke="#345541"/>
   <g font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace">
-    <text x="250" y="92" fill="#e3b341" font-size="16" letter-spacing="4">MFANO · "EXAMPLE" IN SWAHILI</text>
-    <text x="250" y="136" fill="#f0f6f0" font-size="40" font-weight="700">Mfano High School Portal</text>
-    <text x="250" y="170" fill="#9fc5a8" font-size="18">A deliberately vulnerable school portal for learning</text>
-    <text x="250" y="194" fill="#9fc5a8" font-size="18">web pentesting and forensics, one flag at a time.</text>
-    <text x="250" y="230" fill="#58d68d" font-size="16">$ python3 labctl.py submit 'MFANO{...}'</text>
-    <rect x="604" y="216" width="10" height="18" fill="#58d68d"/>
+    <text x="248" y="42" fill="#e3b341" font-size="17" letter-spacing="2">MFANO HIGH SCHOOL / CAPTURE THE FLAG</text>
+    <text x="245" y="98" fill="#f0f6f0" font-size="47" font-weight="700">4NT3CH VULN3R4BL3 L4B</text>
+    <text x="248" y="136" fill="#d2e4d7" font-size="25">A deliberately vulnerable machine</text>
+    <g fill="#bdd6c4" font-family="system-ui, 'Liberation Sans', sans-serif" font-size="23">
+      <text x="248" y="174">Web security · Linux · Networking · Cryptography</text>
+      <text x="248" y="203">OSINT · Social engineering · Forensics · Steganography</text>
+    </g>
+    <text x="248" y="239" fill="#58d68d" font-size="19">$ ./labctl tracks</text>
   </g>
 </svg>
