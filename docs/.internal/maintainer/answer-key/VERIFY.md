@@ -56,12 +56,12 @@ was not available.
     All errors return HTTP 200. Only a complete, successful login shows its
     flag; the new accounts do not grant a main-portal admin session.
 11. Submit every flag in `SOLUTIONS.md` with `labctl submit` and check that
-    `labctl status` reaches 81 / 81 after the offline tracks are also complete.
+    `labctl status` reaches 82 / 82 after the offline tracks are also complete.
 
 The book fair, print-room and media club evidence can be verified offline with
 `python3 -m pytest -q tests/test_beginner_investigations.py`. The tests read
 the evidence and submit the resulting codes through the Bash CLI. Install
-ImageMagick to include the ticket's alpha-channel extraction.
+ImageMagick and Steghide to include the ticket and chime extraction tests.
 
 ## Linux file manipulation
 

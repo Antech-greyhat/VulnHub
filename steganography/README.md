@@ -2,8 +2,12 @@
 
 The media club has tucked short codes into its open-day material. Each case
 uses an original file in this checkout. Open a terminal in the repository
-root and solve the cases offline. The linked sections of 0xRick's tool guide
-are optional reading.
+root and solve the cases offline. Each optional hint links to a section of
+[0xRick's steganography reference](https://0xrick.github.io/lists/stego/).
+
+The notice uses Python 3, the ticket uses ImageMagick, and the chime uses
+Steghide. On Kali, Debian or Ubuntu, install all three with
+`sudo apt install python3 imagemagick steghide`.
 
 ## STEG-01 · The unsigned notice
 
@@ -46,11 +50,27 @@ unused output filename for `ticket-alpha.png`.
 magick steganography/evidence/open-day-ticket.png -alpha extract -auto-level ticket-alpha.png
 ```
 
-On Kali, Debian or Ubuntu, `sudo apt install imagemagick` provides the tool.
 ImageMagick 6 calls the command `convert`. Open `ticket-alpha.png` in an image
 viewer. Count the dots in each row, top to bottom, and join the three digits.
 Put them after `t1ck3t_` inside the flag. For the idea behind changing image
 levels to uncover a message, see [0xRick's Stegsolve notes](https://0xrick.github.io/lists/stego/#stegsolve).
+
+## STEG-03 · The sound desk's archive slip
+
+The studio's three-note chime carries an archive slip. The editor left the
+passphrase on the accompanying cue sheet. Use the original
+[WAV recording](evidence/studio-chime.wav) and [cue sheet](evidence/studio-cue.txt).
+
+```sh
+cat steganography/evidence/studio-cue.txt
+steghide extract -sf steganography/evidence/studio-chime.wav -xf -
+```
+
+At the passphrase prompt, type the value beside `Archive phrase` and press
+Enter. The `-sf` option selects the recording. The `-xf -` option prints the
+recovered slip in the terminal. Put its `Archive code` inside `MFANO{...}`.
+0xRick describes the media formats Steghide supports and its extraction
+command in the [Steghide section](https://0xrick.github.io/lists/stego/#steghide).
 
 ## Submit a code
 

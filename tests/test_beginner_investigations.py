@@ -10,6 +10,7 @@ from pathlib import Path
 import re
 import shutil
 import subprocess
+import wave
 
 import pytest
 
@@ -112,3 +113,20 @@ def test_recover_ticket_punches(tmp_path):
     digits = [str(count) for count, _ in groupby(counts) if count]
     assert len(digits) == 3
     submit_finding("STEG-02", "t1ck3t_" + "".join(digits), tmp_path)
+
+
+def test_recover_studio_archive_slip(tmp_path):
+    decoder = shutil.which("steghide")
+    if decoder is None:
+        pytest.skip("The studio chime needs Steghide")
+    sheet = (MEDIA_CLUB / "studio-cue.txt").read_text()
+    phrase, = re.findall(r"^Archive phrase: (\w+)$", sheet, re.M)
+    chime = MEDIA_CLUB / "studio-chime.wav"
+    with wave.open(str(chime), "rb") as audio:
+        assert audio.getnframes() > audio.getframerate()
+    slip = subprocess.check_output(
+        [decoder, "extract", "-sf", str(chime), "-p", phrase, "-xf", "-", "-q"], cwd=tmp_path, text=True
+    )
+    code, = re.findall(r"^Archive code: ([a-z0-9_]+)$", slip, re.M)
+    assert code.encode() not in chime.read_bytes()
+    submit_finding("STEG-03", code, tmp_path)
