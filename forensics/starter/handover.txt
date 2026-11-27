@@ -1,0 +1,6 @@
+Mfano Print Room | Evidence handover | 18 September 2026, 09:20 EAT
+
+The print clerk recorded the SHA-256 digest of the approved programme at
+collection. The three recovered copies were later given evidence filenames.
+
+SHA-256  21ed22fa3ba9756c94d08fca9f44690ad130017932d237f8fa03db05e5a72431

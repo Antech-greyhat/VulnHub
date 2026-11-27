@@ -5,9 +5,16 @@ list for the running lab are next door in `../answer-key/`.
 
 ## Done
 
+- The media club track adds three beginner steganography exercises, bringing
+  the total to 82. Learners inspect Unicode tags, isolate a PNG alpha channel
+  and extract a slip from a WAV with a supplied passphrase. Each CLI clue
+  links to the corresponding section of 0xRick's steganography reference.
 - OSINT-01 through OSINT-03 add three offline book fair investigations to the
   catalogue. Learners verify a venue, trace a photo credit and locate a desk
-  using saved public records. The project now has 76 scored challenges.
+  using saved public records.
+- F-08 through F-10 add three beginner print-room cases on log timelines,
+  email headers and SHA-256 comparisons. The two packs brought the total
+  to 79 scored challenges, including ten forensics cases and three OSINT cases.
 
 - Nmap enumeration adds NM-01 through NM-12: ten guided labs and two final
   challenges for host discovery, connect/SYN scans, full port ranges, versions,

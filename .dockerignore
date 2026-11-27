@@ -15,6 +15,7 @@ venv
 .env
 forensics
 osint
+steganography
 docs
 assets
 .github

@@ -73,6 +73,14 @@ For the three book fair investigations, find the reference code in the source
 pack and wrap it in `MFANO{...}`. Use `labctl hints OSINT-01` for a clue and
 `labctl submit OSINT-01` to score the first case. [Beginner OSINT guide](../osint/README.md)
 
+For a first forensics case, read the print queue and submit its job ID in the
+same format with `labctl submit F-08`. Use `labctl solved --track F` to see
+your progress. [Print-room case files and instructions](../forensics/starter/README.md)
+
+Use `labctl labs --track STEG` for the media club cases. Start with
+`labctl hints STEG-01` and enter the recovered flag with `labctl submit STEG-01`.
+Each clue links to a section of 0xRick's reference. [Steganography guide](../steganography/README.md)
+
 `status` and `score` are aliases for the all-challenges progress view. Lists
 accept `--limit` (default 50, range 1–1000) and `--offset` (default 0).
 `labs --state all|solved|unsolved` filters by completion. IDs and exact titles
