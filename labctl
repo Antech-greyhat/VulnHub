@@ -3,6 +3,7 @@
 set -uo pipefail
 
 VERSION=1.0.0
+readonly LAB_NAME='4NT3CH VULN3R4BL3 L4B'
 JSON_MODE=false
 PLAIN_MODE=false
 [[ -z ${NO_COLOR:-} ]] || PLAIN_MODE=true

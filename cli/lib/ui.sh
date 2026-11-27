@@ -9,7 +9,7 @@ UI_FLAG=''
 UI_TRACK=''
 UI_STAGE=''
 UI_READY=false
-UI_BACKTITLE='MFANO HIGH SCHOOL | Linux lab console | Offline scoring'
+UI_BACKTITLE="$LAB_NAME | Offline scoring"
 
 ui_setup() {
     require_command whiptail || return $?
@@ -140,7 +140,7 @@ ui_show_hint() {
 }
 
 ui_present() {
-    local family=$1 data=$2 title='MFANO // LAB CONTROL' text
+    local family=$1 data=$2 title="$LAB_NAME" text
     case "$family" in
         labs)
             title='Challenge progress'
@@ -274,12 +274,9 @@ ui_services() {
 
 ui_menu() {
     ui_setup || return $?
-    local prompt
     while true; do
         ui_refresh || return $?
-        prompt=$'M F A N O  //  L A B  C O N T R O L\n\n'
-        prompt+=$(ui_progress_text)
-        ui_choose 'MFANO // Linux lab terminal' "$prompt" \
+        ui_choose 'Challenge menu' "$(ui_progress_text)" \
             submit 'Submit a flag' labs 'Browse all challenges' solved 'View solved challenges' \
             unsolved 'View remaining challenges' clues 'Read gentle clues' tracks 'View lab tracks' \
             services 'Manage lab services' doctor 'Check Linux setup' quit 'Exit' || return 0

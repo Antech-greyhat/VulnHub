@@ -1,5 +1,5 @@
 <h1 align="center">
-  <img src="assets/banner.svg" alt="4NT3CH VULN3R4BL3 L4B" width="100%">
+  <img src="assets/banner.svg" alt="4NT3CH VULN3R4BL3 L4B on a retro school computer" width="100%">
 </h1>
 
 <p align="center">
@@ -13,17 +13,17 @@
   <img alt="Flask 3" src="https://img.shields.io/badge/flask-3.1-000000?logo=flask&logoColor=white">
 </p>
 
-**4NT3CH VULN3R4BL3 L4B** is a deliberately vulnerable machine for
-capture-the-flag (CTF) practice on Linux. The web challenges start in the
-**Mfano High School Portal**, where students at a fictional Kenyan secondary
-school download report forms and the bursar records M-Pesa-style fee payments.
-These challenges draw on the [OWASP Top 10:2025](https://top10.owasp.org/2025/).
+**4NT3CH VULN3R4BL3 L4B** is a deliberately vulnerable capture-the-flag (CTF)
+machine for Linux, set at the fictional Mfano High School in Kenya. Practise
+Linux permissions on school files, map services on an isolated network, or
+examine cryptographic keys and software dependencies. For an offline case,
+fact-check a book fair notice using open-source intelligence (OSINT), or use
+digital forensics and steganography to recover evidence from mock exam photos
+and recordings. [Explore the challenge tracks](#what-you-will-practise)
 
-Practise Linux permissions on school files, map services on an isolated network,
-or examine cryptographic keys and software dependencies. For an offline
-investigation, fact-check a book fair notice using open-source intelligence
-(OSINT), or use digital forensics and steganography to recover evidence from
-mock exam photos and recordings. [Explore the challenge tracks](#what-you-will-practise)
+The **Mfano High School Portal** hosts the web challenges. Students download
+report forms and the bursar records M-Pesa-style fee payments. The challenges
+draw on the [OWASP Top 10:2025](https://top10.owasp.org/2025/).
 
 From the checkout, run `./labctl tracks` to browse the tracks. The `./labctl`
 menu gives hints, accepts `MFANO{...}` flags and records your progress offline.

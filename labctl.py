@@ -145,7 +145,9 @@ def cmd_shell(_args):
 
 
 def build_parser():
-    parser = argparse.ArgumentParser(prog="labctl", description="Run and score the Mfano lab.")
+    parser = argparse.ArgumentParser(
+        prog="labctl", description="Run services and score flags for 4NT3CH VULN3R4BL3 L4B."
+    )
     commands = parser.add_subparsers(dest="command", required=True)
     commands.add_parser("start", help="start the lab containers").set_defaults(func=cmd_start)
     commands.add_parser("stop", help="stop the lab containers").set_defaults(func=cmd_stop)

@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 umask 027
 export LC_ALL=C
-export PS1='(Mfano discovery) learner:\w\$ '
+export PS1='(4NT3CH discovery) learner:\w\$ '
 
 task() {
     if [[ $# -ne 1 || ! "$1" =~ ^LD-0[1-7]$ ]]; then
@@ -13,7 +13,8 @@ task() {
 
 cat <<'WELCOME'
 
-You are INSIDE the Mfano Linux discovery sandbox, logged in as learner.
+4NT3CH VULN3R4BL3 L4B | Linux file discovery
+You are inside the sandbox as learner.
 Practice files are in /practice. No host folders or ports are shared.
 
   task LD-01                Read the first task

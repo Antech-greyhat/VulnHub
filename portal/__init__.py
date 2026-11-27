@@ -1,4 +1,4 @@
-"""Mfano High School Portal: a fake school portal built as a learning lab."""
+"""Mfano High School Portal, the web application in 4NT3CH VULN3R4BL3 L4B."""
 import os
 import secrets
 from pathlib import Path

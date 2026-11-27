@@ -351,7 +351,8 @@ class Terminal:
 def test_real_menu_submit_hidden_flag_and_back_navigation(lab):
     terminal = Terminal(lab)
     try:
-        terminal.expect("MFANO // Linux lab terminal")
+        terminal.expect("4NT3CH VULN3R4BL3 L4B")
+        terminal.expect("Challenge menu")
         terminal.send("\r")
         terminal.expect("Choose a lab track")
         terminal.send("\r")
@@ -367,7 +368,7 @@ def test_real_menu_submit_hidden_flag_and_back_navigation(lab):
         terminal.send("\x1b")
         terminal.expect("Choose a lab track")
         terminal.send("\x1b")
-        terminal.expect("MFANO // Linux lab terminal")
+        terminal.expect("Challenge menu")
         terminal.send("\x1b")
         assert terminal.process.wait(timeout=5) == 0
     finally:
@@ -378,7 +379,7 @@ def test_real_menu_submit_hidden_flag_and_back_navigation(lab):
 def test_real_menu_flag_cancel_does_not_record(lab):
     terminal = Terminal(lab)
     try:
-        terminal.expect("MFANO // Linux lab terminal")
+        terminal.expect("Challenge menu")
         terminal.send("\r")
         terminal.expect("Choose a lab track")
         terminal.send("\r")
@@ -411,7 +412,7 @@ def test_direct_submit_releases_lock_before_result_dialog(lab):
 def test_real_menu_gentle_clue_navigation(lab):
     terminal = Terminal(lab)
     try:
-        terminal.expect("MFANO // Linux lab terminal")
+        terminal.expect("Challenge menu")
         terminal.send("\x1b[B" * 4 + "\r")
         terminal.expect("Choose a lab track")
         terminal.send("\r")

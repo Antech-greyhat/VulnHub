@@ -1,9 +1,9 @@
 ---
 name: mfano-labctl
-description: Use the Mfano Linux Bash labctl command to discover challenges, read progress and gentle clues, validate or submit a learner-provided flag, and manage explicitly requested local lab services.
+description: Use the Linux labctl command for 4NT3CH VULN3R4BL3 L4B to discover challenges, read progress and gentle clues, validate or submit a learner-provided flag, and manage explicitly requested local lab services.
 ---
 
-# Mfano labctl
+# labctl for 4NT3CH VULN3R4BL3 L4B
 
 Check `command -v labctl`, then run `labctl --json doctor`. If the command is not
 installed, use the checkout's `./labctl` and `make install-local`. Scoring is

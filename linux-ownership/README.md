@@ -59,7 +59,7 @@ From the repository folder on your **host**, run:
 
 The first build needs internet and can take a few minutes. Later launches reuse
 the downloaded image and cached build steps. Wait until the prompt begins with
-`(Mfano sandbox)`. You are now **inside the container**, in `/practice`, logged
+`(4NT3CH ownership)`. You are now **inside the container**, in `/practice`, logged
 in as `learner`.
 
 Inside the sandbox:
