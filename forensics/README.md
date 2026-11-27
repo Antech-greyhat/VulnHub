@@ -1,16 +1,23 @@
-# Forensics: the mock exam leak
+# Forensics at Mfano High School
 
 > These files are fake evidence made for this lab. They contain no real people,
 > no real exam papers and no malware. You do not need the web portal running.
 
+## Start here
+
+New to forensics? Start with F-08 through F-10 in the print room. Read a
+short queue log, follow an email reply and compare file fingerprints. The
+guide includes the commands and shows how to submit your first finding.
+[Open the beginner print-room cases](starter/README.md)
+
 ## The case
 
-The Form 4 mock chemistry paper leaked two days before the exam. The discipline
-office seized seven files from the school's shared drive, a staff laptop and the
-corridor CCTV. Each file hides one flag. Find them all.
+In F-01 through F-07, the Form 4 mock chemistry paper leaked two days before
+the exam. The discipline office seized seven files from the school's shared
+drive, a staff laptop and the corridor CCTV. Each file hides one flag.
 
-Every file is in [`evidence/`](evidence/). Work on a copy so you can always go
-back to the original.
+Work on a copy so you can always go back to the original. The seven mock exam
+files are in [`evidence/`](evidence/).
 
 ## Flag format
 

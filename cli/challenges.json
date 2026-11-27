@@ -92,6 +92,9 @@
     "F-04": {"title": "The school bell", "hint": "An animation is a sequence with timing information. Examine its individual frames rather than relying on playback.", "evidence": "forensics/evidence/04_school_bell.gif"},
     "F-05": {"title": "The radio call", "hint": "The beeps have structure. Look for timing differences, pauses, and a code that can represent digits as well as letters.", "evidence": "forensics/evidence/05_radio_call.wav"},
     "F-06": {"title": "The assembly recording", "hint": "Listening is only one way to examine sound. Try a visual representation of how its frequencies change over time.", "evidence": "forensics/evidence/06_assembly_recording.wav"},
-    "F-07": {"title": "The corridor CCTV", "hint": "Six seconds contains many separate images. Check whether ordinary-speed playback hides anything between them.", "evidence": "forensics/evidence/07_corridor_cctv.avi"}
+    "F-07": {"title": "The corridor CCTV", "hint": "Six seconds contains many separate images. Check whether ordinary-speed playback hides anything between them.", "evidence": "forensics/evidence/07_corridor_cctv.avi"},
+    "F-08": {"title": "The first completed print job", "hint": "Find the first job that finished printing programme.pdf on the hall printer. Compare completion times and use the job ID.", "evidence": "forensics/starter/print-queue.csv"},
+    "F-09": {"title": "The print-room reply", "hint": "Read the headers to find the message this email answers. Take the part of that ID before the @ and leave out the angle brackets.", "evidence": "forensics/starter/print-room.eml"},
+    "F-10": {"title": "The matching programme", "hint": "Compare the SHA-256 of each recovered copy with the full digest recorded at collection. Use the matching filename without its extension.", "evidence": "forensics/starter/handover.txt"}
   }
 }

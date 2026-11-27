@@ -28,8 +28,9 @@ Categories follow the [OWASP Top 10:2025](https://top10.owasp.org/2025/). Locati
 
 ## Forensics
 
-Seven offline challenges in `forensics/evidence/`. These are not web bugs, so
-they are not counted in the OWASP total above.
+Ten offline challenges cover two cases. Beginners can start with the
+[print room](forensics/starter/README.md), then examine the media from the
+[mock exam leak](forensics/README.md#the-case).
 
 | Stage | Count | Type |
 | ----- | ----- | ---- |
@@ -37,6 +38,7 @@ they are not counted in the OWASP total above.
 | F-04 | 1 | GIF |
 | F-05 to F-06 | 2 | Audio |
 | F-07 | 1 | Video |
+| F-08 to F-10 | 3 | Print queue timeline, email reply headers and file checksums |
 
 ## Beginner OSINT
 
@@ -85,7 +87,7 @@ Scan reports are checked before their flags can be submitted through labctl.
 | NM-06 to NM-10 | 5 | Named HTTP, TLS, SSH and FTP NSE scripts, script help and arguments |
 | NM-11 to NM-12 | 2 | Independent service discovery, combined TCP/UDP inventory and saved reports |
 
-Total scored challenges: **76** (29 web bugs, 3 social engineering, 3 OSINT, 7 forensics,
+Total scored challenges: **79** (29 web bugs, 3 social engineering, 3 OSINT, 10 forensics,
 8 Linux file manipulation, 7 Linux permissions/ownership, 7 Linux file discovery,
 12 Nmap enumeration).
 Existing challenge IDs retain their meaning.
