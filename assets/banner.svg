@@ -1,35 +1,64 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="960" height="260" viewBox="0 0 960 260" role="img" aria-labelledby="banner-title" aria-describedby="banner-description">
-  <title id="banner-title">4NT3CH VULN3R4BL3 L4B</title>
-  <desc id="banner-description">A deliberately vulnerable capture-the-flag machine set at Mfano High School. Challenges cover web security, Linux, networking, cryptography, OSINT, social engineering, forensics and steganography. Run ./labctl tracks to browse them.</desc>
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="340" viewBox="0 0 1080 340" role="img" aria-labelledby="title description">
+  <title id="title">4NT3CH VULN3R4BL3 L4B</title>
+  <desc id="description">A cream-coloured school computer with the lab name glowing on its green screen. This deliberately vulnerable CTF machine offers web, Linux, networking, cryptography, OSINT, forensics and steganography challenges.</desc>
   <defs>
-    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="#0b2416"/>
-      <stop offset="1" stop-color="#0f1a14"/>
-    </linearGradient>
-    <pattern id="grid" width="24" height="24" patternUnits="userSpaceOnUse">
-      <path d="M24 0H0V24" fill="none" stroke="#1d3a28" stroke-width="1"/>
+    <radialGradient id="phosphor" cx="38%" cy="35%" r="83%">
+      <stop stop-color="#1c4436"/><stop offset="1" stop-color="#0b211c"/>
+    </radialGradient>
+    <pattern id="scanlines" width="4" height="4" patternUnits="userSpaceOnUse">
+      <path d="M0 3.5h4" stroke="#93b89b" stroke-opacity=".12"/>
+    </pattern>
+    <pattern id="keys" width="34" height="13" patternUnits="userSpaceOnUse">
+      <rect x="2" y="1" width="28" height="9" rx="2" fill="#c6bea2" stroke="#3f5148" stroke-width="1.5"/>
+      <path d="M6 3h19" stroke="#fff3d1"/>
+    </pattern>
+    <pattern id="vents" width="9" height="22" patternUnits="userSpaceOnUse">
+      <path d="M2 3v15" stroke="#485650" stroke-width="3.5" stroke-linecap="round"/>
     </pattern>
   </defs>
-  <rect width="960" height="260" rx="14" fill="url(#bg)"/>
-  <rect width="960" height="260" rx="14" fill="url(#grid)" opacity="0.55"/>
 
-  <!-- Crest: a shield with a cracked lock -->
-  <g transform="translate(53 47)">
-    <path d="M70 0 L140 24 V82 C140 128 108 152 70 166 C32 152 0 128 0 82 V24 Z" fill="#14532d" stroke="#e3b341" stroke-width="4"/>
-    <rect x="44" y="72" width="52" height="44" rx="6" fill="#e3b341"/>
-    <path d="M54 72 V56 C54 44 62 36 70 36 C78 36 86 44 86 56" fill="none" stroke="#e3b341" stroke-width="8" stroke-linecap="round" transform="rotate(-18 86 72)"/>
-    <path d="M70 80 L64 94 L74 98 L68 112" fill="none" stroke="#0b2416" stroke-width="4" stroke-linejoin="round"/>
+  <!-- Moulded case, recessed CRT and the two-tone keyboard deck. -->
+  <rect width="1080" height="340" rx="14" fill="#264341"/>
+  <path d="M46 302 74 275l938-8 48 39-15 17-990 6z" fill="#172d2c"/>
+  <g stroke="#23342e" stroke-width="3" stroke-linejoin="round">
+    <path d="m63 32 919-9q16 0 24 13l23 199-16 26-957 8-16-22 11-201q1-10 12-14z" fill="#b4ae94"/>
+    <path d="m69 23 908-4q15 0 18 15l18 194q2 17-15 18l-944 5q-14 0-13-13L53 42q2-15 16-19z" fill="#e8dbb9"/>
+    <path d="M71 31 970 27" fill="none" stroke="#fff5d8" stroke-width="4" stroke-linecap="round"/>
+    <path d="M82 40q-13 1-16 17l-7 163q-1 12 13 14l695-3q13-1 13-13l-5-164q-1-14-15-15z" fill="#7d8673"/>
+    <path d="M96 49q-14 1-15 15l-6 144q0 13 13 14l661-2q15 0 15-13l-4-145q-1-13-15-14z" fill="url(#phosphor)"/>
   </g>
+  <path d="M93 52h648q14 0 16 14l4 137q0 15-15 15l-654 2q-14 0-14-13l6-141q0-11 9-14z" fill="url(#scanlines)"/>
 
-  <path d="M220 32v196" stroke="#345541"/>
-  <g font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace">
-    <text x="248" y="42" fill="#e3b341" font-size="17" letter-spacing="2">MFANO HIGH SCHOOL / CAPTURE THE FLAG</text>
-    <text x="245" y="98" fill="#f0f6f0" font-size="47" font-weight="700">4NT3CH VULN3R4BL3 L4B</text>
-    <text x="248" y="136" fill="#d2e4d7" font-size="25">A deliberately vulnerable machine</text>
-    <g fill="#bdd6c4" font-family="system-ui, 'Liberation Sans', sans-serif" font-size="23">
-      <text x="248" y="174">Web security · Linux · Networking · Cryptography</text>
-      <text x="248" y="203">OSINT · Social engineering · Forensics · Steganography</text>
+  <g font-family="'IBM Plex Mono','Liberation Mono',monospace">
+    <text x="105" y="81" fill="#acd1a1" font-size="18">$ ./labctl tracks</text>
+    <text x="103" y="131" fill="#e6ffc1" font-size="47" font-weight="700">4NT3CH VULN3R4BL3 L4B</text>
+    <text x="105" y="162" fill="#c2e3b1" font-size="23">A deliberately vulnerable CTF machine</text>
+    <g fill="#add2a6" font-size="17">
+      <text x="106" y="190">Web · Linux · Networking · Cryptography</text>
+      <text x="106" y="211">OSINT · Forensics · Steganography</text>
     </g>
-    <text x="248" y="239" fill="#58d68d" font-size="19">$ ./labctl tracks</text>
   </g>
+
+  <!-- Inventory plate, disk drive and the physical power switch. -->
+  <g stroke="#3a4a3f" stroke-width="2">
+    <path d="m804 50 165-1 1 31-166 1z" fill="#f9edce"/>
+    <path d="M806 101h166v45H806z" fill="#a39f86"/>
+    <rect x="815" y="109" width="148" height="17" rx="3" fill="#293932"/>
+    <path d="M828 116h120" stroke="#111e19" stroke-width="3"/>
+    <rect x="923" y="131" width="28" height="7" rx="2" fill="#d7cfaf"/>
+    <rect x="808" y="177" width="100" height="25" rx="2" fill="url(#vents)" stroke="none"/>
+    <rect x="928" y="168" width="38" height="40" rx="5" fill="#314238"/>
+    <path d="m934 174 25-1 2 25-26 3z" fill="#e0814d"/>
+    <path d="M946 178v10" stroke="#442c20"/>
+  </g>
+  <text x="887" y="70" fill="#35483d" text-anchor="middle" font-family="'IBM Plex Mono','Liberation Mono',monospace" font-size="14" font-weight="700">MFANO HIGH SCHOOL</text>
+  <g stroke="#23342e" stroke-width="3" stroke-linejoin="round">
+    <path d="m61 249 939-4 38 52-9 17-991 2-12-17z" fill="#ab9e80"/>
+    <path d="m62 247 934-3 42 52-1012 4z" fill="#dfd1ae"/>
+    <path d="m93 256 756-3 16 33-795 3z" fill="#758171"/>
+  </g>
+  <path d="m96 258 747-3 13 28-778 3z" fill="url(#keys)"/>
+  <path d="m349 276 218-1 3 8-225 1z" fill="#e7dabc" stroke="#425248" stroke-width="1.5"/>
+  <path d="m882 258 88-1 15 25-94 2z" fill="#cb794b" stroke="#39483e" stroke-width="2"/>
+  <path d="M948 264v9h-23m0 0 5-4m-5 4 5 4" fill="none" stroke="#493a2b" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
 </svg>

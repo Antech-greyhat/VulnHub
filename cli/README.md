@@ -1,8 +1,10 @@
-# labctl: Linux Bash CLI
+# labctl for Linux
 
-`labctl` runs the Mfano lab console using Bash 4+, jq, and whiptail/libnewt.
-The menus use a dark background, cyan selection, green headings, and keyboard
-navigation. Windows support is planned for a later release.
+`labctl` is the Linux console for **4NT3CH VULN3R4BL3 L4B**. Use it to browse
+challenge tracks, read hints, score flags offline, and manage the web portal's
+services. The keyboard menus use Bash 4+, jq, and whiptail/libnewt, with a dark
+background, cyan selection, and green headings. Windows support is planned for
+a later release.
 
 ## Install and open
 

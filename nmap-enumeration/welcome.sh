@@ -21,7 +21,7 @@ task() {
     ' /practice/README.md
 }
 
-printf '\n%s\n' 'Mfano Nmap enumeration practice' \
+printf '\n%s\n' '4NT3CH VULN3R4BL3 L4B | Nmap enumeration' \
     'Type targets for scope, task NM-01 to begin, or less README.md for the guide.' \
     'Save XML in scans/. Check and submit flags in a second HOST terminal.' \
     'Type exit to leave the shell; ./nmap-enumeration/lab stop pauses the services.'

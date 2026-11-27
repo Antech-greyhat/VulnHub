@@ -2,10 +2,11 @@
 
 ## This lab is vulnerable on purpose
 
-Mfano High School Portal is a **deliberately vulnerable** training lab. SQL
-injection, XSS, command injection, SSRF, weak credentials, leaked secrets and
-the rest are the point of the project, so please **don't** report them as
-vulnerabilities.
+**4NT3CH VULN3R4BL3 L4B** is a deliberately vulnerable CTF machine. Its web
+application, the **Mfano High School Portal**, contains intentional training
+vulnerabilities including SQL injection, XSS, command injection, SSRF, weak
+credentials and leaked secrets. These exercises are out of scope for
+vulnerability reports.
 
 ## What to report
 

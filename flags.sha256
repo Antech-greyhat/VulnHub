@@ -1,4 +1,4 @@
-# Mfano lab flag hashes. Hashes only: no flags, no locations.
+# Flag hashes for 4NT3CH VULN3R4BL3 L4B.
 # Format: stage_id:sha256_of_flag:category:difficulty
 FM-01:d1f78f60dfda6e00c2deb4dee6735606df4571727049df86d1af5bac3f068a93:Linux file manipulation:Easy
 FM-02:19eec90b1ee0b8673622438bbbe28019a938717ad1924ef1737f9206b7f63a44:Linux file manipulation:Easy

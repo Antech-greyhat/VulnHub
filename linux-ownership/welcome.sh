@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 umask 027
-export PS1='(Mfano sandbox) learner:\w\$ '
+export PS1='(4NT3CH ownership) learner:\w\$ '
 
 task() {
     if [[ $# -ne 1 || ! "$1" =~ ^FO-0[1-7]$ ]]; then
@@ -12,7 +12,8 @@ task() {
 
 cat <<'WELCOME'
 
-You are INSIDE the Mfano Linux sandbox, logged in as learner.
+4NT3CH VULN3R4BL3 L4B | Linux permissions and ownership
+You are inside the sandbox as learner.
 Practice files are in /practice. No host folders or ports are shared.
 
   task FO-01                Read the first task

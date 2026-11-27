@@ -1,11 +1,11 @@
-# Mfano High School Portal — Vulnerable Lab (Build Prompts)
+# Mfano High School Portal build prompts
 
-This folder holds the prompts you feed to **Claude Code** to build the lab in phases.
-Each file is one phase. Read this file first, then run the phases in order.
+These are the original **Claude Code** prompts for building the web portal in
+**4NT3CH VULN3R4BL3 L4B**. Each file covers one phase.
 
-The lab is **Mfano High School Portal** — a fake Kenyan school portal, built on purpose
-with security bugs so you can hunt them, write them up, then fix them. "Mfano" means
-"example". Nothing in it is real.
+The prompts use the portal’s name, **Mfano High School Portal**. It represents a
+fictional Kenyan school and contains intentional security bugs for learners to
+find, document and fix. “Mfano” means “example”.
 
 ---
 

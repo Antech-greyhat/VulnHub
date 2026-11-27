@@ -44,9 +44,8 @@ require_command() {
 }
 
 usage() {
+    printf '%s | labctl for Linux\n\n' "$LAB_NAME"
     cat <<'HELP'
-MFANO // LAB CONTROL — Bash CLI for Linux
-
 Usage: labctl [--json] COMMAND [OPTIONS]
        labctl                         Open the full-screen whiptail menu
 
@@ -251,7 +250,7 @@ emit() {
             display_progress "$data"
             ;;
         doctor)
-            jq -r '"MFANO Linux CLI \(.version) | offline scoring | no authentication required",
+            jq -r --arg lab "$LAB_NAME" '"\($lab) | labctl \(.version) | offline scoring | no authentication required",
                 (.dependencies[] | "\(.name): \(if .available then "available" else "missing" end)\(if .required then " (required)" else " (optional)" end)"),
                 "\(.challenge_count) challenges registered",
                 (.issues[]), (if .ready then "Ready." else "Setup needs attention." end)' <<< "$data"
