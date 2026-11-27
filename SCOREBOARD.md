@@ -38,6 +38,16 @@ they are not counted in the OWASP total above.
 | F-05 to F-06 | 2 | Audio |
 | F-07 | 1 | Video |
 
+## Beginner OSINT
+
+| Stage | Skill |
+| ----- | ----- |
+| OSINT-01 | Verify an event venue against the organiser's notices |
+| OSINT-02 | Attribute a photograph using captions, dates and reprint credits |
+| OSINT-03 | Locate a desk using two landmarks on a visitor map |
+
+All three use the [offline book fair sources](osint/README.md).
+
 ## Social engineering (SEE)
 
 Three contained awareness challenges on the staff intranet (`/intranet`). Every
@@ -75,7 +85,7 @@ Scan reports are checked before their flags can be submitted through labctl.
 | NM-06 to NM-10 | 5 | Named HTTP, TLS, SSH and FTP NSE scripts, script help and arguments |
 | NM-11 to NM-12 | 2 | Independent service discovery, combined TCP/UDP inventory and saved reports |
 
-Total scored challenges: **73** (29 web bugs, 3 social engineering, 7 forensics,
+Total scored challenges: **76** (29 web bugs, 3 social engineering, 3 OSINT, 7 forensics,
 8 Linux file manipulation, 7 Linux permissions/ownership, 7 Linux file discovery,
 12 Nmap enumeration).
 Existing challenge IDs retain their meaning.

@@ -13,6 +13,7 @@
     {"id": "P5D", "title": "Integrity and design"},
     {"id": "BF", "title": "Web brute-force basics"},
     {"id": "SE", "title": "Social engineering"},
+    {"id": "OSINT", "title": "Open-source intelligence (OSINT)"},
     {"id": "F", "title": "Forensics"}
   ],
   "challenges": {
@@ -82,6 +83,9 @@
     "SE-01": {"title": "The staff noticeboard", "hint": "The fictional staff member's public posts form a profile. Look for repeated personal details that might influence a weak password."},
     "SE-02": {"title": "The suspicious inbox", "hint": "Compare the sender, destination links, and requested action in each sample message. Pressure is a clue, not proof on its own."},
     "SE-03": {"title": "The helpdesk conversation", "hint": "Read the fictional staff directory and the scripted helpdesk's requirements. Small public facts may combine into a convincing identity claim."},
+    "OSINT-01": {"title": "Which hall is hosting the swap?", "hint": "A newer post can repeat an old programme. Look for the organiser's latest notice about the swap, then find the hall's code on the visitor map.", "evidence": "osint/sources/notices.csv"},
+    "OSINT-02": {"title": "The first photograph credit", "hint": "Match the whole caption before comparing timestamps. The credits on the later clippings can confirm the original outlet.", "evidence": "osint/sources/press-index.csv"},
+    "OSINT-03": {"title": "The book returns desk", "hint": "Read the volunteers' directions in the notices. On the map, narrow the desks down to ones that touch both named landmarks.", "evidence": "osint/sources/visitor-map.md"},
     "F-01": {"title": "The noticeboard", "hint": "The visible picture is only one part of an image file. Examine the information stored around its pixels.", "evidence": "forensics/evidence/01_noticeboard.png"},
     "F-02": {"title": "The staff photo", "hint": "Compare the file's size with what its dimensions suggest. Is there more data than the image format needs?", "evidence": "forensics/evidence/02_staff_photo.png"},
     "F-03": {"title": "The prize-giving photo", "hint": "The metadata is clean and no extra file is attached. Small changes within the pixels can carry information.", "evidence": "forensics/evidence/03_prize_giving.png"},
