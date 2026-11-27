@@ -14,7 +14,8 @@
     {"id": "BF", "title": "Web brute-force basics"},
     {"id": "SE", "title": "Social engineering"},
     {"id": "OSINT", "title": "Open-source intelligence (OSINT)"},
-    {"id": "F", "title": "Forensics"}
+    {"id": "F", "title": "Forensics"},
+    {"id": "STEG", "title": "Steganography"}
   ],
   "challenges": {
     "FM-01": {"title": "Read and combine", "hint": "Read the two parts in order. A missing final newline affects how concatenation joins them.", "evidence": "linux-files/README.md"},
@@ -95,6 +96,7 @@
     "F-07": {"title": "The corridor CCTV", "hint": "Six seconds contains many separate images. Check whether ordinary-speed playback hides anything between them.", "evidence": "forensics/evidence/07_corridor_cctv.avi"},
     "F-08": {"title": "The first completed print job", "hint": "Find the first job that finished printing programme.pdf on the hall printer. Compare completion times and use the job ID.", "evidence": "forensics/starter/print-queue.csv"},
     "F-09": {"title": "The print-room reply", "hint": "Read the headers to find the message this email answers. Take the part of that ID before the @ and leave out the angle brackets.", "evidence": "forensics/starter/print-room.eml"},
-    "F-10": {"title": "The matching programme", "hint": "Compare the SHA-256 of each recovered copy with the full digest recorded at collection. Use the matching filename without its extension.", "evidence": "forensics/starter/handover.txt"}
+    "F-10": {"title": "The matching programme", "hint": "Compare the SHA-256 of each recovered copy with the full digest recorded at collection. Use the matching filename without its extension.", "evidence": "forensics/starter/handover.txt"},
+    "STEG-01": {"title": "The unsigned notice", "hint": "Inspect the Unicode names of the invisible characters after 'edition'. Read them in order and wrap the code in MFANO braces. https://0xrick.github.io/lists/stego/#unicode-text-steganography", "evidence": "steganography/evidence/club-notice.txt"}
   }
 }

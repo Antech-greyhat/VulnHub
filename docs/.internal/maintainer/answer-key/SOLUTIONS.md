@@ -502,3 +502,9 @@ source contains neither a plaintext account nor the password or flag.
 | F-08 | The earliest `printed` event for `programme.pdf` on the hall printer is at 09:05:12 EAT. | `MFANO{sp00l_042}` |
 | F-09 | The `In-Reply-To` header gives the direct parent. Use the part before the domain in that message ID. | `MFANO{m41l_052}` |
 | F-10 | Only `pr00f_023.txt` has the SHA-256 digest recorded by the print clerk. Use the filename stem. | `MFANO{pr00f_023}` |
+
+## Media club steganography
+
+| Stage | Finding | Flag |
+| ----- | ------- | ---- |
+| STEG-01 | The six invisible Unicode tags after `edition` spell the code in file order. The low line is an underscore. | `MFANO{1nk_07}` |

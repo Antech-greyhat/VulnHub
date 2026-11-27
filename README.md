@@ -8,7 +8,7 @@
   <img alt="Bash CLI" src="https://img.shields.io/badge/CLI-Bash-4EAA25?logo=gnubash&logoColor=white">
   <img alt="Docker Compose" src="https://img.shields.io/badge/docker-compose-2496ED?logo=docker&logoColor=white">
   <img alt="OWASP Top 10 2025" src="https://img.shields.io/badge/OWASP-Top%2010%3A2025-000000?logo=owasp&logoColor=white">
-  <img alt="79 flags" src="https://img.shields.io/badge/flags-79-e3b341">
+  <img alt="80 flags" src="https://img.shields.io/badge/flags-80-e3b341">
   <img alt="Kali ready" src="https://img.shields.io/badge/kali-ready-557C94?logo=kalilinux&logoColor=white">
   <img alt="Vulnerable by design" src="https://img.shields.io/badge/vulnerable-by%20design-b91c1c">
 </p>
@@ -60,6 +60,7 @@ fake, and the lab never calls a real payment API.
 | Social engineering | OSINT password profiling, spotting phishing, and pretexting — all against fake NPCs in the lab |
 | Open-source intelligence (OSINT) | Verify a public notice, credit a photograph and locate a desk on a map |
 | Forensics | Print logs, email headers, SHA-256 checksums, image metadata, file carving, LSB steganography, GIF frames, Morse, spectrograms, video frames |
+| Steganography | Read an edition code hidden in Unicode text |
 
 ## Requirements
 
@@ -86,13 +87,15 @@ New to Linux? Begin with [file manipulation](linux-files/README.md), then
 work offline. Ownership and discovery each have a Docker launcher; the ownership
 guide walks through Docker setup from the beginning.
 
-For a first offline investigation, choose one of these guides. Both use files
+For a first offline investigation, choose one of these guides. They use files
 in this checkout and include the commands for submitting your findings.
 
 - Verify a book fair notice, photo credit and map location in the
   [beginner OSINT guide](osint/README.md).
 - Read a print log and a saved email, then identify a file by its checksum in
   the [beginner forensics guide](forensics/starter/README.md).
+- Recover the media club's hidden codes using the commands and optional hints
+  in the [beginner steganography guide](steganography/README.md).
 
 For network enumeration, follow [Nmap practice](nmap-enumeration/README.md)
 after the Linux tracks. Run `./nmap-enumeration/lab` for an isolated scanner
@@ -275,7 +278,7 @@ How scoring works:
 
 ## The challenges
 
-There are 79 flags. The categories are listed below, but not where the bugs are.
+There are 80 flags. The categories are listed below, but not where the bugs are.
 `SCOREBOARD.md` has the per-phase breakdown.
 
 | Stages | Theme | Count | Difficulty |
@@ -295,6 +298,7 @@ There are 79 flags. The categories are listed below, but not where the bugs are.
 | SE-xx | Social engineering: OSINT, phishing, pretexting (fake NPCs) | 3 | Easy-Medium |
 | OSINT-xx | Public notices, photo attribution and map reading | 3 | Easy |
 | F-xx | Forensics (logs, email, checksums, images, GIF, audio, video) | 10 | Easy to Medium |
+| STEG-xx | Media club steganography | 1 | Easy |
 
 Start with [`linux-files/README.md`](linux-files/README.md) for eight guided
 exercises covering `cat`, `echo`, `less`, `head`, `tail`, `tac`, `grep`, `wc`,
@@ -487,6 +491,7 @@ MFANO_TEST_NMAP=1 python -m pytest -q tests/test_nmap_enumeration.py
 ├── nmap-enumeration/ Isolated Nmap scanner, service targets and guided exercises
 ├── osint/             Book fair public records, visitor map and beginner guide
 ├── forensics/         Beginner print-room cases and mock exam media evidence
+├── steganography/     Media club evidence and guided extraction exercises
 ├── docker/            Container entrypoint
 ├── tests/             Build checks (spoilers)
 ├── docs/.internal/    Maintainer notes and the answer key (spoilers)
