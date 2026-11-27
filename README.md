@@ -1,34 +1,38 @@
-<p align="center">
-  <img src="assets/banner.svg" alt="Mfano High School Portal: a deliberately vulnerable lab" width="100%">
-</p>
+<h1 align="center">
+  <img src="assets/banner.svg" alt="4NT3CH VULN3R4BL3 L4B" width="100%">
+</h1>
 
 <p align="center">
-  <img alt="Python 3.12" src="https://img.shields.io/badge/python-3.12-3776AB?logo=python&logoColor=white">
-  <img alt="Flask 3" src="https://img.shields.io/badge/flask-3.1-000000?logo=flask&logoColor=white">
   <img alt="Bash CLI" src="https://img.shields.io/badge/CLI-Bash-4EAA25?logo=gnubash&logoColor=white">
   <img alt="Docker Compose" src="https://img.shields.io/badge/docker-compose-2496ED?logo=docker&logoColor=white">
   <img alt="OWASP Top 10 2025" src="https://img.shields.io/badge/OWASP-Top%2010%3A2025-000000?logo=owasp&logoColor=white">
   <img alt="76 flags" src="https://img.shields.io/badge/flags-76-e3b341">
   <img alt="Kali ready" src="https://img.shields.io/badge/kali-ready-557C94?logo=kalilinux&logoColor=white">
   <img alt="Vulnerable by design" src="https://img.shields.io/badge/vulnerable-by%20design-b91c1c">
+  <img alt="Python 3.12" src="https://img.shields.io/badge/python-3.12-3776AB?logo=python&logoColor=white">
+  <img alt="Flask 3" src="https://img.shields.io/badge/flask-3.1-000000?logo=flask&logoColor=white">
 </p>
+
+**4NT3CH VULN3R4BL3 L4B** is a deliberately vulnerable machine for
+capture-the-flag (CTF) practice on Linux. The web challenges start in the
+**Mfano High School Portal**, where students at a fictional Kenyan secondary
+school download report forms and the bursar records M-Pesa-style fee payments.
+These challenges draw on the [OWASP Top 10:2025](https://top10.owasp.org/2025/).
+
+Practise Linux permissions on school files, map services on an isolated network,
+or examine cryptographic keys and software dependencies. For an offline
+investigation, fact-check a book fair notice using open-source intelligence
+(OSINT), or use digital forensics and steganography to recover evidence from
+mock exam photos and recordings. [Explore the challenge tracks](#what-you-will-practise)
+
+From the checkout, run `./labctl tracks` to browse the tracks. The `./labctl`
+menu gives hints, accepts `MFANO{...}` flags and records your progress offline.
+*Mfano* means “example” in Swahili.
 
 > [!CAUTION]
 > **This lab has security holes on purpose. Never deploy it on a public server.**
 > Run it on your own machine only. If you must reach it from another device, put
 > it behind Tailscale or Cloudflare Access so that only you can get in.
-
-**Mfano High School Portal** is a made-up Kenyan secondary school portal. Students
-check marks and download report forms, the bursar takes M-Pesa-style fee
-payments, and the admin runs the server tools. Hidden inside are web bugs from the
-[OWASP Top 10:2025](https://top10.owasp.org/2025/), a few network
-misconfigurations, and a box of forensics evidence. You can also investigate
-the school's book fair using a set of fictional public records. Each challenge
-has a `MFANO{...}` flag. The flags are scored offline by `labctl`,
-a Linux Bash CLI with full-screen menus for submissions, progress, and gentle clues.
-
-*Mfano* means "example" in Swahili. Every student, mark, fee balance and payment is
-fake, and the lab never calls a real payment API.
 
 ## Contents
 
@@ -37,7 +41,7 @@ fake, and the lab never calls a real payment API.
 - [Install and run](#install-and-run)
   - [Kali Linux / Debian / Ubuntu](#kali-linux--debian--ubuntu)
   - [Start the Nmap lab](#start-the-nmap-lab)
-- [Log in](#log-in)
+- [Web portal demo accounts](#log-in)
 - [Find and submit flags](#find-and-submit-flags)
 - [The challenges](#the-challenges)
 - [labctl reference](#labctl-reference)
@@ -79,6 +83,9 @@ and your usual forensics tools are enough; whiptail provides the menus.
 
 ## Install and run
 
+To start with web security, follow the Linux setup below and run `./labctl start`
+to launch the portal's Docker Compose services. Sign in with a [demo account](#log-in).
+
 New to Linux? Begin with [file manipulation](linux-files/README.md), then
 [permissions and ownership](linux-ownership/README.md), then
 [file discovery](linux-discovery/README.md), then P1. Text manipulation exercises
@@ -108,12 +115,11 @@ sudo usermod -aG docker "$USER"   # then log out and back in, or run: newgrp doc
 git clone https://github.com/Antech-greyhat/VulnHub.git
 cd VulnHub
 
-# 3. Install the CLI and open its menu
+# 3. Install the CLI, list the tracks and open the scoring menu
 make install-local
 export PATH="$HOME/.local/bin:$PATH"
+labctl tracks
 labctl
-
-# Beginner first step: follow linux-files/README.md before the web challenges.
 
 # 4. Start the web lab through the menu's "Manage lab services" option,
 #    or use the direct command
@@ -191,6 +197,9 @@ Follow the [full Nmap guide](nmap-enumeration/README.md) for the two-terminal
 walkthrough, all twelve exercises, command reference, cautions and troubleshooting.
 
 ## Log in
+
+The Mfano High School Portal uses fictional students, marks and fee balances.
+Its demo payments never call a real payment API.
 
 | Role | Username | Password |
 | ---- | -------- | -------- |
