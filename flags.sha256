@@ -81,3 +81,4 @@ OSINT-02:97ba9157d0ab3564b9b1c2937989bd9b86b0bbf45bbe210f44c20284358ac51a:OSINT 
 OSINT-03:224456948637f48d9385aadb8e6d37488af2d8ddcf93dac7fdb2a175bfc582fb:OSINT (map reading):Easy
 STEG-01:7f35367cfd7d3305abdb27032e73eeeda18c555cfba9412993ad1913f624eb2c:Steganography (Unicode text):Easy
 STEG-02:430b408b49c995742ab548647d4b8c622e0ebb0405affadc5b00a6c6f89d33b2:Steganography (PNG transparency):Easy
+STEG-03:50d2325af94b4806d3bb14d1594b477b25f2b168239698624cfa219a8de01fc6:Steganography (WAV extraction):Easy

@@ -8,7 +8,7 @@
   <img alt="Bash CLI" src="https://img.shields.io/badge/CLI-Bash-4EAA25?logo=gnubash&logoColor=white">
   <img alt="Docker Compose" src="https://img.shields.io/badge/docker-compose-2496ED?logo=docker&logoColor=white">
   <img alt="OWASP Top 10 2025" src="https://img.shields.io/badge/OWASP-Top%2010%3A2025-000000?logo=owasp&logoColor=white">
-  <img alt="81 flags" src="https://img.shields.io/badge/flags-81-e3b341">
+  <img alt="82 flags" src="https://img.shields.io/badge/flags-82-e3b341">
   <img alt="Kali ready" src="https://img.shields.io/badge/kali-ready-557C94?logo=kalilinux&logoColor=white">
   <img alt="Vulnerable by design" src="https://img.shields.io/badge/vulnerable-by%20design-b91c1c">
 </p>
@@ -60,7 +60,7 @@ fake, and the lab never calls a real payment API.
 | Social engineering | OSINT password profiling, spotting phishing, and pretexting — all against fake NPCs in the lab |
 | Open-source intelligence (OSINT) | Verify a public notice, credit a photograph and locate a desk on a map |
 | Forensics | Print logs, email headers, SHA-256 checksums, image metadata, file carving, LSB steganography, GIF frames, Morse, spectrograms, video frames |
-| Steganography | Read invisible Unicode characters and reveal punch marks in a PNG transparency channel |
+| Steganography | Read invisible Unicode characters, reveal a PNG transparency pattern and extract a note from a WAV |
 
 ## Requirements
 
@@ -71,7 +71,8 @@ fake, and the lab never calls a real payment API.
 | Docker Compose | Nmap, web, network and server challenges | Ownership and discovery launchers use Docker directly |
 | Bash 4+, jq, whiptail | Linux CLI, menus, and offline flag scoring | Whiptail uses the libnewt terminal UI library |
 | coreutils, util-linux, Make | Hashing, progress locking, and PATH installation | Usually present on Kali/Debian/Ubuntu |
-| Python 3.10 or newer | File manipulation checks and maintainer tests | File exercises use the standard library; the portal's runtime is provided by Docker |
+| Python 3.10 or newer | File manipulation, the Unicode notice and maintainer tests | The file and Unicode exercises use the standard library |
+| ImageMagick and Steghide | The steganography ticket and chime | Linux packages are `imagemagick` and `steghide` |
 | About 2 GB free disk | Docker images | |
 
 The OSINT and forensics tracks run directly on your machine. A text viewer and
@@ -226,8 +227,8 @@ Copy a flag exactly as you find it. Don't translate it back to plain English. A
 plain-English guess like `MFANO{can_hack_for_real}` will be rejected as a
 `wrong flag`.
 
-In the beginner OSINT cases and F-08 through F-10, each guide asks for a code
-from the evidence. Put that code inside `MFANO{...}` before submitting.
+In the OSINT and STEG tracks and F-08 through F-10, each guide explains how
+to read the code from the evidence. Put it inside `MFANO{...}` before submitting.
 
 1. **Hunt.** Complete a Linux exercise in [`linux-files/`](linux-files/README.md),
    [`linux-ownership/`](linux-ownership/README.md), or
@@ -278,7 +279,7 @@ How scoring works:
 
 ## The challenges
 
-There are 81 flags. The categories are listed below, but not where the bugs are.
+There are 82 flags. The categories are listed below, but not where the bugs are.
 `SCOREBOARD.md` has the per-phase breakdown.
 
 | Stages | Theme | Count | Difficulty |
@@ -298,7 +299,7 @@ There are 81 flags. The categories are listed below, but not where the bugs are.
 | SE-xx | Social engineering: OSINT, phishing, pretexting (fake NPCs) | 3 | Easy-Medium |
 | OSINT-xx | Public notices, photo attribution and map reading | 3 | Easy |
 | F-xx | Forensics (logs, email, checksums, images, GIF, audio, video) | 10 | Easy to Medium |
-| STEG-xx | Media club steganography | 2 | Easy |
+| STEG-xx | Media club steganography | 3 | Easy |
 
 Start with [`linux-files/README.md`](linux-files/README.md) for eight guided
 exercises covering `cat`, `echo`, `less`, `head`, `tail`, `tac`, `grep`, `wc`,

@@ -509,3 +509,4 @@ source contains neither a plaintext account nor the password or flag.
 | ----- | ------- | ---- |
 | STEG-01 | The six invisible Unicode tags after `edition` spell the code in file order. The low line is an underscore. | `MFANO{1nk_07}` |
 | STEG-02 | Stretching the ticket's alpha channel reveals two, five and three circular punches in successive rows. Append those counts to the printed exercise prefix. | `MFANO{t1ck3t_253}` |
+| STEG-03 | Extract the studio chime with Steghide using `soundcheck` from the cue sheet. The recovered slip gives the archive code. | `MFANO{st4g3_cu3}` |
