@@ -76,13 +76,13 @@ in the OWASP total above.
 
 ## Linux foundations
 
-Eight file manipulation, seven permissions/ownership, and seven file discovery
+Nine file manipulation, seven permissions/ownership, and seven file discovery
 exercises precede the web tracks. These teach filesystem commands and are not
 counted as OWASP bugs.
 
 | Stage | Count | Skills |
 | ----- | ----- | ------ |
-| FM-01 to FM-08 | 8 | cat, echo, less, head, tail, tac, grep, wc, paste, join |
+| FM-01 to FM-09 | 9 | cat, echo, less, head, tail, tac, grep (fixed strings and regex), wc, paste, join |
 | FO-01 to FO-07 | 7 | Symbolic/numeric chmod, directory traversal, chown, chgrp, setgid |
 | LD-01 to LD-07 | 7 | Unusual and hidden filenames, file types, find size/permission/owner/group filters, sort and uniq |
 
@@ -98,7 +98,7 @@ Scan reports are checked before their flags can be submitted through labctl.
 | NM-06 to NM-10 | 5 | Named HTTP, TLS, SSH and FTP NSE scripts, script help and arguments |
 | NM-11 to NM-12 | 2 | Independent service discovery, combined TCP/UDP inventory and saved reports |
 
-Total scored challenges: **82** (29 web bugs, 3 social engineering, 3 OSINT,
-10 forensics, 3 steganography, 8 Linux file manipulation, 7 Linux permissions/ownership,
+Total scored challenges: **83** (29 web bugs, 3 social engineering, 3 OSINT,
+10 forensics, 3 steganography, 9 Linux file manipulation, 7 Linux permissions/ownership,
 7 Linux file discovery, 12 Nmap enumeration).
 Existing challenge IDs retain their meaning.

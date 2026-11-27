@@ -21,12 +21,13 @@ def main(argv=None):
     if args.command == "prepare" and args.stage:
         parser.error("prepare does not take a challenge ID")
     if args.command == "check" and args.stage not in exercises["FLAGS"]:
-        parser.error("check needs a registered ID from FM-01 through FM-08")
+        parser.error("check needs a registered challenge ID. List them with ./labctl labs --track FM")
     try:
         if args.command == "prepare":
+            workshop_board = (ROOT / "linux-files" / "workshop-board.txt").read_text(encoding="utf-8")
             # Never replace a learner's answers, even when they look incomplete.
             workspace.mkdir(parents=True, exist_ok=False)
-            exercises["prepare"](workspace)
+            exercises["prepare"](workspace, workshop_board)
             (workspace / MARKER).write_text("Mfano Linux file exercises v1\n", encoding="utf-8")
             print(f"Ready: {workspace}\nStart with FM-01. Read linux-files/README.md for the tasks.")
         else:

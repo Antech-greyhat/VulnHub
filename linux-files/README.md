@@ -1,6 +1,6 @@
 # Linux file manipulation: start here
 
-Eight short exercises introduce reading, writing, filtering and combining text
+Nine short exercises introduce reading, writing, filtering and combining text
 files before the web challenges. All school records are invented. You need
 Python 3.10+, Bash, coreutils, grep and less; Docker is not needed for this track.
 On Kali, Debian or Ubuntu, missing tools can be installed with:
@@ -18,7 +18,7 @@ python3 -B linux-files/lab.py prepare
 ```
 
 This creates your exercise files under `var/linux-files/`. It refuses to replace
-an existing workspace, preserving your answers. Work through FM-01 to FM-08 in
+an existing workspace, preserving your answers. Work through FM-01 to FM-09 in
 order. Start a shell in the first exercise:
 
 ```sh
@@ -125,6 +125,13 @@ Use `LC_ALL=C sort` to prepare each input by its first field, then `join` to
 match equal keys. Set the same locale for sorting and joining. One roster ID has
 no marks and one marks ID has no roster entry: an inner join omits both. `paste`
 would pair rows by position and give the wrong student a score.
+
+## FM-09 · Search the workshop board with grep
+
+Find the current handover for a bench whose label contains brackets. Practise
+literal and regular-expression searches, then check five answers about grep
+and the records you found. The guide includes the prerequisite room and
+instructions for adding the file to an existing workspace. [Open FM-09](grep.md)
 
 ## What to remember
 

@@ -5,8 +5,11 @@ list for the running lab are next door in `../answer-key/`.
 
 ## Done
 
-- The media club track adds three beginner steganography exercises, bringing
-  the total to 82. Learners inspect Unicode tags, isolate a PNG alpha channel
+- FM-09 adds a workshop board exercise on fixed strings, regular expressions
+  and grep options. It brings the Linux file track to nine exercises and the
+  full catalogue to 83.
+- The media club track brought the total to 82 with three beginner steganography
+  exercises. Learners inspect Unicode tags, isolate a PNG alpha channel
   and extract a slip from a WAV with a supplied passphrase. Each CLI clue
   links to the corresponding section of 0xRick's steganography reference.
 - OSINT-01 through OSINT-03 add three offline book fair investigations to the
@@ -24,12 +27,12 @@ list for the running lab are next door in `../answer-key/`.
   with hashes/catalogue integrated into existing scoring. This brought the
   totals to 73 challenges and 29 OWASP bugs. A dedicated Docker CI job solves all twelve.
 
-- Linux foundations now has 22 exercises: FM-01 through FM-08, FO-01 through
-  FO-07, and LD-01 through LD-07. The discovery sandbox adds the missing skills
+- The discovery sandbox brought Linux foundations to 22 exercises across
+  FM-01 through FM-08, FO-01 through FO-07, and LD-01 through LD-07. It adds the missing skills
   from the reference Bandit writeups at levels 1–6 and 8; levels 0 and 7 overlap
   existing file-reading/search tasks and are skipped. All Linux tracks use the
-  same offline scoring, with existing IDs and progress preserved. Totals are
-  now 61 flags and 29 OWASP bugs. Docker CI solves both container-based tracks.
+  same offline scoring, with existing IDs and progress preserved. The totals at
+  that point were 61 flags and 29 OWASP bugs. Docker CI solves both container-based tracks.
 
 - Web brute-force basics adds BF-01 through BF-04: an uppercase form field
   remapped by JavaScript, a Base64 account clue, username-first enumeration,

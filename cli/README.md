@@ -59,11 +59,12 @@ labctl submit P1-01
 labctl submit P1-01 --dry-run
 ```
 
-New learners should start with the eight file manipulation exercises in
+New learners should start with the nine file manipulation exercises in
 [`linux-files/README.md`](../linux-files/README.md). Prepare their workspace with
 `python3 -B linux-files/lab.py prepare`, complete the requested output, and run
 `python3 -B linux-files/lab.py check FM-01` to reveal the flag. Submit it with
 `labctl submit FM-01`. The checker never changes scoring progress on its own.
+Use `labctl hints FM-09` for a clue on the [grep workshop exercise](../linux-files/grep.md).
 
 Next, follow [`linux-ownership/README.md`](../linux-ownership/README.md) and run
 `./linux-ownership/lab` from the checkout. Its single-command Docker launcher

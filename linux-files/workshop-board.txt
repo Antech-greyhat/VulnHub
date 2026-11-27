@@ -1,0 +1,16 @@
+# Mfano High School workshop club | fictional practice records
+# state|bench|field|value
+archived|bench[2]|user|chalkrunner
+current|bench[1]|user|mapmaker
+current|bench2|user|wheelwright
+current|bench[2]|user|bobthebuilder
+current|bench1|tool|paint tray
+archived|bench[2]|password|TinRoofDemo
+current|bench[2]|tool|hand drill
+current|bench2|password|PaperHingeDemo
+current|bench[2]|password|LinuxIsGawd
+current|bench[1]|comment|Rinse the paint tray after assembly.
+archived|bench[2]|comment|Return the brushes to the art room.
+current|bench2|comment|Leave the measuring tape by the door.
+current|bench[2]|comment|The spare hinge is in the blue chalk tin.
+draft|bench[2]|comment|Move the toolbox on Friday.
