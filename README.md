@@ -6,7 +6,7 @@
   <img alt="Bash CLI" src="https://img.shields.io/badge/CLI-Bash-4EAA25?logo=gnubash&logoColor=white">
   <img alt="Docker Compose" src="https://img.shields.io/badge/docker-compose-2496ED?logo=docker&logoColor=white">
   <img alt="OWASP Top 10 2025" src="https://img.shields.io/badge/OWASP-Top%2010%3A2025-000000?logo=owasp&logoColor=white">
-  <img alt="83 flags" src="https://img.shields.io/badge/flags-83-e3b341">
+  <img alt="84 flags" src="https://img.shields.io/badge/flags-84-e3b341">
   <img alt="Kali ready" src="https://img.shields.io/badge/kali-ready-557C94?logo=kalilinux&logoColor=white">
   <img alt="Vulnerable by design" src="https://img.shields.io/badge/vulnerable-by%20design-b91c1c">
   <img alt="Python 3.12" src="https://img.shields.io/badge/python-3.12-3776AB?logo=python&logoColor=white">
@@ -288,7 +288,7 @@ How scoring works:
 
 ## The challenges
 
-There are 83 flags. The categories are listed below, but not where the bugs are.
+There are 84 flags across the tracks below.
 `SCOREBOARD.md` has the per-phase breakdown.
 
 | Stages | Theme | Count | Difficulty |
@@ -305,10 +305,15 @@ There are 83 flags. The categories are listed below, but not where the bugs are.
 | P5B-xx | Weak cryptography: hashes, fake encryption, tokens, keys, ECB | 5 | Medium-Hard |
 | P5D-xx | Integrity and design: deserialization, mass assignment, logged secrets | 3 | Medium |
 | BF-xx | Web brute-force basics: discovery, request fields, login errors, hidden accounts | 4 | Easy-Medium |
+| WEB-xx | Yearbook proof (crawler rules and HTML source) | 1 | Easy |
 | SE-xx | Social engineering: OSINT, phishing, pretexting (fake NPCs) | 3 | Easy-Medium |
 | OSINT-xx | Public notices, photo attribution and map reading | 3 | Easy |
 | F-xx | Forensics (logs, email, checksums, images, GIF, audio, video) | 10 | Easy to Medium |
 | STEG-xx | Media club steganography | 3 | Easy |
+
+For the yearbook challenge, run `./labctl start` and open
+`http://127.0.0.1:8080/robots.txt`. Follow the yearbook entry and submit
+the handover receipt with `./labctl submit WEB-01`.
 
 Start with [`linux-files/README.md`](linux-files/README.md) for nine guided
 exercises covering `cat`, `echo`, `less`, `head`, `tail`, `tac`, `grep`, `wc`,
