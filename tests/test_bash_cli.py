@@ -273,7 +273,7 @@ def test_install_from_another_directory(lab):
 def test_public_metadata_matches_registered_challenges():
     metadata = json.loads((ROOT / "cli" / "challenges.json").read_text())
     ids = {line.split(":")[0] for line in (ROOT / "flags.sha256").read_text().splitlines() if line and not line.startswith("#")}
-    assert set(metadata["challenges"]) == ids and len(ids) == 84
+    assert set(metadata["challenges"]) == ids and len(ids) == 85
     assert all(stage["title"] and stage["hint"] for stage in metadata["challenges"].values())
     assert "MFANO{" not in json.dumps(metadata)
 

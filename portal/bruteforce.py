@@ -2,7 +2,7 @@
 import base64
 import hashlib
 
-from flask import Blueprint, Response, render_template, request, url_for
+from flask import Blueprint, Response, make_response, render_template, request, url_for
 
 bp = Blueprint("bruteforce", __name__)
 
@@ -48,7 +48,11 @@ def robots():
 @bp.get("/yearbook/proof/")
 def yearbook_proof():
     receipt = base64.b64decode("TUZBTk97cHIwMGZfMW5fdGgzX200cmcxbn0=").decode("ascii")
-    return render_template("yearbook_proof.html", receipt=receipt)
+    page = make_response(render_template("yearbook_proof.html", receipt=receipt))
+    if "yearbook_preview" not in request.cookies:
+        guest = base64.b64encode(b'{"user":"guest","role":"guest"}').decode("ascii")
+        page.set_cookie("yearbook_preview", guest, path=url_for(".yearbook_proof"), samesite="Lax")
+    return page
 
 
 def directory(challenge_id):

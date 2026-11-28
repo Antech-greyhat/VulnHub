@@ -78,6 +78,7 @@ BF-02:815507f3f210aabdac6b80300d32d959ae3869c64c9bea67a5dae4a8461bca31:A07 Authe
 BF-03:3eb9b824dcf4650774d8e35caac4ac8f9c36ed33792a3d019ce40efcf88e28f1:A07 Authentication Failures:Easy-Medium
 BF-04:2014ba81037e9086ffd5a33fa1984834fe2034656fe7b537a4ff56a5e325ce4a:A07 Authentication Failures:Easy-Medium
 WEB-01:4a3f4fc36bea8b17b7242702bcc3003d9922a9ef4f7b85be3c2e74ca46a6d020:Web fundamentals (HTML source):Easy
+WEB-02:93a6a8d5ce315dc997507168da99d8a9887b0db822ca8b13c5b5ff32e373c309:Web fundamentals (browser cookies):Easy
 OSINT-01:c5d06ea5b585a7dfac4d0aa75823412350352091fb09a20240fee09643acbd1f:OSINT (public notices):Easy
 OSINT-02:97ba9157d0ab3564b9b1c2937989bd9b86b0bbf45bbe210f44c20284358ac51a:OSINT (source attribution):Easy
 OSINT-03:224456948637f48d9385aadb8e6d37488af2d8ddcf93dac7fdb2a175bfc582fb:OSINT (map reading):Easy
