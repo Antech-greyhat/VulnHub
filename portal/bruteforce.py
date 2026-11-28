@@ -1,4 +1,4 @@
-"""Four deliberately weak logins for local, beginner brute-force practice."""
+"""Public discovery pages and four retired practice logins."""
 import base64
 import hashlib
 
@@ -38,7 +38,17 @@ CHALLENGES = {
 @bp.get("/robots.txt")
 def robots():
     # The fourth console must be discovered independently, e.g. with Gobuster.
-    return Response("User-agent: *\nDisallow: /archive/\nDisallow: /office/\nDisallow: /backup/\n", mimetype="text/plain")
+    return Response(
+        "User-agent: *\nDisallow: /archive/\nDisallow: /office/\nDisallow: /backup/\n"
+        f"Disallow: {url_for('.yearbook_proof')}\n",
+        mimetype="text/plain",
+    )
+
+
+@bp.get("/yearbook/proof/")
+def yearbook_proof():
+    receipt = base64.b64decode("TUZBTk97cHIwMGZfMW5fdGgzX200cmcxbn0=").decode("ascii")
+    return render_template("yearbook_proof.html", receipt=receipt)
 
 
 def directory(challenge_id):
