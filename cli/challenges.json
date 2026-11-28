@@ -55,6 +55,7 @@
     "NM-11": {"title": "The archive service", "hint": "Return to the second discovered target. Search beyond default ports, then probe the HTTP service and inspect its role.", "evidence": "nmap-enumeration/README.md"},
     "NM-12": {"title": "Combined service inventory", "hint": "Combine explicit TCP and UDP port sets, service probes and the named scripts. Save all output formats together.", "evidence": "nmap-enumeration/README.md"},
     "WEB-01": {"title": "The yearbook handover", "hint": "Start at /robots.txt on the school portal. Find the yearbook proof and compare the printed text with its HTML source."},
+    "WEB-02": {"title": "The printer's copy", "hint": "Stay on the yearbook proof. Inspect its preview cookie in browser storage. Base64 decoding reveals two fields that describe the edition to display after a refresh."},
     "BF-01": {"title": "The misleading form", "hint": "Discover retired pages, then compare the form with its JavaScript and the actual request. A directory value in browser source may be reversible."},
     "BF-02": {"title": "The helpful login error", "hint": "Hold one credential constant while changing the other. Which response confirms an account exists, and which credential has not yet been checked?"},
     "BF-03": {"title": "The shared password gate", "hint": "Do not assume all logins validate in the same order. Compare failures and inspect the retired client's migration notes before deciding what a response proves."},

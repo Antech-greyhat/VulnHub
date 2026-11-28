@@ -4,7 +4,13 @@
 <article class="card">
   <h1>Yearbook proof</h1>
   <p>Page 12 is ready for the printer. The chess club and choir captions are back under the right photos.</p>
+  <p id="proof-edition" class="notice">Guest preview</p>
+  <noscript>Enable JavaScript to switch proof previews.</noscript>
   <!-- Amina: Eli, which build has the caption fix? I need the receipt to close the ticket.
-       Eli: Use {{ receipt }}. I checked both captions in that build. -->
+       Eli: Use {{ receipt }}. I checked both captions in that build.
+       Amina: Thanks. My browser still remembers the guest copy. Is the printer receipt on the admin copy? -->
 </article>
+{% endblock %}
+{% block scripts %}
+<script src="{{ url_for('static', filename='yearbook-proof.js') }}"></script>
 {% endblock %}
